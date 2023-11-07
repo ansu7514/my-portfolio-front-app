@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Header from './container/Header';
+
 import './css/reset.css';
 import './css/bootstrap-grid.min.css';
 import './css/animations.css';
@@ -12,6 +14,12 @@ const App = () => {
     return (
         <>
             <div className="lm-animated-bg" style={{ backgroundImage: 'url(img/main_bg.png)' }}></div>
+
+            <div className="page">
+                <div className="page-content">
+                    <Header />
+                </div>
+            </div>
         </>
     );
 }
