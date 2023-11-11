@@ -1,8 +1,19 @@
+import { useDispatch } from "react-redux";
+import { SideMenuStatus } from "../../types/SideMenuType";
+
+import { setSideMenuClick } from "../../redux/reducer/SideMenuReducer";
+
 const SideMenu = () => {
+    const dispatch = useDispatch();
+
+    const menuBtnClick = (state: SideMenuStatus) => {
+        dispatch(setSideMenuClick(state));
+    };
+
     return (
         <ul className="main-menu">
-            <li className="active">
-                <a href="#home" className="nav-anim">
+            <li className="active" onClick={() => menuBtnClick(SideMenuStatus.home)}>
+                <a href="#home" className="nav-anim active">
                     <span className="menu-icon lnr lnr-home"></span>
                     <span className="link-text">Home</span>
                 </a>

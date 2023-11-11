@@ -1,7 +1,14 @@
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { SideMenuStatus } from "../../types/SideMenuType";
+
 const HomePage = () => {
+    const sideMenuStatus = useSelector((state: RootState) => state.sideMenu.sideMenuStatus);
+
+    const sectionClassName = `animated-section start-page${sideMenuStatus !== SideMenuStatus.home ? '' : ' section-active'}`
+
     return (
-        // section-active로 표출 여부 결정됨
-        <section data-id="home" className="animated-section start-page section-active">
+        <section data-id="home" className={sectionClassName}>
             <div className="section-content vcentered">
                 <div className="row">
                     <div className="col-sm-12 col-md-12 col-lg-12">
@@ -9,10 +16,10 @@ const HomePage = () => {
                             <h2>An Suhyun</h2>
                             <div className="owl-carousel text-rotation">
                                 <div className="item">
-                                    <div className="sp-subtitle">Web Designer</div>
+                                    <div className="sp-subtitle">2022 - ing</div>
                                 </div>
                                 <div className="item">
-                                    <div className="sp-subtitle">Frontend-developer</div>
+                                    <div className="sp-subtitle">Frontend-Engineer</div>
                                 </div>
                             </div>
                         </div>

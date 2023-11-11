@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import testReducer from './reducer/testReducer';
+import sideMenuReducer from './reducer/SideMenuReducer';
 
 export const store = configureStore({
     reducer: {
-        test: testReducer,
+        sideMenu: sideMenuReducer,
     },
 })
 
