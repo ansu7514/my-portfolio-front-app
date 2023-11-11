@@ -6,6 +6,7 @@ const Header = () => {
         <header id="site_header" className="header mobile-menu-hide">
             <SideMenu />
             <HeaderInfo />
+            <div className="copyrights">© 2023 All rights reserved.</div>
         </header>
     )
 };
