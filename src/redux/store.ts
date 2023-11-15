@@ -1,10 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import sideMenuReducer from './reducer/SideMenuReducer';
+import userReducer from './reducer/UserReducer';
 
 export const store = configureStore({
     reducer: {
         sideMenu: sideMenuReducer,
+        user: userReducer,
     },
 })
 

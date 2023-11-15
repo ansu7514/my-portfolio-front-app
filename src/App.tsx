@@ -10,6 +10,7 @@ import './css/perfect-scrollbar.css';
 import './css/owl.carousel.css';
 import './css/magnific-popup.css';
 import './css/main.css';
+import './css/custom.css';
 
 const App = () => {
     return (

@@ -9,14 +9,14 @@ export interface SideMenuStateType {
 
 const initialState: SideMenuStateType = {
     sideMenuStatus: SideMenuStatus.home,
-}
+};
 
 export const sideMenuSlice = createSlice({
     name: 'sideMenu',
     initialState,
     reducers: {
         setSideMenuClick: (state, action: PayloadAction<SideMenuStatus>) => {
-            state.sideMenuStatus = action.payload
+            state.sideMenuStatus = action.payload;
         },
     },
 })
