@@ -4,12 +4,14 @@ import { UserTableType } from '../../types/DB/UserTableTypes';
 
 export interface UserStateType {
     login: boolean,
-    info: UserTableType | null
+    info: UserTableType | null,
+    joinState: boolean,
 };
 
 const initialState: UserStateType = {
     login: false,
-    info: null
+    info: null,
+    joinState: false,
 };
 
 export const userSlice = createSlice({
@@ -21,9 +23,12 @@ export const userSlice = createSlice({
         },
         setUserInfo: (state, action: PayloadAction<UserTableType | null>) => {
             state.info = action.payload;
+        },
+        setJoinState: (state, action: PayloadAction<boolean>) => {
+            state.joinState = action.payload;
         }
     },
 })
 
-export const { setLogin, setUserInfo } = userSlice.actions;
+export const { setLogin, setUserInfo, setJoinState } = userSlice.actions;
 export default userSlice.reducer;

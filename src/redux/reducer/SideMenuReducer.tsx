@@ -5,7 +5,7 @@ import { SideMenuStatus } from '../../types/SideMenuType';
 
 export interface SideMenuStateType {
     sideMenuStatus: SideMenuStatus
-};
+}
 
 const initialState: SideMenuStateType = {
     sideMenuStatus: SideMenuStatus.home,
