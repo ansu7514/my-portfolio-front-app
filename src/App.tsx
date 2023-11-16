@@ -3,6 +3,8 @@ import React from 'react';
 import Header from './container/Header';
 import Content from './container/Content';
 
+import { Toaster } from "react-hot-toast";
+
 import './css/reset.css';
 import './css/bootstrap-grid.min.css';
 import './css/animations.css';
@@ -20,6 +22,7 @@ const App = () => {
                 <div className="page-content">
                     <Header />
                     <Content />
+                    <Toaster />
                 </div>
             </div>
         </>
