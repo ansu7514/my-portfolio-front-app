@@ -2,6 +2,7 @@ import React from 'react';
 
 import Header from './container/Header';
 import Content from './container/Content';
+import PopupList from './container/PopupList';
 
 import { Toaster } from "react-hot-toast";
 
@@ -22,7 +23,9 @@ const App = () => {
                 <div className="page-content">
                     <Header />
                     <Content />
+
                     <Toaster />
+                    <PopupList/>
                 </div>
             </div>
         </>

@@ -1,9 +1,9 @@
 import { RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { SideMenuStatus } from "../../types/SideMenuType";
-
 import { setJoinState } from "../../redux/reducer/UserReducer";
 import { setSideMenuClick } from "../../redux/reducer/SideMenuReducer";
+
+import { SideMenuStatus } from "../../types/SideMenuType";
 
 const SideMenu = () => {
     const dispatch = useDispatch();

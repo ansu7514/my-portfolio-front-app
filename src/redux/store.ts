@@ -1,10 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore } from "@reduxjs/toolkit";
 
-import sideMenuReducer from './reducer/SideMenuReducer';
-import userReducer from './reducer/UserReducer';
+import popupDataReducer from "./reducer/PopupDataReducer";
+import popupReducer from "./reducer/PopupReducer";
+import sideMenuReducer from "./reducer/SideMenuReducer";
+import userReducer from "./reducer/UserReducer";
 
 export const store = configureStore({
     reducer: {
+        popupData: popupDataReducer,
+        popup: popupReducer,
         sideMenu: sideMenuReducer,
         user: userReducer,
     },

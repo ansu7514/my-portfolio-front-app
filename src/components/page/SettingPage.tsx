@@ -1,19 +1,26 @@
-import { useSelector } from "react-redux";
+/* eslint-disable no-useless-escape */
 import { useEffect, useState } from "react";
 import { RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { setPostPopup } from "../../redux/reducer/PopupReducer";
 
 import Calendar from "react-calendar";
-import { SideMenuStatus } from "../../types/SideMenuType";
 
+import { SideMenuStatus } from "../../types/SideMenuType";
 import { Value } from "react-calendar/dist/cjs/shared/types";
 
 const SettingPage = () => {
+    const dispatch = useDispatch();
+
+    const postPopup = useSelector((state: RootState) => state.popup.postPopup);
+    const postData = useSelector((state: RootState) => state.popupData.postData);
     const sideMenuStatus = useSelector((state: RootState) => state.sideMenu.sideMenuStatus);
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const [birth, setBirth] = useState<Value>(new Date());
+    const [address, setAddress] = useState('');
 
     const [checkEmail, setCheckEmail] = useState(false);
 
@@ -25,8 +32,8 @@ const SettingPage = () => {
     }, [email]);
 
     useEffect(() => {
-
-    }, [birth]);
+        setAddress(postData);
+    }, [postData]);
 
     const nameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
@@ -41,8 +48,19 @@ const SettingPage = () => {
         setPhone(value);
     };
 
-    const birthChange = (value: Value, event: React.MouseEvent<HTMLButtonElement>) => {
+    const birthChange = (value: Value) => {
         setBirth(value);
+    };
+
+    const addressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setAddress(e.target.value);
+        if (!e.target.value) dispatch(setPostPopup(true));
+    };
+
+    const addressFocus = () => {
+        if (address === '' && !postPopup) {
+            dispatch(setPostPopup(true));
+        }
     };
 
     const sectionClassName = `animated-section${sideMenuStatus !== SideMenuStatus.setting ? '' : ' section-active'}`;
@@ -77,9 +95,9 @@ const SettingPage = () => {
                                     <label>BIRTH</label>
                                     <div className="form-control-border"></div>
                                 </div>
-                                <div className={`form-group form-group-with-icon${phone ? ' form-group-focus' : ''}`}>
-                                    <input id="name" type="text" name="phone" className="form-control" placeholder="" value={phone} onChange={emailChange} />
-                                    <label>ADRESS</label>
+                                <div className={`form-group form-group-with-icon${address ? ' form-group-focus' : ''}`}>
+                                    <input id="address" type="text" name="address" className="form-control" placeholder="" value={address} onChange={addressChange} onFocus={addressFocus} />
+                                    <label>ADDRESS</label>
                                     <div className="form-control-border"></div>
                                 </div>
                             </div>
