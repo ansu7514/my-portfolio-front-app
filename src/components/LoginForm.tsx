@@ -2,9 +2,11 @@ import { RootState } from "../redux/store";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { USER_CHECK, USER_CREATE, USER_LOGIN } from "../serverApi";
+import { setSideMenuClick } from "../redux/reducer/SideMenuReducer";
 import { setJoinState, setLogin, setUserInfo } from "../redux/reducer/UserReducer";
 
 import Alert from "./Alert";
+import { SideMenuStatus } from "../types/SideMenuType";
 
 let debounce: null | NodeJS.Timeout = null;
 
@@ -52,7 +54,7 @@ const LoginForm = () => {
 
                                 if (success) {
                                     if (data !== 0) {
-                                        Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 동일한 아이디가 있습니다.', position: "bottom-center" });
+                                        Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 동일한 아이디가 있습니다', position: "bottom-center" });
                                         setCheckId(true);
                                     } else setCheckId(false);
                                 }
@@ -90,12 +92,12 @@ const LoginForm = () => {
     };
 
     const loginBtnClick = async () => {
-        if (!id) {
+        if (!id && id !== '') {
             Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 아이디를 입력해주세요', position: "bottom-center" });
             return false;
         }
 
-        if (!pw) {
+        if (!pw && pw !== '') {
             Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 비밀번호를 입력해주세요', position: "bottom-center" });
             return false;
         }
@@ -144,6 +146,7 @@ const LoginForm = () => {
                         dispatch(setLogin(true));
                         dispatch(setJoinState(true));
                         dispatch(setUserInfo({ user_id: id }));
+                        dispatch(setSideMenuClick(SideMenuStatus.setting));
                         Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 계정이 생성되었습니다', position: "bottom-center" });
                     }
                 });

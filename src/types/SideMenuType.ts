@@ -4,5 +4,6 @@ export enum SideMenuStatus {
     resume,
     portfolio,
     blog,
-    contact
+    contact,
+    setting
 }

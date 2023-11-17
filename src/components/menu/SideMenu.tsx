@@ -2,13 +2,14 @@ import { RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { SideMenuStatus } from "../../types/SideMenuType";
 
-import { setSideMenuClick } from "../../redux/reducer/SideMenuReducer";
 import { setJoinState } from "../../redux/reducer/UserReducer";
+import { setSideMenuClick } from "../../redux/reducer/SideMenuReducer";
 
 const SideMenu = () => {
     const dispatch = useDispatch();
 
     const login = useSelector((state: RootState) => state.user.login);
+    const sideMenuStatus = useSelector((state: RootState) => state.sideMenu.sideMenuStatus);
 
     const menuBtnClick = (state: SideMenuStatus) => {
         dispatch(setSideMenuClick(state));
@@ -20,8 +21,8 @@ const SideMenu = () => {
 
     return (
         <ul className="main-menu">
-            <li className="active" onClick={() => menuBtnClick(SideMenuStatus.home)}>
-                <a href="#home" className="nav-anim active">
+            <li onClick={() => menuBtnClick(SideMenuStatus.home)}>
+                <a href="#home" className={`nav-anim${sideMenuStatus === SideMenuStatus.home ? ' active' : ''}`}>
                     <span className="menu-icon lnr lnr-home"></span>
                     <span className="link-text">Home</span>
                 </a>
@@ -29,34 +30,40 @@ const SideMenu = () => {
             {
                 login &&
                 <>
-                    <li className="active">
+                    <li>
                         <a href="#about-me" className="nav-anim">
                             <span className="menu-icon lnr lnr-user"></span>
                             <span className="link-text">About Me</span>
                         </a>
                     </li>
-                    <li className="active">
+                    <li>
                         <a href="#resume" className="nav-anim">
                             <span className="menu-icon lnr lnr-graduation-hat"></span>
                             <span className="link-text">Resume</span>
                         </a>
                     </li>
-                    <li className="active">
+                    <li>
                         <a href="#portfolio" className="nav-anim">
                             <span className="menu-icon lnr lnr-briefcase"></span>
                             <span className="link-text">Portfolio</span>
                         </a>
                     </li>
-                    <li className="active">
+                    <li>
                         <a href="#blog" className="nav-anim">
                             <span className="menu-icon lnr lnr-book"></span>
                             <span className="link-text">Blog</span>
                         </a>
                     </li>
-                    <li className="active">
+                    <li>
                         <a href="#contact" className="nav-anim">
                             <span className="menu-icon lnr lnr-envelope"></span>
                             <span className="link-text">Contact</span>
+                        </a>
+                    </li>
+                    <li onClick={() => menuBtnClick(SideMenuStatus.setting)}>
+                        <a href="#setting" className={`nav-anim${sideMenuStatus === SideMenuStatus.setting ? ' active' : ''}`}>
+                            <span className="menu-icon lnr lnr-cog"></span>
+                            <span className="link-text">Setting</span>
                         </a>
                     </li>
                 </>
