@@ -54,3 +54,8 @@
     box-shadow: none;
     margin-bottom: 0px;
 }
+
+/* error */
+.has-error {
+    border-color: #ff4c4c !important;
+}

@@ -1,8 +1,12 @@
 import { RootState } from "../redux/store";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { CHECK_USER, CREATE_USER } from "../serverApi";
 import { setJoinState } from "../redux/reducer/UserReducer";
+
 import Alert from "./Alert";
+
+let debounce: null | NodeJS.Timeout = null;
 
 const LoginForm = () => {
     const dispatch = useDispatch();
@@ -15,9 +19,12 @@ const LoginForm = () => {
     const [pw, setPw] = useState('');
     const [confirmPw, setConfirmPw] = useState('');
 
+    const [checkID, setCheckId] = useState(false);
+
     useEffect(() => {
         setId('');
         setPw('');
+        setConfirmPw('');
 
         if (joinState) {
             setTitle('JOIN US');
@@ -26,19 +33,42 @@ const LoginForm = () => {
         }
     }, [joinState]);
 
+    const idChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const value = e.target.value;
+        setId(value);
+
+        if (joinState) {
+            if (debounce) clearTimeout(debounce);
+            if (value) {
+                debounce = setTimeout(async () => {
+                    try {
+                        await fetch(
+                            CHECK_USER,
+                            { method: 'post', body: JSON.stringify({ id: value }), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+                        ).then(res => res.json())
+                            .then(response => {
+                                const { success, data } = response;
+
+                                if (success) {
+                                    if (data !== 0) {
+                                        Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 동일한 아이디가 있습니다.', position: "bottom-center" });
+                                        setCheckId(true);
+                                    } else setCheckId(false);
+                                }
+                            });
+                    } catch (e) {
+                        console.error(e);
+                    }
+                }, 500);
+            } else setCheckId(false);
+        }
+    };
+
     const inputChange = (e: React.ChangeEvent<HTMLInputElement>, type: string) => {
         const value = e.target.value;
 
-        switch (type) {
-            case 'id':
-                return setId(value);
-            case 'pw':
-                return setPw(value);
-            case 'confirmPw':
-                return setConfirmPw(value);
-            default:
-                break;
-        }
+        if (type === 'pw') return setPw(value);
+        else setConfirmPw(value);
     };
 
     const loginBtnClick = () => {
@@ -50,6 +80,27 @@ const LoginForm = () => {
     };
 
     const accountBtnClick = async () => {
+        if (checkID) {
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 동일한 아이디가 있습니다', position: "bottom-center" });
+            return false;
+        }
+
+        try {
+            await fetch(
+                CREATE_USER,
+                { method: 'post', body: JSON.stringify({ id, pw }), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+            ).then(res => res.json())
+                .then(response => {
+                    const { success } = response;
+
+                    if (success) {
+                        Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 계정이 생성되었습니다', position: "bottom-center" });
+                    }
+                });
+        } catch (error) {
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 계정 생성에 실패했습니다', position: "bottom-center" });
+            console.error(error);
+        }
     };
 
     return (
@@ -57,7 +108,7 @@ const LoginForm = () => {
             <h2>{title}</h2>
             <div className="login-input-container">
                 <div className="form-group form-group-with-icon">
-                    <input id="login_id" type="text" name="id" className="form-control login-input" placeholder="ID" required value={id} onChange={(e) => inputChange(e, 'id')} />
+                    <input id="login_id" type="text" name="id" className={`form-control login-input${checkID ? ' has-error' : ''}`} placeholder="ID" required value={id} onChange={idChange} />
                     <input id="login_pw" type="password" name="pw" className="form-control login-input" placeholder="Password" required value={pw} onChange={(e) => inputChange(e, 'pw')} />
                     {
                         joinState &&
