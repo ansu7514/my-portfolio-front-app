@@ -26,9 +26,9 @@ const Alert = (props: AlertPropsType) => {
                 {
                     toast &&
                     <div className="toast_title">
-                        <h3 className={`${error ? 'toast_error' : ''}`}>
+                        <h4 className={`${error ? 'toast_error' : ''}`}>
                             {desc}
-                        </h3>
+                        </h4>
                     </div>
                 }
                 {
