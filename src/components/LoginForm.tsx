@@ -2,7 +2,7 @@ import { RootState } from "../redux/store";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { CHECK_USER, CREATE_USER } from "../serverApi";
-import { setJoinState } from "../redux/reducer/UserReducer";
+import { setJoinState, setLogin, setUserInfo } from "../redux/reducer/UserReducer";
 
 import Alert from "./Alert";
 
@@ -20,6 +20,7 @@ const LoginForm = () => {
     const [confirmPw, setConfirmPw] = useState('');
 
     const [checkID, setCheckId] = useState(false);
+    const [checkPw, setCheckPW] = useState(true);
 
     useEffect(() => {
         setId('');
@@ -67,8 +68,25 @@ const LoginForm = () => {
     const inputChange = (e: React.ChangeEvent<HTMLInputElement>, type: string) => {
         const value = e.target.value;
 
-        if (type === 'pw') return setPw(value);
-        else setConfirmPw(value);
+        if (type === 'pw') {
+            setPw(value);
+
+            if (value) {
+                debounce = setTimeout(async () => {
+                    if (value === confirmPw) setCheckPW(true);
+                    else setCheckPW(false);
+                }, 500);
+            } else setCheckPW(true);
+        } else {
+            setConfirmPw(value);
+
+            if (value) {
+                debounce = setTimeout(async () => {
+                    if (value === pw) setCheckPW(true);
+                    else setCheckPW(false);
+                }, 500);
+            } else setCheckPW(true);
+        }
     };
 
     const loginBtnClick = () => {
@@ -94,6 +112,9 @@ const LoginForm = () => {
                     const { success } = response;
 
                     if (success) {
+                        dispatch(setLogin(true));
+                        dispatch(setJoinState(true));
+                        dispatch(setUserInfo({ user_id: id }));
                         Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 계정이 생성되었습니다', position: "bottom-center" });
                     }
                 });
@@ -112,7 +133,7 @@ const LoginForm = () => {
                     <input id="login_pw" type="password" name="pw" className="form-control login-input" placeholder="Password" required value={pw} onChange={(e) => inputChange(e, 'pw')} />
                     {
                         joinState &&
-                        <input id="login_pw_check" type="password" name="pw_check" className="form-control login-input" placeholder="Confirm Password" required value={confirmPw} onChange={(e) => inputChange(e, 'confirmPw')} />
+                        <input id="login_pw_check" type="password" name="pw_check" className={`form-control login-input${!checkPw ? ' has-error' : ''}`} placeholder="Confirm Password" required value={confirmPw} onChange={(e) => inputChange(e, 'confirmPw')} />
                     }
                 </div>
             </div>
