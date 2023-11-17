@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { SideMenuStatus } from "../../types/SideMenuType";
 
 import { setSideMenuClick } from "../../redux/reducer/SideMenuReducer";
+import { setJoinState } from "../../redux/reducer/UserReducer";
 
 const SideMenu = () => {
     const dispatch = useDispatch();
@@ -11,6 +12,10 @@ const SideMenu = () => {
 
     const menuBtnClick = (state: SideMenuStatus) => {
         dispatch(setSideMenuClick(state));
+
+        if (state === SideMenuStatus.home) {
+            dispatch(setJoinState(false));
+        }
     };
 
     return (

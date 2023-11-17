@@ -1,7 +1,7 @@
 import { RootState } from "../redux/store";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CHECK_USER, CREATE_USER } from "../serverApi";
+import { USER_CHECK, USER_CREATE, USER_LOGIN } from "../serverApi";
 import { setJoinState, setLogin, setUserInfo } from "../redux/reducer/UserReducer";
 
 import Alert from "./Alert";
@@ -44,7 +44,7 @@ const LoginForm = () => {
                 debounce = setTimeout(async () => {
                     try {
                         await fetch(
-                            CHECK_USER,
+                            USER_CHECK,
                             { method: 'post', body: JSON.stringify({ id: value }), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
                         ).then(res => res.json())
                             .then(response => {
@@ -89,8 +89,37 @@ const LoginForm = () => {
         }
     };
 
-    const loginBtnClick = () => {
-        dispatch(setJoinState(false));
+    const loginBtnClick = async () => {
+        if (!id) {
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 아이디를 입력해주세요', position: "bottom-center" });
+            return false;
+        }
+
+        if (!pw) {
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 비밀번호를 입력해주세요', position: "bottom-center" });
+            return false;
+        }
+
+        try {
+            await fetch(
+                USER_LOGIN,
+                { method: 'post', body: JSON.stringify({ id, pw }), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+            ).then(res => res.json())
+                .then(response => {
+                    const { success, data } = response;
+                    console.log(data);
+
+                    if (success) {
+                        dispatch(setLogin(true));
+                        dispatch(setJoinState(false));
+                        dispatch(setJoinState(true));
+                        dispatch(setUserInfo({ user_id: id }));
+                    }
+                });
+        } catch (error) {
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 로그인에 실패했습니다', position: "bottom-center" });
+            console.error(error);
+        }
     };
 
     const joinBtnClick = () => {
@@ -105,7 +134,7 @@ const LoginForm = () => {
 
         try {
             await fetch(
-                CREATE_USER,
+                USER_CREATE,
                 { method: 'post', body: JSON.stringify({ id, pw }), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
             ).then(res => res.json())
                 .then(response => {

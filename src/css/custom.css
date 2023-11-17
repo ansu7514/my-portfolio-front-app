@@ -42,10 +42,10 @@
 }
 
 .login-btn {
-    width: 49%;
+    width: 100%;
     cursor: pointer;
     box-shadow: none;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
 }
 
 .account-btn {
