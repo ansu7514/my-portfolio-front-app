@@ -48,7 +48,7 @@ const LoginForm = () => {
                     try {
                         await fetch(
                             USER_CHECK,
-                            { method: 'post', body: JSON.stringify({ id: value }), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+                            { method: 'post', body: JSON.stringify({ user_id: value }), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
                         ).then(res => res.json())
                             .then(response => {
                                 const { success, data } = response;
@@ -110,7 +110,7 @@ const LoginForm = () => {
         try {
             await fetch(
                 USER_LOGIN,
-                { method: 'post', body: JSON.stringify({ id, pw }), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+                { method: 'post', body: JSON.stringify({ user_id: id, password: pw }), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
             ).then(res => res.json())
                 .then(response => {
                     const { success, data } = response;
@@ -142,7 +142,7 @@ const LoginForm = () => {
         try {
             await fetch(
                 USER_CREATE,
-                { method: 'post', body: JSON.stringify({ id, pw }), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+                { method: 'post', body: JSON.stringify({ user_id: id, password: pw }), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
             ).then(res => res.json())
                 .then(response => {
                     const { success } = response;
