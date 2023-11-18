@@ -92,6 +92,10 @@ const LoginForm = () => {
         }
     };
 
+    const enterPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') loginBtnClick();
+    };
+
     const loginBtnClick = async () => {
         if (!id && id !== '') {
             Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 아이디를 입력해주세요', position: "bottom-center" });
@@ -162,11 +166,11 @@ const LoginForm = () => {
             <h2>{title}</h2>
             <div className="login-input-container">
                 <div className="form-group form-group-with-icon">
-                    <input id="login_id" type="text" name="id" className={`form-control login-input${checkID ? ' has-error' : ''}`} placeholder="ID" required value={id} onChange={idChange} />
-                    <input id="login_pw" type="password" name="pw" className="form-control login-input" placeholder="Password" required value={pw} onChange={(e) => inputChange(e, 'pw')} />
+                    <input id="login_id" type="text" name="id" className={`form-control login-input${checkID ? ' has-error' : ''}`} placeholder="ID" value={id} onChange={idChange} onKeyDown={enterPress} />
+                    <input id="login_pw" type="password" name="pw" className="form-control login-input" placeholder="Password" value={pw} onChange={(e) => inputChange(e, 'pw')} onKeyDown={enterPress} />
                     {
                         joinState &&
-                        <input id="login_pw_check" type="password" name="pw_check" className={`form-control login-input${!checkPw ? ' has-error' : ''}`} placeholder="Confirm Password" required value={confirmPw} onChange={(e) => inputChange(e, 'confirmPw')} />
+                        <input id="login_pw_check" type="password" name="pw_check" className={`form-control login-input${!checkPw ? ' has-error' : ''}`} placeholder="Confirm Password" value={confirmPw} onChange={(e) => inputChange(e, 'confirmPw')} />
                     }
                 </div>
             </div>
