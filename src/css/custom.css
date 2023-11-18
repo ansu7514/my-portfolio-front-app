@@ -62,8 +62,23 @@
 }
 
 /* setting */
+.setting-photo-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.setting-photo-group input {
+    width: 50%;
+}
+
 .setting-photo {
     width: 300px;
+}
+
+.setting-photo img {
+    width: 300px;    
+    height: 300px;
 }
 
 .setting-calendar {
@@ -111,13 +126,17 @@
 }
 
 /* button */
-.close-btn {
+.button {
+    cursor: pointer;
+}
+
+.btn-close {
     display: flex;
     justify-content: flex-end;
     margin-bottom: 10px;
 }
 
-.close-btn button {
+.btn-close button {
     font-size: 25px;
     margin-bottom: 0px;
     color: #fff;
@@ -127,9 +146,13 @@
     padding: 0 15px;
 }
 
-.close-btn button:hover {
+.btn-close button:hover {
     cursor: pointer;
     color: #5e2fd6;
+}
+
+input::file-selector-button {
+    display: none;
 }
 
 /* error */

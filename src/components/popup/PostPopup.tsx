@@ -32,7 +32,7 @@ const PostPopup = () => {
         <div className="mfp-container mfp-image-holder mfp-s-ready">
             <div className="mfp-content">
                 <div className="mfp-figure8=j">
-                    <div className="close-btn">
+                    <div className="btn-close">
                         <button type="button" onClick={closeBtnClick}>×</button>
                     </div>
                     <DaumPostCode className="portfolio-item-img post-popup" onComplete={handleComplete} />

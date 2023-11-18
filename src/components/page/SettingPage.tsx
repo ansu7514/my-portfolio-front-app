@@ -21,6 +21,7 @@ const SettingPage = () => {
     const [phone, setPhone] = useState('');
     const [birth, setBirth] = useState<Value>(new Date());
     const [address, setAddress] = useState('');
+    const [photo, setPhoto] = useState('img/main_photo.jpg');
 
     const [checkEmail, setCheckEmail] = useState(false);
 
@@ -63,6 +64,20 @@ const SettingPage = () => {
         }
     };
 
+    const photoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = (e.target.files as FileList)[0];
+
+        const reader = new FileReader();
+        reader.readAsDataURL(files);
+
+        return new Promise<void>((resolve) => {
+            reader.onload = () => {
+                setPhoto(reader.result as string);
+                resolve();
+            };
+        });
+    };
+
     const sectionClassName = `animated-section${sideMenuStatus !== SideMenuStatus.setting ? '' : ' section-active'}`;
 
     return (
@@ -102,10 +117,11 @@ const SettingPage = () => {
                                 </div>
                             </div>
                             <div className="right-column">
-                                <div className="header-content">
+                                <div className="setting-photo-group">
                                     <div className="header-photo setting-photo">
-                                        <img src="img/main_photo.jpg" alt="user_img" />
+                                        <img src={photo} alt="user_img" />
                                     </div>
+                                    <input id="photo-img" type="file" className="button btn-primary" accept="image/jpeg, image/gif, image/png" placeholder="" onChange={photoChange} />
                                 </div>
                             </div>
                         </div>
