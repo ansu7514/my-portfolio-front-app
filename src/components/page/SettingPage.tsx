@@ -1,9 +1,11 @@
 /* eslint-disable no-useless-escape */
 import { useEffect, useState } from "react";
 import { RootState } from "../../redux/store";
+import { USER_UPDATE } from "../../serverApi";
 import { useDispatch, useSelector } from "react-redux";
 import { setPostPopup } from "../../redux/reducer/PopupReducer";
 
+import Alert from "../Alert";
 import Calendar from "react-calendar";
 
 import { SideMenuStatus } from "../../types/SideMenuType";
@@ -21,7 +23,8 @@ const SettingPage = () => {
     const [phone, setPhone] = useState('');
     const [birth, setBirth] = useState<Value>(new Date());
     const [address, setAddress] = useState('');
-    const [photo, setPhoto] = useState('img/main_photo.jpg');
+    const [image, setImage] = useState('img/main_photo.jpg');
+    const [inputFile, setInputFile] = useState<File | null>(null);
 
     const [checkEmail, setCheckEmail] = useState(false);
 
@@ -64,18 +67,52 @@ const SettingPage = () => {
         }
     };
 
-    const photoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const files = (e.target.files as FileList)[0];
+    const imageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = (e.target.files as FileList)[0];
+        setInputFile(file);
 
         const reader = new FileReader();
-        reader.readAsDataURL(files);
+        reader.readAsDataURL(file);
 
         return new Promise<void>((resolve) => {
             reader.onload = () => {
-                setPhoto(reader.result as string);
+                setImage(reader.result as string);
                 resolve();
             };
         });
+    };
+
+    const saveBtnClick = async () => {
+        if (!name && !email && !phone && !address) {
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 정보를 모두 입력해주세요', position: "bottom-center" });
+            return false;
+        }
+
+        const formData = new FormData();
+
+        const offset = (birth as Date).getTimezoneOffset();
+        const reBrith = new Date((birth as Date).getTime() - (offset * 60 * 1000));
+        const birthDate = reBrith.toISOString().split('T')[0];
+
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('phone', phone);
+        formData.append('birth', birthDate);
+        formData.append('address', address);
+        if (inputFile) formData.append('input_file', inputFile);
+
+        try {
+            await fetch(
+                USER_UPDATE,
+                { method: 'post', body: formData }
+            ).then(res => res.json())
+                .then(response => {
+                    console.log(response);
+                });
+        } catch (error) {
+            console.error(error);
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 정보 수정에 실패했습니다', position: "bottom-center" });
+        }
     };
 
     const sectionClassName = `animated-section${sideMenuStatus !== SideMenuStatus.setting ? '' : ' section-active'}`;
@@ -91,17 +128,17 @@ const SettingPage = () => {
                         <div className="controls two-columns">
                             <div className="left-column">
                                 <div className={`form-group form-group-with-icon${name ? ' form-group-focus' : ''}`}>
-                                    <input id="name" type="text" name="name" className="form-control" placeholder="" value={name} onChange={nameChange} />
+                                    <input id="name" type="text" name="name" className="form-control" value={name} onChange={nameChange} />
                                     <label>NAME</label>
                                     <div className="form-control-border"></div>
                                 </div>
                                 <div className={`form-group form-group-with-icon${email ? ' form-group-focus' : ''}`}>
-                                    <input id="email" type="text" name="email" className={`form-control${!checkEmail ? ' has-error' : ''}`} placeholder="" value={email} onChange={emailChange} />
+                                    <input id="email" type="text" name="email" className={`form-control${!checkEmail ? ' has-error' : ''}`} value={email} onChange={emailChange} />
                                     <label>E-MAIL</label>
                                     <div className="form-control-border"></div>
                                 </div>
                                 <div className={`form-group form-group-with-icon${phone ? ' form-group-focus' : ''}`}>
-                                    <input id="phone" type="text" name="phone" className="form-control" placeholder="" value={phone} onChange={phoneChange} />
+                                    <input id="phone" type="text" name="phone" className="form-control" value={phone} onChange={phoneChange} />
                                     <label>PHONE NUMBER</label>
                                     <div className="form-control-border"></div>
                                 </div>
@@ -111,7 +148,7 @@ const SettingPage = () => {
                                     <div className="form-control-border"></div>
                                 </div>
                                 <div className={`form-group form-group-with-icon${address ? ' form-group-focus' : ''}`}>
-                                    <input id="address" type="text" name="address" className="form-control" placeholder="" value={address} onChange={addressChange} onFocus={addressFocus} />
+                                    <input id="address" type="text" name="address" className="form-control" value={address} onChange={addressChange} onFocus={addressFocus} />
                                     <label>ADDRESS</label>
                                     <div className="form-control-border"></div>
                                 </div>
@@ -119,15 +156,15 @@ const SettingPage = () => {
                             <div className="right-column">
                                 <div className="setting-photo-group">
                                     <div className="header-photo setting-photo">
-                                        <img src={photo} alt="user_img" />
+                                        <img src={image} alt="user_img" />
                                     </div>
-                                    <input id="photo-img" type="file" className="button btn-primary" accept="image/jpeg, image/gif, image/png" placeholder="" onChange={photoChange} />
+                                    <input id="photo-img" type="file" className="button btn-primary" accept="image/jpeg, image/gif, image/png" onChange={imageChange} />
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="col-xs-12 col-sm-12 col-center">
-                        <button className="button btn-send">Save</button>
+                        <button className="button btn-send" onClick={saveBtnClick}>Save</button>
                     </div>
                 </div>
             </div>
