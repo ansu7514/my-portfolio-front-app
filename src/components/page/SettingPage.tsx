@@ -16,6 +16,7 @@ const SettingPage = () => {
 
     const postPopup = useSelector((state: RootState) => state.popup.postPopup);
     const postData = useSelector((state: RootState) => state.popupData.postData);
+    const user_id = useSelector((state: RootState) => state.user.info?.user_id) || '';
     const sideMenuStatus = useSelector((state: RootState) => state.sideMenu.sideMenuStatus);
 
     const [name, setName] = useState('');
@@ -70,16 +71,20 @@ const SettingPage = () => {
     const imageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = (e.target.files as FileList)[0];
         setInputFile(file);
-
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-
-        return new Promise<void>((resolve) => {
-            reader.onload = () => {
-                setImage(reader.result as string);
-                resolve();
-            };
-        });
+        
+        if (file) {
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
+    
+            return new Promise<void>((resolve) => {
+                reader.onload = () => {
+                    setImage(reader.result as string);
+                    resolve();
+                };
+            });
+        } else {
+            setImage('img/main_photo.jpg');
+        }
     };
 
     const saveBtnClick = async () => {
@@ -94,6 +99,7 @@ const SettingPage = () => {
         const reBrith = new Date((birth as Date).getTime() - (offset * 60 * 1000));
         const birthDate = reBrith.toISOString().split('T')[0];
 
+        formData.append('user_id', user_id);
         formData.append('name', name);
         formData.append('email', email);
         formData.append('phone', phone);
@@ -107,11 +113,14 @@ const SettingPage = () => {
                 { method: 'post', body: formData }
             ).then(res => res.json())
                 .then(response => {
-                    console.log(response);
+                    const { success } = response;
+
+                    if (success) Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 유저 정보 수정에 성공했습니다', position: "bottom-center" });
+                    else Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 유저 정보 수정에 실패했습니다', position: "bottom-center" });
                 });
         } catch (error) {
             console.error(error);
-            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 정보 수정에 실패했습니다', position: "bottom-center" });
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 유저 정보 수정에 실패했습니다', position: "bottom-center" });
         }
     };
 
@@ -158,7 +167,7 @@ const SettingPage = () => {
                                     <div className="header-photo setting-photo">
                                         <img src={image} alt="user_img" />
                                     </div>
-                                    <input id="photo-img" type="file" className="button btn-primary" accept="image/jpeg, image/gif, image/png" onChange={imageChange} />
+                                    <input id="photo-img" type="file" className="button btn-primary" accept="image/jpeg, image/gif, image/png" accept-charset="UTF-8" onChange={imageChange} />
                                 </div>
                             </div>
                         </div>
