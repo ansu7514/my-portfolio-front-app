@@ -1,8 +1,9 @@
 /* eslint-disable no-useless-escape */
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { RootState } from "../../redux/store";
-import { USER_UPDATE } from "../../serverApi";
 import { useDispatch, useSelector } from "react-redux";
+import { FILE_LOAD, USER, USER_UPDATE } from "../../serverApi";
 import { setPostPopup } from "../../redux/reducer/PopupReducer";
 
 import Alert from "../Alert";
@@ -30,6 +31,10 @@ const SettingPage = () => {
     const [checkEmail, setCheckEmail] = useState(false);
 
     useEffect(() => {
+        if (sideMenuStatus === SideMenuStatus.setting) getUser();
+    }, [sideMenuStatus]);
+
+    useEffect(() => {
         if (email) {
             const regEmail = /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
             setCheckEmail(regEmail.test(email));
@@ -39,6 +44,34 @@ const SettingPage = () => {
     useEffect(() => {
         setAddress(postData);
     }, [postData]);
+
+    const getUser = async () => {
+        try {
+            await fetch(
+                `${USER}/:${user_id}`,
+                { method: 'get', headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+            ).then(res => res.json())
+                .then(response => {
+                    const { success, data } = response;
+
+                    if (success && data) {
+                        const { name, email, phone, birth, address, image_path } = data;
+
+                        const imagePath = encodeURIComponent(image_path);
+
+                        setName(name);
+                        setEmail(email);
+                        setPhone(phone);
+                        setBirth(new Date(birth));
+                        setAddress(address);
+                        setImage(`${FILE_LOAD}/${imagePath}`);
+                    }
+                });
+        } catch (error) {
+            console.error(error);
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 유저 정보 수정에 실패했습니다', position: "bottom-center" });
+        }
+    };
 
     const nameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setName(e.target.value);
@@ -71,11 +104,11 @@ const SettingPage = () => {
     const imageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = (e.target.files as FileList)[0];
         setInputFile(file);
-        
+
         if (file) {
             const reader = new FileReader();
             reader.readAsDataURL(file);
-    
+
             return new Promise<void>((resolve) => {
                 reader.onload = () => {
                     setImage(reader.result as string);
