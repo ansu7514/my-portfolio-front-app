@@ -11,6 +11,7 @@ import Calendar from "react-calendar";
 
 import { SideMenuStatus } from "../../types/SideMenuType";
 import { Value } from "react-calendar/dist/cjs/shared/types";
+import { setUserInfo } from "../../redux/reducer/UserReducer";
 
 const SettingPage = () => {
     const dispatch = useDispatch();
@@ -31,7 +32,7 @@ const SettingPage = () => {
     const [checkEmail, setCheckEmail] = useState(false);
 
     useEffect(() => {
-        if (sideMenuStatus === SideMenuStatus.setting) getUser();
+        if (sideMenuStatus === SideMenuStatus.setting) getUser('select');
     }, [sideMenuStatus]);
 
     useEffect(() => {
@@ -45,7 +46,7 @@ const SettingPage = () => {
         setAddress(postData);
     }, [postData]);
 
-    const getUser = async () => {
+    const getUser = async (type: string) => {
         try {
             await fetch(
                 `${USER}/:${user_id}`,
@@ -65,6 +66,10 @@ const SettingPage = () => {
                         setBirth(new Date(birth));
                         setAddress(address);
                         setImage(`${FILE_LOAD}/${imagePath}`);
+
+                        if (type === 'update') {
+                            dispatch(setUserInfo({ user_id, name, image_path: imagePath }));
+                        }
                     }
                 });
         } catch (error) {
@@ -148,8 +153,11 @@ const SettingPage = () => {
                 .then(response => {
                     const { success } = response;
 
-                    if (success) Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 유저 정보 수정에 성공했습니다', position: "bottom-center" });
-                    else Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 유저 정보 수정에 실패했습니다', position: "bottom-center" });
+                    if (success) {
+                        getUser('update');
+
+                        Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 유저 정보 수정에 성공했습니다', position: "bottom-center" });
+                    } else Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 유저 정보 수정에 실패했습니다', position: "bottom-center" });
                 });
         } catch (error) {
             console.error(error);
