@@ -114,13 +114,16 @@ const LoginForm = () => {
             ).then(res => res.json())
                 .then(response => {
                     const { success, data } = response;
-                    console.log(data);
 
                     if (success) {
+                        const { name, image_path } = data;
+
+                        const imagePath = encodeURIComponent(image_path);
+
                         dispatch(setLogin(true));
                         dispatch(setJoinState(false));
                         dispatch(setJoinState(true));
-                        dispatch(setUserInfo({ user_id: id }));
+                        dispatch(setUserInfo({ user_id: id, name, image_path: imagePath }));
                     }
                 });
         } catch (error) {
