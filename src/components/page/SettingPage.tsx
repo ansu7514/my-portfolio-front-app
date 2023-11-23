@@ -13,6 +13,8 @@ import { SideMenuStatus } from "../../types/SideMenuType";
 import { Value } from "react-calendar/dist/cjs/shared/types";
 import { setUserInfo } from "../../redux/reducer/UserReducer";
 
+const jobList = ['JOB', 'Frontend-Engineer', 'Backend-Engineer', 'Designer'];
+
 const SettingPage = () => {
     const dispatch = useDispatch();
 
@@ -24,6 +26,7 @@ const SettingPage = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
+    const [job, setJob] = useState('');
     const [birth, setBirth] = useState<Value>(new Date());
     const [address, setAddress] = useState('');
     const [image, setImage] = useState('img/main_photo.jpg');
@@ -91,6 +94,10 @@ const SettingPage = () => {
         setPhone(value);
     };
 
+    const jobChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setJob(e.target.value);
+    };
+
     const birthChange = (value: Value) => {
         setBirth(value);
     };
@@ -141,6 +148,7 @@ const SettingPage = () => {
         formData.append('name', name);
         formData.append('email', email);
         formData.append('phone', phone);
+        formData.append('job', job);
         formData.append('birth', birthDate);
         formData.append('address', address);
         if (inputFile) formData.append('input_file', inputFile);
@@ -165,6 +173,12 @@ const SettingPage = () => {
         }
     };
 
+    const jobOptions = jobList.map(job => {
+        return (
+            <option value={job}>{job}</option>
+        )
+    });
+
     const sectionClassName = `animated-section${sideMenuStatus !== SideMenuStatus.setting ? '' : ' section-active'}`;
 
     return (
@@ -175,7 +189,7 @@ const SettingPage = () => {
                 </div>
                 <div className="row">
                     <div className="col-xs-12 col-sm-12">
-                        <div className="controls two-columns">
+                        <div className="setting-form controls two-columns">
                             <div className="left-column">
                                 <div className={`form-group form-group-with-icon${name ? ' form-group-focus' : ''}`}>
                                     <input id="name" type="text" name="name" className="form-control" value={name} onChange={nameChange} />
@@ -190,6 +204,13 @@ const SettingPage = () => {
                                 <div className={`form-group form-group-with-icon${phone ? ' form-group-focus' : ''}`}>
                                     <input id="phone" type="text" name="phone" className="form-control" value={phone} onChange={phoneChange} />
                                     <label>PHONE NUMBER</label>
+                                    <div className="form-control-border"></div>
+                                </div>
+                                <div className="form-group form-group-with-icon form-group-focus">
+                                    <select id="job" name="job" className="form-control" defaultValue="Frontend-Engineer" value={job} onChange={jobChange}>
+                                        {jobOptions}
+                                    </select>
+                                    <label>JOB</label>
                                     <div className="form-control-border"></div>
                                 </div>
                                 <div className={`form-group form-group-with-icon${birth ? ' form-group-focus' : ''}`}>
