@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { UserTableType } from '../../types/DB/UserTableTypes';
+import { UserTableType } from '../../types/DB/UserTableType';
 
 export interface UserStateType {
     login: boolean,

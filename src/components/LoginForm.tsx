@@ -116,7 +116,7 @@ const LoginForm = () => {
                     const { success, data } = response;
 
                     if (success) {
-                        const { name, image_path } = data;
+                        const { name, email, job, image_path } = data;
 
                         const imagePath = encodeURIComponent(image_path);
 
@@ -124,6 +124,8 @@ const LoginForm = () => {
                         dispatch(setJoinState(false));
                         dispatch(setJoinState(true));
                         dispatch(setUserInfo({ user_id: id, name, image_path: imagePath }));
+
+                        if (!(name && email && job)) dispatch(setSideMenuClick(SideMenuStatus.setting));
                     }
                 });
         } catch (error) {
@@ -153,8 +155,8 @@ const LoginForm = () => {
                     if (success) {
                         dispatch(setLogin(true));
                         dispatch(setJoinState(true));
-                        dispatch(setUserInfo({ user_id: id }));
                         dispatch(setSideMenuClick(SideMenuStatus.setting));
+                        dispatch(setUserInfo({ user_id: id, image_path: 'null' }));
                         Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 계정이 생성되었습니다', position: "bottom-center" });
                     }
                 });

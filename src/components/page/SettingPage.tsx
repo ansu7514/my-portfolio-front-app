@@ -79,7 +79,7 @@ const SettingPage = () => {
                         setAddress(address);
 
                         if (type === 'update') {
-                            dispatch(setUserInfo({ user_id, name, image_path: imagePath }));
+                            dispatch(setUserInfo({ user_id, name, email, job, image_path: imagePath }));
                         }
                     }
                 });

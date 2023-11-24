@@ -3,15 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { setJoinState } from "../../redux/reducer/UserReducer";
 import { setSideMenuClick } from "../../redux/reducer/SideMenuReducer";
 
+import Alert from "../Alert";
 import { SideMenuStatus } from "../../types/SideMenuType";
 
 const SideMenu = () => {
     const dispatch = useDispatch();
 
     const login = useSelector((state: RootState) => state.user.login);
+    const userInfo = useSelector((state: RootState) => state.user.info);
     const sideMenuStatus = useSelector((state: RootState) => state.sideMenu.sideMenuStatus);
 
     const menuBtnClick = (state: SideMenuStatus) => {
+        if (userInfo && !(userInfo.name && userInfo.email && userInfo.job)) {
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 유저 정보 작성이 필요합니다', position: "bottom-center" });
+            return false;
+        }
+
         dispatch(setSideMenuClick(state));
 
         if (state === SideMenuStatus.home) {
