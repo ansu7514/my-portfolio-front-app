@@ -1,11 +1,17 @@
 import { FILE_LOAD } from "../serverApi";
-import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useLayoutEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setSideMenuClick } from "../redux/reducer/SideMenuReducer";
+import { setJoinState, setLogin, setUserInfo } from "../redux/reducer/UserReducer";
 
 import LoginForm from "./LoginForm";
 
+import { SideMenuStatus } from "../types/SideMenuType";
+
 const HeaderInfo = () => {
+    const dispatch = useDispatch();
+
     const login = useSelector((state: RootState) => state.user.login);
     const userInfo = useSelector((state: RootState) => state.user.info);
 
@@ -19,15 +25,37 @@ const HeaderInfo = () => {
         }
     }, [userInfo, login]);
 
+    const logoutBtnClick = () => {
+        dispatch(setLogin(false));
+        dispatch(setUserInfo(null));
+        dispatch(setJoinState(false));
+        dispatch(setSideMenuClick(SideMenuStatus.home));
+    };
+
     return (
-        <div className="header-content">
-            <div className="header-photo">
-                <img src={imgSrc} alt="user_img" />
+        <>
+            <div className="header-content">
+                <div className="header-photo">
+                    <img src={imgSrc} alt="user_img" />
+                </div>
+                <div className="header-titles">
+                    {!login && <LoginForm />}
+                    {
+                        login &&
+                        <>
+                            <h2>{userInfo?.name}</h2>
+                            <h4>{userInfo?.job}</h4>
+                        </>
+                    }
+                </div>
             </div>
-            <div className="header-titles">
-                {!login && <LoginForm />}
-            </div>
-        </div>
+            {
+                login &&
+                <div className="header-buttons">
+                    <button className="btn btn-primary" onClick={logoutBtnClick}>LOGOUT</button>
+                </div>
+            }
+        </>
     )
 };
 

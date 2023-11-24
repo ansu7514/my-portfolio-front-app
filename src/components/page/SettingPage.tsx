@@ -243,7 +243,7 @@ const SettingPage = () => {
                         </div>
                     </div>
                     <div className="col-xs-12 col-sm-12 col-center">
-                        <button className="button btn-send" onClick={saveBtnClick}>Save</button>
+                        <button className="button btn-send" onClick={saveBtnClick}>SAVE</button>
                     </div>
                 </div>
             </div>

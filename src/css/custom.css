@@ -131,7 +131,7 @@
 }
 
 /* button */
-.button {
+.btn, .button {
     cursor: pointer;
 }
 
