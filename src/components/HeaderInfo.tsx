@@ -6,17 +6,18 @@ import { useLayoutEffect, useState } from "react";
 import LoginForm from "./LoginForm";
 
 const HeaderInfo = () => {
-    const info = useSelector((state: RootState) => state.user.info);
     const login = useSelector((state: RootState) => state.user.login);
+    const userInfo = useSelector((state: RootState) => state.user.info);
 
     const [imgSrc, setImgSrc] = useState('');
 
     useLayoutEffect(() => {
         if (!login) setImgSrc('img/main_login.jpg');
         else {
-            if (info?.image_path) setImgSrc(`${FILE_LOAD}/${info.image_path}`);
+            if (userInfo && userInfo.image_path !== "null") setImgSrc(`${FILE_LOAD}/${userInfo.image_path}`);
+            else setImgSrc('img/main_photo.jpg');
         }
-    }, [info, login]);
+    }, [userInfo, login]);
 
     return (
         <div className="header-content">

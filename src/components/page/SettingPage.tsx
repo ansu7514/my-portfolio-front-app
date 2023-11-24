@@ -18,6 +18,7 @@ const jobList = ['JOB', 'Frontend-Engineer', 'Backend-Engineer', 'Designer'];
 const SettingPage = () => {
     const dispatch = useDispatch();
 
+    const userInfo = useSelector((state: RootState) => state.user.info);
     const postPopup = useSelector((state: RootState) => state.popup.postPopup);
     const postData = useSelector((state: RootState) => state.popupData.postData);
     const user_id = useSelector((state: RootState) => state.user.info?.user_id) || '';
@@ -29,10 +30,17 @@ const SettingPage = () => {
     const [job, setJob] = useState('');
     const [birth, setBirth] = useState<Value>(new Date());
     const [address, setAddress] = useState('');
-    const [image, setImage] = useState('img/main_photo.jpg');
+    const [image, setImage] = useState('');
     const [inputFile, setInputFile] = useState<File | null>(null);
 
     const [checkEmail, setCheckEmail] = useState(false);
+
+    useEffect(() => {
+        if (userInfo?.image_path) {
+            if (userInfo.image_path !== 'null') setImage(`${FILE_LOAD}/${userInfo.image_path}`);
+            else setImage('img/main_photo.jpg');
+        }
+    }, []);
 
     useEffect(() => {
         if (sideMenuStatus === SideMenuStatus.setting) getUser('select');
@@ -61,14 +69,14 @@ const SettingPage = () => {
                     if (success && data) {
                         const { name, email, phone, birth, address, image_path } = data;
 
+                        const birthday = birth !== null ? new Date(birth) : new Date();
                         const imagePath = encodeURIComponent(image_path);
 
                         setName(name);
                         setEmail(email);
                         setPhone(phone);
-                        setBirth(new Date(birth));
+                        setBirth(birthday);
                         setAddress(address);
-                        setImage(`${FILE_LOAD}/${imagePath}`);
 
                         if (type === 'update') {
                             dispatch(setUserInfo({ user_id, name, image_path: imagePath }));
@@ -173,9 +181,9 @@ const SettingPage = () => {
         }
     };
 
-    const jobOptions = jobList.map(job => {
+    const jobOptions = jobList.map((job, jobIdx) => {
         return (
-            <option value={job}>{job}</option>
+            <option key={`${job}_${jobIdx}`} value={job}>{job}</option>
         )
     });
 
@@ -192,22 +200,22 @@ const SettingPage = () => {
                         <div className="setting-form controls two-columns">
                             <div className="left-column">
                                 <div className={`form-group form-group-with-icon${name ? ' form-group-focus' : ''}`}>
-                                    <input id="name" type="text" name="name" className="form-control" value={name} onChange={nameChange} />
+                                    <input id="name" type="text" name="name" className="form-control" value={name || undefined} onChange={nameChange} />
                                     <label>NAME</label>
                                     <div className="form-control-border"></div>
                                 </div>
                                 <div className={`form-group form-group-with-icon${email ? ' form-group-focus' : ''}`}>
-                                    <input id="email" type="text" name="email" className={`form-control${!checkEmail ? ' has-error' : ''}`} value={email} onChange={emailChange} />
+                                    <input id="email" type="text" name="email" className={`form-control${!checkEmail ? ' has-error' : ''}`} value={email|| undefined} onChange={emailChange} />
                                     <label>E-MAIL</label>
                                     <div className="form-control-border"></div>
                                 </div>
                                 <div className={`form-group form-group-with-icon${phone ? ' form-group-focus' : ''}`}>
-                                    <input id="phone" type="text" name="phone" className="form-control" value={phone} onChange={phoneChange} />
+                                    <input id="phone" type="text" name="phone" className="form-control" value={phone || undefined} onChange={phoneChange} />
                                     <label>PHONE NUMBER</label>
                                     <div className="form-control-border"></div>
                                 </div>
                                 <div className="form-group form-group-with-icon form-group-focus">
-                                    <select id="job" name="job" className="form-control" defaultValue="Frontend-Engineer" value={job} onChange={jobChange}>
+                                    <select id="job" name="job" className="form-control" value={job || undefined} onChange={jobChange}>
                                         {jobOptions}
                                     </select>
                                     <label>JOB</label>
@@ -219,7 +227,7 @@ const SettingPage = () => {
                                     <div className="form-control-border"></div>
                                 </div>
                                 <div className={`form-group form-group-with-icon${address ? ' form-group-focus' : ''}`}>
-                                    <input id="address" type="text" name="address" className="form-control" value={address} onChange={addressChange} onFocus={addressFocus} />
+                                    <input id="address" type="text" name="address" className="form-control" value={address || undefined} onChange={addressChange} onFocus={addressFocus} />
                                     <label>ADDRESS</label>
                                     <div className="form-control-border"></div>
                                 </div>
@@ -229,7 +237,7 @@ const SettingPage = () => {
                                     <div className="header-photo setting-photo">
                                         <img src={image} alt="user_img" />
                                     </div>
-                                    <input id="photo-img" type="file" className="button btn-primary" accept="image/jpeg, image/gif, image/png" accept-charset="UTF-8" onChange={imageChange} />
+                                    <input id="photo-img" type="file" className="button btn-primary" accept="image/jpeg, image/gif, image/png" onChange={imageChange} />
                                 </div>
                             </div>
                         </div>
