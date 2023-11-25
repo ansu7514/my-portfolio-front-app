@@ -38,7 +38,7 @@ const SideMenu = () => {
                 login &&
                 <>
                     <li onClick={() => menuBtnClick(SideMenuStatus.aboutMe)}>
-                        <a href="#about-me" className="nav-anim">
+                        <a href="#about-me" className={`nav-anim${sideMenuStatus === SideMenuStatus.aboutMe ? ' active' : ''}`}>
                             <span className="menu-icon lnr lnr-user"></span>
                             <span className="link-text">About Me</span>
                         </a>

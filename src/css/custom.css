@@ -9,7 +9,7 @@
 }
 
 .toast_error {
-    color: #ff4b4b;
+    color: #ff4c4c;
 }
 
 .toast_body {
@@ -59,6 +59,21 @@
 .col-center {
     display: flex;
     justify-content: center;
+}
+
+/* about me */
+.aboutme-text {
+    height: 130px;
+}
+
+.aboutme-title-div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.aboutme-title-div p {
+    width: 98%;
+    margin: 0px 10px 0px 0px;
 }
 
 /* setting */
@@ -131,8 +146,23 @@
 }
 
 /* button */
-.btn, .button {
+.btn,
+.button {
     cursor: pointer;
+}
+
+.btn-sm {
+    font-size: 12px;
+    padding: 8px 18px;
+}
+
+.btn-error,
+.btn-error:hover {
+    border-color: #ff4c4c;
+}
+
+.btn-error:hover {
+    background-color: #ff4c4c;
 }
 
 .btn-close {
@@ -154,6 +184,18 @@
 .btn-close button:hover {
     cursor: pointer;
     color: #5e2fd6;
+}
+
+.btn-edit {
+    width: 25px;
+    height: 25px;
+    font-size: 25px;
+}
+
+.btn-edit:hover {
+    cursor: pointer;
+    color: #5e2fd6;
+    transform: rotate(25deg);
 }
 
 input::file-selector-button {

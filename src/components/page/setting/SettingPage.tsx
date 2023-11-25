@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { RootState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
+import { setUserInfo } from "../../../redux/reducer/UserReducer";
 import { FILE_LOAD, USER, USER_UPDATE } from "../../../serverApi";
 import { setPostPopup } from "../../../redux/reducer/PopupReducer";
 
@@ -11,7 +12,6 @@ import Calendar from "react-calendar";
 
 import { SideMenuStatus } from "../../../types/SideMenuType";
 import { Value } from "react-calendar/dist/cjs/shared/types";
-import { setUserInfo } from "../../../redux/reducer/UserReducer";
 
 const jobList = ['JOB', 'Frontend-Engineer', 'Backend-Engineer', 'Designer'];
 
@@ -38,7 +38,7 @@ const SettingPage = () => {
     useEffect(() => {
         if (userInfo?.image_path) {
             if (userInfo.image_path !== 'null') setImage(`${FILE_LOAD}/${userInfo.image_path}`);
-            else setImage('img/main_photo.jpg');
+            else setImage('img/testimonials/testimonial-1.jpg');
         }
     }, []);
 
@@ -137,7 +137,7 @@ const SettingPage = () => {
                 };
             });
         } else {
-            setImage('img/main_photo.jpg');
+            setImage('img/testimonials/testimonial-1.jpg');
         }
     };
 
@@ -206,7 +206,7 @@ const SettingPage = () => {
                                     <div className="form-control-border"></div>
                                 </div>
                                 <div className={`form-group form-group-with-icon${email ? ' form-group-focus' : ''}`}>
-                                    <input id="email" type="text" name="email" className={`form-control${!checkEmail ? ' has-error' : ''}`} value={email|| ""} onChange={emailChange} />
+                                    <input id="email" type="text" name="email" className={`form-control${!checkEmail ? ' has-error' : ''}`} value={email || ""} onChange={emailChange} />
                                     <label>E-MAIL</label>
                                     <div className="form-control-border"></div>
                                 </div>

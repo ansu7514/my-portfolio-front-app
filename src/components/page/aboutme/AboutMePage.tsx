@@ -16,6 +16,7 @@ const AboutMePage = () => {
                     <h2>About <span>Me</span></h2>
                 </div>
                 <AboutMeTitle />
+                <div className="white-space-50"></div>
             </div>
         </section>
     )

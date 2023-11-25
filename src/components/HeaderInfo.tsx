@@ -21,7 +21,7 @@ const HeaderInfo = () => {
         if (!login) setImgSrc('img/main_login.jpg');
         else {
             if (userInfo && userInfo.image_path !== "null") setImgSrc(`${FILE_LOAD}/${userInfo.image_path}`);
-            else setImgSrc('img/main_photo.jpg');
+            else setImgSrc('img/testimonials/testimonial-1.jpg');
         }
     }, [userInfo, login]);
 
