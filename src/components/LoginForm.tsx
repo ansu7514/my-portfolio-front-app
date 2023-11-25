@@ -116,14 +116,14 @@ const LoginForm = () => {
                     const { success, data } = response;
 
                     if (success) {
-                        const { name, email, job, image_path } = data;
+                        const { name, email, phone, job, birth, address, image_path } = data;
 
                         const imagePath = encodeURIComponent(image_path);
 
                         dispatch(setLogin(true));
                         dispatch(setJoinState(false));
                         dispatch(setJoinState(true));
-                        dispatch(setUserInfo({ user_id: id, name, email, job, image_path: imagePath }));
+                        dispatch(setUserInfo({ user_id: id, name, email, phone, job, birth, address, image_path: imagePath }));
 
                         if (!(name && email && job)) dispatch(setSideMenuClick(SideMenuStatus.setting));
                     }

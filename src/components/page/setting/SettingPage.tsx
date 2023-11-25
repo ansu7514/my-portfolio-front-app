@@ -67,7 +67,7 @@ const SettingPage = () => {
                     const { success, data } = response;
 
                     if (success && data) {
-                        const { name, email, phone, birth, address, image_path } = data;
+                        const { name, email, phone, job, birth, address, image_path } = data;
 
                         const birthday = birth !== null ? new Date(birth) : new Date();
                         const imagePath = encodeURIComponent(image_path);
@@ -75,11 +75,12 @@ const SettingPage = () => {
                         setName(name);
                         setEmail(email);
                         setPhone(phone);
+                        setJob(job);
                         setBirth(birthday);
                         setAddress(address);
 
                         if (type === 'update') {
-                            dispatch(setUserInfo({ user_id, name, email, job, image_path: imagePath }));
+                            dispatch(setUserInfo({ user_id, name, email, phone, job, birth, address, image_path: imagePath }));
                         }
                     }
                 });
@@ -200,22 +201,22 @@ const SettingPage = () => {
                         <div className="setting-form controls two-columns">
                             <div className="left-column">
                                 <div className={`form-group form-group-with-icon${name ? ' form-group-focus' : ''}`}>
-                                    <input id="name" type="text" name="name" className="form-control" value={name || undefined} onChange={nameChange} />
+                                    <input id="name" type="text" name="name" className="form-control" value={name || ""} onChange={nameChange} />
                                     <label>NAME</label>
                                     <div className="form-control-border"></div>
                                 </div>
                                 <div className={`form-group form-group-with-icon${email ? ' form-group-focus' : ''}`}>
-                                    <input id="email" type="text" name="email" className={`form-control${!checkEmail ? ' has-error' : ''}`} value={email|| undefined} onChange={emailChange} />
+                                    <input id="email" type="text" name="email" className={`form-control${!checkEmail ? ' has-error' : ''}`} value={email|| ""} onChange={emailChange} />
                                     <label>E-MAIL</label>
                                     <div className="form-control-border"></div>
                                 </div>
                                 <div className={`form-group form-group-with-icon${phone ? ' form-group-focus' : ''}`}>
-                                    <input id="phone" type="text" name="phone" className="form-control" value={phone || undefined} onChange={phoneChange} />
+                                    <input id="phone" type="text" name="phone" className="form-control" value={phone || ""} onChange={phoneChange} />
                                     <label>PHONE NUMBER</label>
                                     <div className="form-control-border"></div>
                                 </div>
                                 <div className="form-group form-group-with-icon form-group-focus">
-                                    <select id="job" name="job" className="form-control" value={job || undefined} onChange={jobChange}>
+                                    <select id="job" name="job" className="form-control" value={job || ""} onChange={jobChange}>
                                         {jobOptions}
                                     </select>
                                     <label>JOB</label>
@@ -227,7 +228,7 @@ const SettingPage = () => {
                                     <div className="form-control-border"></div>
                                 </div>
                                 <div className={`form-group form-group-with-icon${address ? ' form-group-focus' : ''}`}>
-                                    <input id="address" type="text" name="address" className="form-control" value={address || undefined} onChange={addressChange} onFocus={addressFocus} />
+                                    <input id="address" type="text" name="address" className="form-control" value={address || ""} onChange={addressChange} onFocus={addressFocus} />
                                     <label>ADDRESS</label>
                                     <div className="form-control-border"></div>
                                 </div>

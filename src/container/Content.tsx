@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
-import HomePage from "../components/page/HomePage";
-import SettingPage from "../components/page/SettingPage";
+import HomePage from "../components/page/home/HomePage";
+import SettingPage from "../components/page/setting/SettingPage";
+import AboutMePage from "../components/page/aboutme/AboutMePage";
 
 const Content = () => {
     const login = useSelector((state: RootState) => state.user.login);
@@ -15,6 +16,7 @@ const Content = () => {
                     <>
                         <HomePage />
                         <SettingPage />
+                        <AboutMePage />
                     </>
                 }
                 {
