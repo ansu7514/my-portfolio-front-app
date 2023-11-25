@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { RootState } from "../../../redux/store";
 
-import { SideMenuStatus } from "../../types/SideMenuType";
-import { UserTableType } from "../../types/DB/UserTableType";
+import { SideMenuStatus } from "../../../types/SideMenuType";
+import { UserTableType } from "../../../types/DB/UserTableType";
 
 const HomePage = () => {
     const { name, job } = useSelector((state: RootState) => state.user.info) as UserTableType;

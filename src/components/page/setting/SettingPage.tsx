@@ -1,17 +1,17 @@
 /* eslint-disable no-useless-escape */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
-import { RootState } from "../../redux/store";
+import { RootState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { FILE_LOAD, USER, USER_UPDATE } from "../../serverApi";
-import { setPostPopup } from "../../redux/reducer/PopupReducer";
+import { FILE_LOAD, USER, USER_UPDATE } from "../../../serverApi";
+import { setPostPopup } from "../../../redux/reducer/PopupReducer";
 
-import Alert from "../Alert";
+import Alert from "../../Alert";
 import Calendar from "react-calendar";
 
-import { SideMenuStatus } from "../../types/SideMenuType";
+import { SideMenuStatus } from "../../../types/SideMenuType";
 import { Value } from "react-calendar/dist/cjs/shared/types";
-import { setUserInfo } from "../../redux/reducer/UserReducer";
+import { setUserInfo } from "../../../redux/reducer/UserReducer";
 
 const jobList = ['JOB', 'Frontend-Engineer', 'Backend-Engineer', 'Designer'];
 
