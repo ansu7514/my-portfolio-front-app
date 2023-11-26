@@ -1,4 +1,4 @@
-import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
 import Header from './container/Header';
 import Content from './container/Content';
@@ -17,7 +17,7 @@ import './css/custom.css';
 
 const App = () => {
     return (
-        <>
+        <BrowserRouter>
             <div className="lm-animated-bg" style={{ backgroundImage: 'url(img/main_bg.png)' }}></div>
             <div className="page">
                 <div className="page-content">
@@ -25,10 +25,10 @@ const App = () => {
                     <Content />
 
                     <Toaster />
-                    <PopupList/>
+                    <PopupList />
                 </div>
             </div>
-        </>
+        </BrowserRouter>
     );
 }
 

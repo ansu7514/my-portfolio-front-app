@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { Route, Routes } from "react-router-dom";
 
 import HomePage from "../components/page/home/HomePage";
-import SettingPage from "../components/page/setting/SettingPage";
 import AboutMePage from "../components/page/aboutme/AboutMePage";
+import SettingPage from "../components/page/setting/SettingPage";
 
 const Content = () => {
     const login = useSelector((state: RootState) => state.user.login);
@@ -11,21 +12,26 @@ const Content = () => {
     return (
         <div className="content-area">
             <div className="animated-sections">
-                {
-                    login &&
-                    <>
-                        <HomePage />
-                        <SettingPage />
-                        <AboutMePage />
-                    </>
-                }
-                {
-                    !login &&
-                    <section className="animated-section start-page section-active">
-                        <div className="section-content vcentered">
-                        </div>
-                    </section>
-                }
+                <Routes>
+                    {
+                        login &&
+                        <>
+                            <Route path="/home" element={<HomePage />}></Route>
+                            <Route path="/aboutme" element={<AboutMePage />}></Route>
+                            <Route path="/setting" element={<SettingPage />}></Route>
+                        </>
+                    }
+                    {
+                        !login &&
+                        <Route path="/" element={
+                            <section className="animated-section start-page section-active">
+                                <div className="section-content vcentered">
+                                </div>
+                            </section>
+                        }>
+                        </Route>
+                    }
+                </Routes>
             </div>
         </div>
     )

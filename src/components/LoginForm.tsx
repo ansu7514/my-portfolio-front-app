@@ -1,5 +1,6 @@
 import { RootState } from "../redux/store";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { USER_CHECK, USER_CREATE, USER_LOGIN } from "../serverApi";
 import { setSideMenuClick } from "../redux/reducer/SideMenuReducer";
@@ -13,6 +14,7 @@ let debounce: null | NodeJS.Timeout = null;
 
 const LoginForm = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const { joinState } = useSelector((state: RootState) => state.user);
 
@@ -125,7 +127,13 @@ const LoginForm = () => {
                         dispatch(setJoinState(true));
                         dispatch(setUserInfo({ user_id: id, name, email, phone, job, birth, address, image_path: imagePath }));
 
-                        if (!(name && email && job)) dispatch(setSideMenuClick(SideMenuStatus.setting));
+                        if (!(name && email && job)) {
+                            navigate('setting');
+                            dispatch(setSideMenuClick(SideMenuStatus.setting));
+                        } else {
+                            navigate('home');
+                            dispatch(setSideMenuClick(SideMenuStatus.home));
+                        }
                     }
                 });
         } catch (error) {

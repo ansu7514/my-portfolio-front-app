@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setJoinState } from "../../redux/reducer/UserReducer";
@@ -29,19 +30,19 @@ const SideMenu = () => {
     return (
         <ul className="main-menu">
             <li onClick={() => menuBtnClick(SideMenuStatus.home)}>
-                <a href="#home" className={`nav-anim${sideMenuStatus === SideMenuStatus.home ? ' active' : ''}`}>
+                <Link to={!login ? "/" : "/home"} className={`nav-anim${sideMenuStatus === SideMenuStatus.home ? ' active' : ''}`}>
                     <span className="menu-icon lnr lnr-home"></span>
                     <span className="link-text">Home</span>
-                </a>
+                </Link>
             </li>
             {
                 login &&
                 <>
                     <li onClick={() => menuBtnClick(SideMenuStatus.aboutMe)}>
-                        <a href="#about-me" className={`nav-anim${sideMenuStatus === SideMenuStatus.aboutMe ? ' active' : ''}`}>
+                        <Link to="aboutme" className={`nav-anim${sideMenuStatus === SideMenuStatus.aboutMe ? ' active' : ''}`}>
                             <span className="menu-icon lnr lnr-user"></span>
                             <span className="link-text">About Me</span>
-                        </a>
+                        </Link>
                     </li>
                     <li>
                         <a href="#resume" className="nav-anim">
@@ -68,10 +69,10 @@ const SideMenu = () => {
                         </a>
                     </li>
                     <li onClick={() => menuBtnClick(SideMenuStatus.setting)}>
-                        <a href="#setting" className={`nav-anim${sideMenuStatus === SideMenuStatus.setting ? ' active' : ''}`}>
+                        <Link to="/setting" className={`nav-anim${sideMenuStatus === SideMenuStatus.setting ? ' active' : ''}`}>
                             <span className="menu-icon lnr lnr-cog"></span>
                             <span className="link-text">Setting</span>
-                        </a>
+                        </Link>
                     </li>
                 </>
             }
