@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { RootState } from "../../../redux/store";
+import { ABOUT_ME, ABOUT_ME_UPDATE } from "../../../serverApi";
+
+import Alert from "../../Alert";
 
 import { UserTableType } from "../../../types/DB/UserTableType";
-import { ABOUT_ME } from "../../../serverApi";
 
 const AboutMeTitle = () => {
     const { user_id, name, email, phone, birth, address } = useSelector((state: RootState) => state.user.info) as UserTableType;
@@ -31,9 +33,9 @@ const AboutMeTitle = () => {
                 { method: 'get', headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
             ).then(res => res.json())
                 .then(resopnse => {
-                    const { sucess, data } = resopnse;
+                    const { success, data } = resopnse;
 
-                    if (sucess) {
+                    if (success) {
                         const { title } = data;
 
                         setTitle(title);
@@ -48,13 +50,32 @@ const AboutMeTitle = () => {
         setTitle(e.target.value);
     };
 
-    const saveBtnClick = () => {
-        setEdit(false);
+    const saveBtnClick = async () => {
+        if (!title) {
+            Alert({ toast: true, confirm: false, error: false, title: '', desc: '📝 자기소개를 작성해주세요', position: "bottom-center" });
+            return false;
+        }
 
+        try {
+            await fetch(
+                ABOUT_ME_UPDATE,
+                { method: 'post', body: JSON.stringify({ title, user_id }), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+            ).then(res => res.json())
+                .then(resopnse => {
+                    const { success } = resopnse;
+
+                    if (success) {
+                        setEdit(false);
+                        Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 자기소개를 저장했습니다', position: "bottom-center" });
+                    }
+                });
+        } catch (error) {
+            console.error(error);
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 자기소개 저장에 실패했습니다', position: "bottom-center" });
+        }
     };
 
     const closeBtnClick = () => {
-        setTitle('');
         setEdit(false);
     };
 

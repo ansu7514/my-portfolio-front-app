@@ -9,6 +9,7 @@ export const USER_UPDATE = `http://${LOCAL_SERVER_DOMAIN}/api/user/update`;
 
 // about me
 export const ABOUT_ME = `http://${LOCAL_SERVER_DOMAIN}/api/aboutme`;
+export const ABOUT_ME_UPDATE = `http://${LOCAL_SERVER_DOMAIN}/api/aboutme/update`;
 
 // file
 export const FILE_LOAD = `http://${LOCAL_SERVER_DOMAIN}/api/file/load`;
