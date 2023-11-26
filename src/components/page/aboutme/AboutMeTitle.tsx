@@ -18,8 +18,16 @@ const AboutMeTitle = () => {
         }
     }, [birth]);
 
-    const titleChange = (e: React.TextareaHTMLAttributes<HTMLTextAreaElement>) => {
-        // setTItle(e);
+    const titleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setTItle(e.target.value);
+    };
+
+    const saveBtnClick = () => {
+        closeBtnClick();
+    };
+
+    const closeBtnClick = () => {
+        setEdit(false);
     };
 
     const editBtnClick = () => {
@@ -30,23 +38,25 @@ const AboutMeTitle = () => {
         <div className="aboutme-title-con row">
             {
                 edit &&
-                <div className="col-xs-12 col-sm-7">
+                <div className="col-xs-12 col-sm-7 aboutme-title-show">
                     <div className={`form-group form-group-with-icon aboutme-text${title ? ' form-group-focus' : ''}`}>
-                        <textarea id="aboutme_title" name="aboutme_title" className="form-control" value={title || ""} />
-                        <div className="form-control-border"></div>
+                        <textarea id="aboutme_title" name="aboutme_title" className="form-control aboutme-textarea" value={title || ""} placeholder="자기소개를 작성해주세요📝" onChange={titleChange} />
+                        <div className="form-control-border aboutme-textarea"></div>
                     </div>
-                    <div className="aboutme-title-div">
-                        <button className="button btn-sm btn-primary" onClick={editBtnClick}>SAVE</button>
-                        <button className="button btn-sm btn-error" onClick={editBtnClick}>CLOSE</button>
+                    <div className="aboutme-title-btn-wrap">
+                        <button className="button btn-sm btn-primary" onClick={saveBtnClick}>SAVE</button>
+                        <button className="button btn-sm btn-error" onClick={closeBtnClick}>CLOSE</button>
                     </div>
                 </div>
             }
             {
                 !edit &&
-                <div className="col-xs-12 col-sm-7 aboutme-title-div">
-                    <p>{title}</p>
-                    <div className="ci-icon btn-edit" onClick={editBtnClick}>
-                        <i className="lnr lnr-cog"></i>
+                <div className="col-xs-12 col-sm-7 aboutme-title-edit">
+                    {
+                        title ? <p>{title}</p> : <p style={{ color: '#d5d5d5' }}>자기소개를 작성해주세요📝</p>
+                    }
+                    <div className="aboutme-title-btn-wrap">
+                        <button className="button btn-sm btn-secondary" onClick={editBtnClick}>EDIT</button>
                     </div>
                 </div>
             }

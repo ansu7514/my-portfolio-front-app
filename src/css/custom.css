@@ -66,13 +66,26 @@
     height: 130px;
 }
 
-.aboutme-title-div {
+.aboutme-textarea {
+    resize: none;
+    height: 145px !important;
+}
+
+.aboutme-title-edit {
+    display: flex;
+    flex-direction: column;
+}
+
+.aboutme-title-edit p {
+    height: 145px;
+}
+
+.aboutme-title-btn-wrap {
     display: flex;
     justify-content: flex-end;
 }
 
-.aboutme-title-div p {
-    width: 98%;
+.aboutme-title-btn-wrap p {
     margin: 0px 10px 0px 0px;
 }
 
@@ -161,7 +174,9 @@
     border-color: #ff4c4c;
 }
 
-.btn-error:hover {
+.btn-error:hover,
+.btn-error:active,
+.btn-error:focus {
     background-color: #ff4c4c;
 }
 
