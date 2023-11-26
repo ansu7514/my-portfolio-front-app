@@ -76,8 +76,11 @@
     flex-direction: column;
 }
 
-.aboutme-title-edit p {
+.aboutme-title-edit pre {
+    width: 100%;
     height: 145px;
+    white-space: pre-wrap;
+    font-family: 'Poppins', Helvetica, sans-serif;
 }
 
 .aboutme-title-btn-wrap {
@@ -85,7 +88,7 @@
     justify-content: flex-end;
 }
 
-.aboutme-title-btn-wrap p {
+.aboutme-title-btn-wrap pre {
     margin: 0px 10px 0px 0px;
 }
 

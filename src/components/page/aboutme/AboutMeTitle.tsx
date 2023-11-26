@@ -1,15 +1,21 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 
 import { UserTableType } from "../../../types/DB/UserTableType";
+import { ABOUT_ME } from "../../../serverApi";
 
 const AboutMeTitle = () => {
-    const { name, email, phone, birth, address } = useSelector((state: RootState) => state.user.info) as UserTableType;
+    const { user_id, name, email, phone, birth, address } = useSelector((state: RootState) => state.user.info) as UserTableType;
 
     const [age, setAge] = useState('unknown');
     const [edit, setEdit] = useState(false);
-    const [title, setTItle] = useState('');
+    const [title, setTitle] = useState('');
+
+    useEffect(() => {
+        getAboutMe();
+    }, []);
 
     useEffect(() => {
         if (birth && birth !== null) {
@@ -18,15 +24,37 @@ const AboutMeTitle = () => {
         }
     }, [birth]);
 
+    const getAboutMe = async () => {
+        try {
+            await fetch(
+                `${ABOUT_ME}/:${user_id}`,
+                { method: 'get', headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+            ).then(res => res.json())
+                .then(resopnse => {
+                    const { sucess, data } = resopnse;
+
+                    if (sucess) {
+                        const { title } = data;
+
+                        setTitle(title);
+                    }
+                });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     const titleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setTItle(e.target.value);
+        setTitle(e.target.value);
     };
 
     const saveBtnClick = () => {
-        closeBtnClick();
+        setEdit(false);
+
     };
 
     const closeBtnClick = () => {
+        setTitle('');
         setEdit(false);
     };
 
@@ -40,7 +68,7 @@ const AboutMeTitle = () => {
                 edit &&
                 <div className="col-xs-12 col-sm-7 aboutme-title-show">
                     <div className={`form-group form-group-with-icon aboutme-text${title ? ' form-group-focus' : ''}`}>
-                        <textarea id="aboutme_title" name="aboutme_title" className="form-control aboutme-textarea" value={title || ""} placeholder="자기소개를 작성해주세요📝" onChange={titleChange} />
+                        <textarea id="aboutme_title" name="aboutme_title" className="form-control aboutme-textarea" wrap="hard" value={title || ""} placeholder="자기소개를 작성해주세요📝" onChange={titleChange} />
                         <div className="form-control-border aboutme-textarea"></div>
                     </div>
                     <div className="aboutme-title-btn-wrap">
@@ -53,7 +81,7 @@ const AboutMeTitle = () => {
                 !edit &&
                 <div className="col-xs-12 col-sm-7 aboutme-title-edit">
                     {
-                        title ? <p>{title}</p> : <p style={{ color: '#d5d5d5' }}>자기소개를 작성해주세요📝</p>
+                        title ? <pre>{title}</pre> : <pre style={{ color: '#d5d5d5' }}>자기소개를 작성해주세요📝</pre>
                     }
                     <div className="aboutme-title-btn-wrap">
                         <button className="button btn-sm btn-secondary" onClick={editBtnClick}>EDIT</button>

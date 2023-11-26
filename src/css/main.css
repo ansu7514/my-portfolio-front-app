@@ -100,7 +100,7 @@ a {
   transition: all 0.3s ease-in-out;
 }
 
-p {
+p, pre {
   margin-bottom: 10px;
 }
 
