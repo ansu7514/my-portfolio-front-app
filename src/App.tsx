@@ -1,4 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { BrowserRouter } from 'react-router-dom';
+import { setLogin, setUserInfo } from "./redux/reducer/UserReducer";
 
 import Header from './container/Header';
 import Content from './container/Content';
@@ -16,6 +20,19 @@ import './css/main.css';
 import './css/custom.css';
 
 const App = () => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const userInfo = localStorage.getItem('userInfo');
+
+        if (userInfo && userInfo !== null) {
+            const { login, info } = JSON.parse(userInfo);
+
+            dispatch(setLogin(login));
+            dispatch(setUserInfo(info));
+        }
+    }, []);
+
     return (
         <BrowserRouter>
             <div className="lm-animated-bg" style={{ backgroundImage: 'url(img/main_bg.png)' }}></div>

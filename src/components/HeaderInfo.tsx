@@ -1,5 +1,6 @@
 import { FILE_LOAD } from "../serverApi";
 import { RootState } from "../redux/store";
+import { useNavigate } from "react-router-dom";
 import { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setSideMenuClick } from "../redux/reducer/SideMenuReducer";
@@ -11,6 +12,7 @@ import { SideMenuStatus } from "../types/SideMenuType";
 
 const HeaderInfo = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const login = useSelector((state: RootState) => state.user.login);
     const userInfo = useSelector((state: RootState) => state.user.info);
@@ -30,6 +32,9 @@ const HeaderInfo = () => {
         dispatch(setUserInfo(null));
         dispatch(setJoinState(false));
         dispatch(setSideMenuClick(SideMenuStatus.home));
+
+        navigate('/');
+        localStorage.setItem('userInfo', JSON.stringify({ login: false, info: null, joinState: false }));
     };
 
     return (
