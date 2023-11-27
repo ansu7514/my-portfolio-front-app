@@ -63,17 +63,19 @@
 
 /* about me */
 .aboutme-text {
-    height: 130px;
+    height: 100%;
 }
 
 .aboutme-textarea {
     resize: none;
-    height: 145px !important;
+    height: 100%;
 }
 
+.aboutme-title-show,
 .aboutme-title-edit {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
 .aboutme-title-edit pre {
@@ -88,8 +90,17 @@
     justify-content: flex-end;
 }
 
+.aboutme-title-btn-wrap button {
+    margin-bottom: 0px;
+}
+
 .aboutme-title-btn-wrap pre {
     margin: 0px 10px 0px 0px;
+}
+
+.what-i-do-title {
+    display: flex;
+    justify-content: space-between;
 }
 
 /* setting */
@@ -168,6 +179,7 @@
 }
 
 .btn-sm {
+    height: 35px;
     font-size: 12px;
     padding: 8px 18px;
 }

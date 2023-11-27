@@ -1,8 +1,10 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 
-import { SideMenuStatus } from "../../../types/SideMenuType";
+import AboutMeIDo from "./AboutMeIDo";
 import AboutMeTitle from "./AboutMeTitle";
+
+import { SideMenuStatus } from "../../../types/SideMenuType";
 
 const AboutMePage = () => {
     const sideMenuStatus = useSelector((state: RootState) => state.sideMenu.sideMenuStatus);
@@ -12,11 +14,9 @@ const AboutMePage = () => {
     return (
         <section data-id="about-me" className={sectionClassName}>
             <div className="section-content">
-                <div className="page-title">
-                    <h2>About <span>Me</span></h2>
-                </div>
                 <AboutMeTitle />
                 <div className="white-space-50"></div>
+                <AboutMeIDo />
             </div>
         </section>
     )

@@ -84,59 +84,64 @@ const AboutMeTitle = () => {
     };
 
     return (
-        <div className="aboutme-title-con row">
-            {
-                edit &&
-                <div className="col-xs-12 col-sm-7 aboutme-title-show">
-                    <div className={`form-group form-group-with-icon aboutme-text${title ? ' form-group-focus' : ''}`}>
-                        <textarea id="aboutme_title" name="aboutme_title" className="form-control aboutme-textarea" wrap="hard" value={title || ""} placeholder="자기소개를 작성해주세요📝" onChange={titleChange} />
-                        <div className="form-control-border aboutme-textarea"></div>
+        <>
+            <div className="page-title">
+                <h2>About <span>Me</span></h2>
+            </div>
+            <div className="aboutme-title-con row" style={{ height: '210px' }}>
+                {
+                    edit &&
+                    <div className="col-xs-12 col-sm-7 aboutme-title-show">
+                        <div className={`form-group form-group-with-icon aboutme-text${title ? ' form-group-focus' : ''}`}>
+                            <textarea id="aboutme_title" name="aboutme_title" className="form-control aboutme-textarea" wrap="hard" value={title || ""} placeholder="자기소개를 작성해주세요📝" onChange={titleChange} />
+                            <div className="form-control-border aboutme-textarea"></div>
+                        </div>
+                        <div className="aboutme-title-btn-wrap">
+                            <button className="button btn-sm btn-primary" onClick={saveBtnClick}>SAVE</button>
+                            <button className="button btn-sm btn-error" onClick={closeBtnClick}>CLOSE</button>
+                        </div>
                     </div>
-                    <div className="aboutme-title-btn-wrap">
-                        <button className="button btn-sm btn-primary" onClick={saveBtnClick}>SAVE</button>
-                        <button className="button btn-sm btn-error" onClick={closeBtnClick}>CLOSE</button>
+                }
+                {
+                    !edit &&
+                    <div className="col-xs-12 col-sm-7 aboutme-title-edit">
+                        {
+                            title ? <pre>{title}</pre> : <pre style={{ color: '#d5d5d5' }}>자기소개를 작성해주세요📝</pre>
+                        }
+                        <div className="aboutme-title-btn-wrap">
+                            <button className="button btn-sm btn-secondary" onClick={editBtnClick}>EDIT</button>
+                        </div>
                     </div>
-                </div>
-            }
-            {
-                !edit &&
-                <div className="col-xs-12 col-sm-7 aboutme-title-edit">
-                    {
-                        title ? <pre>{title}</pre> : <pre style={{ color: '#d5d5d5' }}>자기소개를 작성해주세요📝</pre>
-                    }
-                    <div className="aboutme-title-btn-wrap">
-                        <button className="button btn-sm btn-secondary" onClick={editBtnClick}>EDIT</button>
-                    </div>
-                </div>
-            }
-            <div className="col-xs-12 col-sm-5">
-                <div className="info-list">
-                    <ul>
-                        <li>
-                            <span className="title">Name</span>
-                            <span className="value">{name}</span>
-                        </li>
-                        <li>
-                            <span className="title">Age</span>
-                            <span className="value">{age}</span>
-                        </li>
-                        <li>
-                            <span className="title">Address</span>
-                            <span className="value">{address || 'unknown'}</span>
-                        </li>
-                        <li>
-                            <span className="title">e-mail</span>
-                            <span className="value">{email}</span>
-                        </li>
+                }
+                <div className="col-xs-12 col-sm-5">
+                    <div className="info-list">
+                        <ul>
+                            <li>
+                                <span className="title">Name</span>
+                                <span className="value">{name}</span>
+                            </li>
+                            <li>
+                                <span className="title">Age</span>
+                                <span className="value">{age}</span>
+                            </li>
+                            <li>
+                                <span className="title">Address</span>
+                                <span className="value">{address || 'unknown'}</span>
+                            </li>
+                            <li>
+                                <span className="title">e-mail</span>
+                                <span className="value">{email}</span>
+                            </li>
 
-                        <li>
-                            <span className="title">Phone</span>
-                            <span className="value">{phone}</span>
-                        </li>
-                    </ul>
+                            <li>
+                                <span className="title">Phone</span>
+                                <span className="value">{phone}</span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
+        </>
     )
 };
 
