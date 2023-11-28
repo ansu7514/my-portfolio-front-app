@@ -1,14 +1,14 @@
 import { useDispatch } from "react-redux";
-import DaumPostCode from "react-daum-postcode";
 import { setPostPopup } from "../../redux/reducer/PopupReducer";
 import { setPostData } from "../../redux/reducer/PopupDataReducer";
+
+import DaumPostCode from "react-daum-postcode";
 
 const PostPopup = () => {
     const dispatch = useDispatch();
 
     const closeBtnClick = () => {
         dispatch(setPostPopup(false));
-
     };
 
     const handleComplete = (data: any) => {

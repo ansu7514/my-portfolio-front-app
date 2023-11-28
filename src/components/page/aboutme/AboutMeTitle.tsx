@@ -93,7 +93,7 @@ const AboutMeTitle = () => {
                     edit &&
                     <div className="col-xs-12 col-sm-7 aboutme-title-show">
                         <div className={`form-group form-group-with-icon aboutme-text${title ? ' form-group-focus' : ''}`}>
-                            <textarea id="aboutme_title" name="aboutme_title" className="form-control aboutme-textarea" wrap="hard" value={title || ""} placeholder="자기소개를 작성해주세요📝" onChange={titleChange} />
+                            <textarea id="aboutme_title" name="aboutme_title" className="form-control aboutme-textar ea" wrap="hard" value={title || ""} placeholder="자기소개를 작성해주세요📝" onChange={titleChange} />
                             <div className="form-control-border aboutme-textarea"></div>
                         </div>
                         <div className="aboutme-title-btn-wrap">

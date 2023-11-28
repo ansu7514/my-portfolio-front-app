@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 
-import AboutMeIDo from "./AboutMeIDo";
 import AboutMeTitle from "./AboutMeTitle";
+import AboutMeTechStack from "./AboutMeTechStack";
 
 import { SideMenuStatus } from "../../../types/SideMenuType";
 
@@ -16,7 +16,7 @@ const AboutMePage = () => {
             <div className="section-content">
                 <AboutMeTitle />
                 <div className="white-space-50"></div>
-                <AboutMeIDo />
+                <AboutMeTechStack />
             </div>
         </section>
     )

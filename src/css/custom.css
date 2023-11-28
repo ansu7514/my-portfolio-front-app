@@ -68,7 +68,7 @@
 
 .aboutme-textarea {
     resize: none;
-    height: 100%;
+    height: 100% !important;
 }
 
 .aboutme-title-show,
@@ -167,6 +167,8 @@
     background-color: #5e2fd6;
 }
 
+/* popup */
+.techstack-popup,
 .post-popup {
     width: 800px !important;
     height: 550px !important;
