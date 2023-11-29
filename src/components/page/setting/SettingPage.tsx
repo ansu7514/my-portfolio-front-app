@@ -13,7 +13,7 @@ import Calendar from "react-calendar";
 import { SideMenuStatus } from "../../../types/SideMenuType";
 import { Value } from "react-calendar/dist/cjs/shared/types";
 
-const jobList = ['JOB', 'Frontend-Engineer', 'Backend-Engineer', 'Designer'];
+export const jobList = ['JOB', 'Frontend-Engineer', 'Backend-Engineer', 'Designer'];
 
 const SettingPage = () => {
     const dispatch = useDispatch();

@@ -4,11 +4,17 @@ import { Toast, toast as ToastDiv } from "react-hot-toast";
 const Alert = (props: AlertPropsType) => {
     const { toast, confirm, error, title, desc, position, checkClick, closeClick } = props;
 
+    const toast_bg = document.querySelector(".toast_bg");
+    if (!toast) {
+        toast_bg?.classList.add('active');
+    }
+    
     const closeToast = (t: Toast) => {
         if (closeClick !== undefined) {
             closeClick();
         }
 
+        toast_bg?.classList.remove('active');
         ToastDiv.dismiss(t.id);
     };
 

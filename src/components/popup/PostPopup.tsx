@@ -35,7 +35,7 @@ const PostPopup = () => {
                     <div className="btn-close">
                         <button type="button" onClick={closeBtnClick}>×</button>
                     </div>
-                    <DaumPostCode className="portfolio-item-img post-popup" onComplete={handleComplete} />
+                    <DaumPostCode className="portfolio-item-img popup-con" onComplete={handleComplete} />
                 </div>
             </div>
         </div>

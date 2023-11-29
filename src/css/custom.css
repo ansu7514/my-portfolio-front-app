@@ -1,4 +1,13 @@
 /* Toast */
+.toast_bg {
+    visibility: hidden;
+}
+
+.toast_bg.active {
+    z-index: 2000;
+    visibility: initial;
+}
+
 .toat_container {
     display: felx;
     flex-direction: column;
@@ -168,8 +177,26 @@
 }
 
 /* popup */
-.techstack-popup,
-.post-popup {
+.tech-popup {
+    height: 620px;
+}
+
+.tech-popup>div {
+    height: 100%;
+}
+
+.tech-div {
+    height: 280px;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.tech-div:hover,
+.tech-div.active {
+    border: 3px solid #5e2fd6;
+}
+
+.popup-con {
     width: 800px !important;
     height: 550px !important;
 }

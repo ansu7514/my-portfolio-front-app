@@ -41,6 +41,7 @@ const App = () => {
                     <Header />
                     <Content />
 
+                    <div className="mfp-bg mfp-fade mfp-ready toast_bg"></div>
                     <Toaster />
                     <PopupList />
                 </div>

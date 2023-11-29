@@ -25,8 +25,8 @@ const PopupList = () => {
     return (
         <>
             {backGround && <div className="mfp-bg mfp-fade mfp-ready"></div>}
-            {postPopup && <PostPopup />}
             {techStackPopup && <TechStackPopup />}
+            {postPopup && <PostPopup />}
         </>
 
     )
