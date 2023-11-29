@@ -3,12 +3,12 @@ import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
 import { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { resetUser } from "../redux/reducer/UserReducer";
 import { setSideMenuClick } from "../redux/reducer/SideMenuReducer";
-import { setJoinState, setLogin, setUserInfo } from "../redux/reducer/UserReducer";
 
 import LoginForm from "./LoginForm";
 
-import { SideMenuStatus } from "../types/SideMenuType";
+import { SideMenuStatus } from "../SideMenuType";
 
 const HeaderInfo = () => {
     const dispatch = useDispatch();
@@ -28,9 +28,7 @@ const HeaderInfo = () => {
     }, [userInfo, login]);
 
     const logoutBtnClick = () => {
-        dispatch(setLogin(false));
-        dispatch(setUserInfo(null));
-        dispatch(setJoinState(false));
+        dispatch(resetUser());
         dispatch(setSideMenuClick(SideMenuStatus.home));
 
         navigate('/');

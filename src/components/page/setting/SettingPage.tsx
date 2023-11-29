@@ -10,7 +10,7 @@ import { setPostPopup } from "../../../redux/reducer/PopupReducer";
 import Alert from "../../Alert";
 import Calendar from "react-calendar";
 
-import { SideMenuStatus } from "../../../types/SideMenuType";
+import { SideMenuStatus } from "../../../SideMenuType";
 import { Value } from "react-calendar/dist/cjs/shared/types";
 
 export const jobList = ['JOB', 'Frontend-Engineer', 'Backend-Engineer', 'Designer'];

@@ -1,23 +1,19 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { RootState } from "../../../redux/store";
-import { ABOUT_ME, ABOUT_ME_UPDATE } from "../../../serverApi";
+import { ABOUT_ME_UPDATE } from "../../../serverApi";
 
 import Alert from "../../Alert";
 
+import { AboutMeTitleProps } from "../../../AboutMeType";
 import { UserTableType } from "../../../types/DB/UserTableType";
 
-const AboutMeTitle = () => {
+const AboutMeTitle = (props: AboutMeTitleProps) => {
+    const { title, setTitle } = props;
     const { user_id, name, email, phone, birth, address } = useSelector((state: RootState) => state.user.info) as UserTableType;
 
     const [age, setAge] = useState('unknown');
     const [edit, setEdit] = useState(false);
-    const [title, setTitle] = useState('');
-
-    useEffect(() => {
-        getAboutMe();
-    }, []);
 
     useEffect(() => {
         if (birth && birth !== null) {
@@ -25,26 +21,6 @@ const AboutMeTitle = () => {
             setAge(String(getAge));
         }
     }, [birth]);
-
-    const getAboutMe = async () => {
-        try {
-            await fetch(
-                `${ABOUT_ME}/:${user_id}`,
-                { method: 'get', headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
-            ).then(res => res.json())
-                .then(resopnse => {
-                    const { success, data } = resopnse;
-
-                    if (success) {
-                        const { title } = data;
-
-                        setTitle(title);
-                    }
-                });
-        } catch (error) {
-            console.error(error);
-        }
-    };
 
     const titleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setTitle(e.target.value);
@@ -67,6 +43,8 @@ const AboutMeTitle = () => {
                     if (success) {
                         setEdit(false);
                         Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 자기소개를 저장했습니다', position: "bottom-center" });
+                    } else {
+                        Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 자기소개 저장에 실패했습니다', position: "bottom-center" });
                     }
                 });
         } catch (error) {

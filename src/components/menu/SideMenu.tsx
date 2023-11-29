@@ -6,7 +6,7 @@ import { setSideMenuClick } from "../../redux/reducer/SideMenuReducer";
 
 import Alert from "../Alert";
 
-import { SideMenuStatus } from "../../types/SideMenuType";
+import { SideMenuStatus } from "../../SideMenuType";
 
 const SideMenu = () => {
     const dispatch = useDispatch();

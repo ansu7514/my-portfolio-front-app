@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 
-import { SideMenuStatus } from "../../../types/SideMenuType";
+import { SideMenuStatus } from "../../../SideMenuType";
 import { UserTableType } from "../../../types/DB/UserTableType";
 
 const HomePage = () => {

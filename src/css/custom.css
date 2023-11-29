@@ -178,7 +178,7 @@
 
 /* popup */
 .tech-popup {
-    height: 620px;
+    height: 647px;
 }
 
 .tech-popup>div {
@@ -196,7 +196,12 @@
     border: 3px solid #5e2fd6;
 }
 
-.popup-con {
+.tech-popup-con {
+    width: 800px !important;
+    height: 100%;
+}
+
+.post-popup-con {
     width: 800px !important;
     height: 550px !important;
 }
