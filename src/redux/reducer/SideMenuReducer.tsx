@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
-import { SideMenuStatus } from '../../SideMenuType';
+import { SideMenuStatus } from '../../types/SideMenuType';
 
 export interface SideMenuStateType {
     sideMenuStatus: SideMenuStatus

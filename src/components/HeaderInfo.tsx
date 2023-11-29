@@ -8,7 +8,7 @@ import { setSideMenuClick } from "../redux/reducer/SideMenuReducer";
 
 import LoginForm from "./LoginForm";
 
-import { SideMenuStatus } from "../SideMenuType";
+import { SideMenuStatus } from "../types/SideMenuType";
 
 const HeaderInfo = () => {
     const dispatch = useDispatch();

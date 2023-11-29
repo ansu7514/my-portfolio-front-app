@@ -8,7 +8,7 @@ import { setTechStack } from "../../../redux/reducer/UserReducer";
 import AboutMeTitle from "./AboutMeTitle";
 import AboutMeTechStack from "./AboutMeTechStack";
 
-import { SideMenuStatus } from "../../../SideMenuType";
+import { SideMenuStatus } from "../../../types/SideMenuType";
 
 const AboutMePage = () => {
     const dispatch = useDispatch();

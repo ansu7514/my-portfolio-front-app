@@ -8,7 +8,7 @@ import { setJoinState, setLogin, setUserInfo } from "../redux/reducer/UserReduce
 
 import Alert from "./Alert";
 
-import { SideMenuStatus } from "../SideMenuType";
+import { SideMenuStatus } from "../types/SideMenuType";
 
 let debounce: null | NodeJS.Timeout = null;
 

@@ -17,7 +17,7 @@ export const designTechs = ['HTML', 'Css', 'Scss', 'Figma', 'PhotoShop', 'Illust
 const TechStackPopup = () => {
     const dispatch = useDispatch();
 
-    const techStack = useSelector((state: RootState) => state.user.techStack) as Array<string>;
+    const techStack = useSelector((state: RootState) => state.user.techStack) || [];
     const { user_id, job } = useSelector((state: RootState) => state.user.info) as UserTableType;
 
     const [techList, setTechList] = useState<Array<string>>([]);
@@ -57,7 +57,7 @@ const TechStackPopup = () => {
 
         return (
             <div key={`tech_div_${tech}`} className="col-xs-12 col-sm-4" onClick={techClick}>
-                <div className={`fun-fact gray-default tech-div${divClassName}`}>
+                <div className={`fun-fact gray-default tech-popup-div${divClassName}`}>
                     <img src={`img/techlogo/${tech}.png`} alt={tech} />
                     <h4>{tech}</h4>
                     <span className="fun-fact-block-text"></span>

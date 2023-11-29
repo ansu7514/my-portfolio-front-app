@@ -5,7 +5,7 @@ import { ABOUT_ME_UPDATE } from "../../../serverApi";
 
 import Alert from "../../Alert";
 
-import { AboutMeTitleProps } from "../../../AboutMeType";
+import { AboutMeTitleProps } from "../../../types/AboutMeType";
 import { UserTableType } from "../../../types/DB/UserTableType";
 
 const AboutMeTitle = (props: AboutMeTitleProps) => {
