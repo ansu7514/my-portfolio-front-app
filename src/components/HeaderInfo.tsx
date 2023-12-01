@@ -5,6 +5,7 @@ import { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUser } from "../redux/reducer/UserReducer";
 import { setSideMenuClick } from "../redux/reducer/SideMenuReducer";
+import { resetLoading, setLoading } from "../redux/reducer/LoadingReducer";
 
 import LoginForm from "./LoginForm";
 
@@ -28,10 +29,14 @@ const HeaderInfo = () => {
     }, [userInfo, login]);
 
     const logoutBtnClick = () => {
+        dispatch(setLoading());
+
         dispatch(resetUser());
         dispatch(setSideMenuClick(SideMenuStatus.home));
 
         navigate('/');
+
+        dispatch(resetLoading());
     };
 
     return (

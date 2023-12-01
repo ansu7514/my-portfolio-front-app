@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { USER_CHECK, USER_CREATE, USER_LOGIN } from "../serverApi";
 import { setSideMenuClick } from "../redux/reducer/SideMenuReducer";
+import { resetLoading, setLoading } from "../redux/reducer/LoadingReducer";
 import { setJoinState, setLogin, setUserInfo } from "../redux/reducer/UserReducer";
 
 import Alert from "./Alert";
@@ -109,6 +110,8 @@ const LoginForm = () => {
             return false;
         }
 
+        dispatch(setLoading());
+
         try {
             await fetch(
                 USER_LOGIN,
@@ -140,6 +143,8 @@ const LoginForm = () => {
             Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 로그인에 실패했습니다', position: "bottom-center" });
             console.error(error);
         }
+
+        dispatch(resetLoading());
     };
 
     const joinBtnClick = () => {
@@ -151,6 +156,8 @@ const LoginForm = () => {
             Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 동일한 아이디가 있습니다', position: "bottom-center" });
             return false;
         }
+
+        dispatch(setLoading());
 
         try {
             await fetch(
@@ -173,6 +180,8 @@ const LoginForm = () => {
             Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 계정 생성에 실패했습니다', position: "bottom-center" });
             console.error(error);
         }
+
+        dispatch(resetLoading());
     };
 
     return (

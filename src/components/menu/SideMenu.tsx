@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import { setJoinState } from "../../redux/reducer/UserReducer";
 import { setSideMenuClick } from "../../redux/reducer/SideMenuReducer";
+import { resetLoading, setLoading } from "../../redux/reducer/LoadingReducer";
 
 import Alert from "../Alert";
 
@@ -17,6 +18,8 @@ const SideMenu = () => {
     const sideMenuStatus = useSelector((state: RootState) => state.sideMenu.sideMenuStatus);
 
     const menuBtnClick = (state: SideMenuStatus) => {
+        dispatch(setLoading());
+
         if (userInfo && !(userInfo.name && userInfo.email && userInfo.job)) {
             navigate('/setting');
             Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 유저 정보 작성이 필요합니다', position: "bottom-center" });
@@ -28,6 +31,8 @@ const SideMenu = () => {
         if (state === SideMenuStatus.home) {
             dispatch(setJoinState(false));
         }
+
+        dispatch(resetLoading());
     };
 
     return (
