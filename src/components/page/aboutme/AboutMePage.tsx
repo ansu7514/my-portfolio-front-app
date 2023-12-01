@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { ABOUT_ME } from "../../../serverApi";
 import { RootState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { setTechStack } from "../../../redux/reducer/UserReducer";
+import { setFunFacts, setTechStacks } from "../../../redux/reducer/AboutMeReducer";
 
 import AboutMeTitle from "./AboutMeTitle";
 import AboutMeFunFact from "./AboutMeFunFacts";
@@ -37,7 +37,7 @@ const AboutMePage = () => {
                     const { success, data } = resopnse;
 
                     if (success) {
-                        const { title, tech_stack } = data;
+                        const { title, tech_stacks, fun_facts } = data;
 
                         setTitle(title);
 
@@ -46,13 +46,16 @@ const AboutMePage = () => {
                         else if (userInfo.job === jobList[2]) techList = backTechs;
                         else if (userInfo.job === jobList[3]) techList = designTechs;
 
-                        const techStack = tech_stack.split(',');
+                        const techStacks = tech_stacks.split(',');
 
-                        if (techList.includes(techStack[0])) {
-                            dispatch(setTechStack(techStack));
+                        if (techList.includes(techStacks[0])) {
+                            dispatch(setTechStacks(techStacks));
                         } else {
-                            dispatch(setTechStack([]));
+                            dispatch(setTechStacks([]));
                         }
+
+                        const funFacts = fun_facts.split(',');
+                        dispatch(setFunFacts(funFacts));
                     }
                 });
         } catch (error) {

@@ -1,17 +1,27 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { RootState } from "../../redux/store";
+import { ABOUT_ME_UPDATE } from "../../serverApi";
+import { useDispatch, useSelector } from "react-redux";
 import { setPopuup } from "../../redux/reducer/PopupReducer";
+import { setFunFacts } from "../../redux/reducer/AboutMeReducer";
 
 import Alert from "../Alert";
 
 const FunFactsPopup = () => {
     const dispatch = useDispatch();
 
+    const funFacts = useSelector((state: RootState) => state.aboutMe.funFacts);
+    const user_id = useSelector((state: RootState) => state.user.info?.user_id);
+
     const [fact, setFact] = useState('');
-    const [factList, setFactList] = useState<Array<string>>([]);
+    const [factList, setFactList] = useState<Array<string>>(funFacts);
+
+    const closePopup = () => {
+        dispatch(setPopuup(['funFactPopup', false]));
+    };
 
     const closeBtnClick = () => {
-        dispatch(setPopuup(['funFactPopup', false]));
+        Alert({ toast: false, confirm: true, error: false, title: '⚠️ 경고', desc: '정보가 저장되지 않을 수 있습니다.', checkClick: closePopup, position: "top-center" });
     };
 
     const factChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -33,7 +43,7 @@ const FunFactsPopup = () => {
         }
     };
 
-    const factDataList = factList.map((fact, factIdx) => {
+    const funFactDataList = factList.map((fact, factIdx) => {
         const deleteClick = () => {
             let tempList = [...factList];
             const idx = tempList.indexOf(fact);
@@ -43,15 +53,34 @@ const FunFactsPopup = () => {
         };
 
         return (
-            <li key={`fact_${fact}_${factIdx}`} className="fact-popup-li">
+            <li key={`fact_${fact}_${factIdx}`} className="fun-fact-li">
                 <p>{`# ${fact}`}</p>
                 <p onClick={deleteClick}>×</p>
             </li>
         )
     });
 
-    const saveBtnClick = () => {
+    const saveBtnClick = async () => {
+        try {
+            await fetch(
+                ABOUT_ME_UPDATE,
+                { method: 'post', body: JSON.stringify({ fun_facts: factList, user_id }), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+            ).then(res => res.json())
+                .then(response => {
+                    const { success } = response;
 
+                    if (success) {
+                        closePopup();
+                        dispatch(setFunFacts(factList));
+                        Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 정보를 저장했습니다', position: "bottom-center" });
+                    } else {
+                        Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 정보 저장에 실패했습니다', position: "bottom-center" });
+                    }
+                });
+        } catch (error) {
+            console.error(error);
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 정보 저장에 실패했습니다', position: "bottom-center" });
+        }
     };
 
     return (
@@ -73,9 +102,9 @@ const FunFactsPopup = () => {
                             </div>
                             {
                                 factList.length !== 0 &&
-                                <div className="fun-fact gray-default">
-                                    <ul className="knowledges fact-popup-ul">
-                                        {factDataList}
+                                <div className="fun-fact gray-default fact-ul-div">
+                                    <ul className="knowledges fun-fact-ul">
+                                        {funFactDataList}
                                     </ul>
                                 </div>
                             }

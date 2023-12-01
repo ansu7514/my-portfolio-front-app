@@ -6,14 +6,12 @@ export interface UserStateType {
     login: boolean,
     info: UserTableType | null,
     joinState: boolean,
-    techStack?: Array<string>,
 };
 
 const initialState: UserStateType = {
     login: false,
     info: null,
     joinState: false,
-    techStack: [],
 };
 
 export const userSlice = createSlice({
@@ -29,16 +27,13 @@ export const userSlice = createSlice({
         setJoinState: (state, action: PayloadAction<boolean>) => {
             state.joinState = action.payload;
         },
-        setTechStack: (state, action: PayloadAction<Array<string>>) => {
-            state.techStack = action.payload;
-        },
         resetUser: () => initialState
     },
 })
 
 export const {
     setLogin, setUserInfo,
-    setJoinState, setTechStack,
+    setJoinState,
     resetUser
 } = userSlice.actions;
 export default userSlice.reducer;

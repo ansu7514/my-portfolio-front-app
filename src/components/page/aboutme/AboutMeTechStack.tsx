@@ -5,7 +5,7 @@ import { setPopuup } from "../../../redux/reducer/PopupReducer";
 import { AboutMeTechStackType } from "../../../types/AboutMeType";
 
 export const stackLink: AboutMeTechStackType = {
-    React : 'https://react.dev/',
+    React: 'https://react.dev/',
     Next: 'https://nextjs.org/',
     Vue: 'https://vuejs.org/',
     Angular: 'https://angular.io/',
@@ -28,19 +28,19 @@ export const stackLink: AboutMeTechStackType = {
 const AboutMeTechStack = () => {
     const dispatch = useDispatch();
 
-    const techStack = useSelector((state: RootState) => state.user.techStack) || [];
+    const techStacks = useSelector((state: RootState) => state.aboutMe.techStacks) || [];
 
     const editBtnClick = () => {
         dispatch(setPopuup(['techStackPopup', true]));
     };
 
-    const techStackDataList = techStack.map(tech => {
+    const techStackDataList = techStacks.map(tech => {
         const techClick = () => {
             window.open(stackLink[tech], "_blank", "noopener, noreferrer");
         };
 
         return (
-            <div key={`about_me_tech_${tech}`} className="col-xs-12 col-sm-2" onClick={techClick}> 
+            <div key={`about_me_tech_${tech}`} className="col-xs-12 col-sm-2" onClick={techClick}>
                 <div className="fun-fact gray-default tech-stack-div">
                     <img src={`img/techlogo/${tech}.png`} alt={tech} />
                     <h4>{tech}</h4>

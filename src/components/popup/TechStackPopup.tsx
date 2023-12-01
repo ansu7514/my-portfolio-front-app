@@ -3,7 +3,7 @@ import { RootState } from "../../redux/store";
 import { ABOUT_ME_UPDATE } from "../../serverApi";
 import { useDispatch, useSelector } from "react-redux";
 import { setPopuup } from "../../redux/reducer/PopupReducer";
-import { setTechStack } from "../../redux/reducer/UserReducer";
+import { setTechStacks } from "../../redux/reducer/AboutMeReducer";
 
 import Alert from "../Alert";
 import { jobList } from "../page/setting/SettingPage";
@@ -17,11 +17,11 @@ export const designTechs = ['HTML', 'Css', 'Scss', 'Figma', 'PhotoShop', 'Illust
 const TechStackPopup = () => {
     const dispatch = useDispatch();
 
-    const techStack = useSelector((state: RootState) => state.user.techStack) || [];
+    const techStacks = useSelector((state: RootState) => state.aboutMe.techStacks) || [];
     const { user_id, job } = useSelector((state: RootState) => state.user.info) as UserTableType;
 
     const [techList, setTechList] = useState<Array<string>>([]);
-    const [clickList, setClickList] = useState<Array<string>>(techStack);
+    const [clickList, setClickList] = useState<Array<string>>(techStacks);
 
     useEffect(() => {
         if (job === jobList[1]) setTechList(frontTechs);
@@ -70,14 +70,14 @@ const TechStackPopup = () => {
         try {
             await fetch(
                 ABOUT_ME_UPDATE,
-                { method: 'post', body: JSON.stringify({ tech_stack: clickList, user_id }), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+                { method: 'post', body: JSON.stringify({ tech_stacks: clickList, user_id }), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
             ).then(res => res.json())
                 .then(response => {
                     const { success } = response;
 
                     if (success) {
                         closePopup();
-                        dispatch(setTechStack(clickList));
+                        dispatch(setTechStacks(clickList));
                         Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 기술 스택을 저장했습니다', position: "bottom-center" });
                     } else {
                         Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 기술 스택 저장에 실패했습니다', position: "bottom-center" });
