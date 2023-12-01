@@ -52,26 +52,26 @@ const SideMenu = () => {
                             <span className="link-text">About Me</span>
                         </Link>
                     </li>
-                    <li>
-                        <a href="#resume" className="nav-anim">
+                    <li onClick={() => menuBtnClick(SideMenuStatus.resume)}>
+                        <a href="resume" className={`nav-anim${sideMenuStatus === SideMenuStatus.resume ? ' active' : ''}`}>
                             <span className="menu-icon lnr lnr-graduation-hat"></span>
                             <span className="link-text">Resume</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#portfolio" className="nav-anim">
+                    <li onClick={() => menuBtnClick(SideMenuStatus.portfolio)}>
+                        <a href="portfolio" className={`nav-anim${sideMenuStatus === SideMenuStatus.portfolio ? ' active' : ''}`}>
                             <span className="menu-icon lnr lnr-briefcase"></span>
                             <span className="link-text">Portfolio</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#blog" className="nav-anim">
+                    <li onClick={() => menuBtnClick(SideMenuStatus.blog)}>
+                        <a href="blog" className={`nav-anim${sideMenuStatus === SideMenuStatus.blog ? ' active' : ''}`}>
                             <span className="menu-icon lnr lnr-book"></span>
                             <span className="link-text">Blog</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="#contact" className="nav-anim">
+                    <li onClick={() => menuBtnClick(SideMenuStatus.contact)}>
+                        <a href="contact" className={`nav-anim${sideMenuStatus === SideMenuStatus.contact ? ' active' : ''}`}>
                             <span className="menu-icon lnr lnr-envelope"></span>
                             <span className="link-text">Contact</span>
                         </a>

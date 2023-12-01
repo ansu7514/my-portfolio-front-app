@@ -5,6 +5,7 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import HomePage from "../components/page/home/HomePage";
 import AboutMePage from "../components/page/aboutme/AboutMePage";
 import SettingPage from "../components/page/setting/SettingPage";
+import ResumePage from "../components/page/resume/ResumePage";
 
 const Content = () => {
     const login = useSelector((state: RootState) => state.user.login);
@@ -19,6 +20,7 @@ const Content = () => {
                             <Route path="/" element={<Navigate replace to="/home" />} />
                             <Route path="/home" element={<HomePage />}></Route>
                             <Route path="/aboutme" element={<AboutMePage />}></Route>
+                            <Route path="/resume" element={<ResumePage />}></Route>
                             <Route path="/setting" element={<SettingPage />}></Route>
                         </>
                     }
