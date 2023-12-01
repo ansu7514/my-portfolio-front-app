@@ -1,6 +1,8 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../../redux/store";
 
+import ResumeEducation from "./ResumeEducation";
+
 import { SideMenuStatus } from "../../../types/SideMenuType";
 
 const ResumePage = () => {
@@ -14,6 +16,7 @@ const ResumePage = () => {
                 <div className="page-title">
                     <h2>Resume</h2>
                 </div>
+                <ResumeEducation />
             </div>
         </section>
     )
