@@ -32,7 +32,6 @@ const HeaderInfo = () => {
         dispatch(setSideMenuClick(SideMenuStatus.home));
 
         navigate('/');
-        localStorage.setItem('userInfo', JSON.stringify({ login: false, info: null, joinState: false }));
     };
 
     return (

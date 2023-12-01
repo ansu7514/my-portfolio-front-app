@@ -127,8 +127,6 @@ const LoginForm = () => {
                         dispatch(setJoinState(true));
                         dispatch(setUserInfo({ user_id: id, name, email, phone, job, birth, address, image_path: imagePath }));
 
-                        localStorage.setItem('userInfo', JSON.stringify({ login: true, info: { user_id: id, name, email, phone, job, birth, address, image_path: imagePath }, joinState: false }));
-
                         if (!(name && email && job)) {
                             navigate('/setting');
                             dispatch(setSideMenuClick(SideMenuStatus.setting));
@@ -167,8 +165,6 @@ const LoginForm = () => {
                         dispatch(setJoinState(true));
                         dispatch(setSideMenuClick(SideMenuStatus.setting));
                         dispatch(setUserInfo({ user_id: id, image_path: 'null' }));
-
-                        localStorage.setItem('userInfo', JSON.stringify({ login: true, info: { user_id: id, image_path: 'null' }, joinState: false }));
 
                         Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 계정이 생성되었습니다', position: "bottom-center" });
                     }

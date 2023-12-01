@@ -81,7 +81,6 @@ const SettingPage = () => {
 
                         if (type === 'update') {
                             dispatch(setUserInfo({ user_id, name, email, phone, job, birth, address, image_path: imagePath }));
-                            localStorage.setItem('userInfo', JSON.stringify({ login: true, info: { user_id, name, email, phone, job, birth, address, image_path: imagePath }, joinState: false }));
                         }
                     }
                 });
