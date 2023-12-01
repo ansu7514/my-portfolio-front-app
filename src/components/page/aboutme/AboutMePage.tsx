@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setTechStack } from "../../../redux/reducer/UserReducer";
 
 import AboutMeTitle from "./AboutMeTitle";
-import AboutMeFunFact from "./AboutMeFunFact";
+import AboutMeFunFact from "./AboutMeFunFacts";
 import AboutMeTechStack from "./AboutMeTechStack";
 
 import { jobList } from "../setting/SettingPage";

@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 import PostPopup from "../components/popup/PostPopup";
-import FunFactPopup from "../components/popup/FunFactPopup";
+import FunFactPopup from "../components/popup/FunFactsPopup";
 import TechStackPopup from "../components/popup/TechStackPopup";
 
 const PopupList = () => {

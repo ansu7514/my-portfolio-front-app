@@ -57,7 +57,7 @@ const TechStackPopup = () => {
 
         return (
             <div key={`tech_div_${tech}`} className="col-xs-12 col-sm-4" onClick={techClick}>
-                <div className={`fun-fact gray-default tech-popup-div${divClassName}`}>
+                <div className={`fun-fact gray-default aboutme-popup-div${divClassName}`}>
                     <img src={`img/techlogo/${tech}.png`} alt={tech} />
                     <h4>{tech}</h4>
                     <span className="fun-fact-block-text"></span>
@@ -91,12 +91,12 @@ const TechStackPopup = () => {
 
     return (
         <div className="mfp-container mfp-image-holder mfp-s-ready">
-            <div className="mfp-content tech-popup">
+            <div className="mfp-content aboutme-popup">
                 <div className="mfp-figure8=j">
                     <div className="btn-close">
                         <button type="button" onClick={closeBtnClick}>×</button>
                     </div>
-                    <div className="row tech-popup-con">
+                    <div className="row aboutme-popup-con">
                         {stackDataList}
                         <div className="col-xs-12 col-sm-12 col-center">
                             <button className="button btn-send" onClick={saveBtnClick}>SAVE</button>

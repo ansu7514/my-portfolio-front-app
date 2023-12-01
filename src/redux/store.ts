@@ -17,7 +17,8 @@ const rootReducer = combineReducers({
 const persistConfig = {
     key: 'root',
     storage: storageSession,
-    whitelist: ['popupData', 'popup', 'sideMenu', 'user']
+    whitelist: ['popupData', 'sideMenu', 'user'],
+    blacklist: ['popup'],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

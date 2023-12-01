@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { setPopuup } from "../../../redux/reducer/PopupReducer";
 
-const AboutMeFunFact = () => {
+const AboutMeFunFacts = () => {
     const dispatch = useDispatch();
 
     const editBtnClick = () => {
@@ -12,7 +12,7 @@ const AboutMeFunFact = () => {
         <div className="row">
             <div className="col-xs-12 col-sm-12 edit-title">
                 <div className="block-title">
-                    <h3>Fun <span>Fact</span></h3>
+                    <h3>Fun <span>Facts</span></h3>
                 </div>
                 <button className="button btn-sm btn-secondary" onClick={editBtnClick}>EDIT</button>
             </div>
@@ -20,4 +20,4 @@ const AboutMeFunFact = () => {
     )
 };
 
-export default AboutMeFunFact;
+export default AboutMeFunFacts;
