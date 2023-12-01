@@ -3,11 +3,12 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 
 import PostPopup from "../components/popup/PostPopup";
+import FunFactPopup from "../components/popup/FunFactPopup";
 import TechStackPopup from "../components/popup/TechStackPopup";
 
 const PopupList = () => {
     const popup = useSelector((state: RootState) => state.popup);
-    const { techStackPopup, postPopup } = useSelector((state: RootState) => state.popup);
+    const { techStackPopup, funFactPopup, postPopup } = useSelector((state: RootState) => state.popup);
 
     const [backGround, setBackGround] = useState(false);
 
@@ -26,6 +27,7 @@ const PopupList = () => {
         <>
             {backGround && <div className="mfp-bg mfp-fade mfp-ready"></div>}
             {techStackPopup && <TechStackPopup />}
+            {funFactPopup && <FunFactPopup />}
             {postPopup && <PostPopup />}
         </>
 

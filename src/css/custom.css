@@ -70,6 +70,11 @@
     justify-content: center;
 }
 
+.edit-title {
+    display: flex;
+    justify-content: space-between;
+}
+
 /* about me */
 .aboutme-text {
     height: 100%;
@@ -107,15 +112,8 @@
     margin: 0px 10px 0px 0px;
 }
 
-.tech-stack-title {
-    display: flex;
-    justify-content: space-between;
-}
-
 .tech-stack-div {
     cursor: pointer;
-    /* transform: none;
-    box-shadow: none; */
 }
 
 /* setting */

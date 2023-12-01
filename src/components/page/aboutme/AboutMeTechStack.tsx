@@ -1,6 +1,6 @@
 import { RootState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { setTechStackPopup } from "../../../redux/reducer/PopupReducer";
+import { setPopuup } from "../../../redux/reducer/PopupReducer";
 
 import { AboutMeTechStackType } from "../../../types/AboutMeType";
 
@@ -31,7 +31,7 @@ const AboutMeTechStack = () => {
     const techStack = useSelector((state: RootState) => state.user.techStack) || [];
 
     const editBtnClick = () => {
-        dispatch(setTechStackPopup(true));
+        dispatch(setPopuup(['techStackPopup', true]));
     };
 
     const techStackDataList = techStack.map(tech => {
@@ -52,7 +52,7 @@ const AboutMeTechStack = () => {
 
     return (
         <div className="row">
-            <div className="col-xs-12 col-sm-12 tech-stack-title">
+            <div className="col-xs-12 col-sm-12 edit-title">
                 <div className="block-title">
                     <h3>Tech <span>Stack</span></h3>
                 </div>

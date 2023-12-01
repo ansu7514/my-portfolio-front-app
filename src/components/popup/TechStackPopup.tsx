@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { RootState } from "../../redux/store";
 import { ABOUT_ME_UPDATE } from "../../serverApi";
 import { useDispatch, useSelector } from "react-redux";
+import { setPopuup } from "../../redux/reducer/PopupReducer";
 import { setTechStack } from "../../redux/reducer/UserReducer";
-import { setTechStackPopup } from "../../redux/reducer/PopupReducer";
 
 import Alert from "../Alert";
 import { jobList } from "../page/setting/SettingPage";
@@ -30,7 +30,7 @@ const TechStackPopup = () => {
     }, [job]);
 
     const closePopup = () => {
-        dispatch(setTechStackPopup(false));
+        dispatch(setPopuup(['techStackPopup', false]));
     };
 
     const closeBtnClick = () => {

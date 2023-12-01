@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { RootState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
+import { setPopuup } from "../../../redux/reducer/PopupReducer";
 import { setUserInfo } from "../../../redux/reducer/UserReducer";
 import { FILE_LOAD, USER, USER_UPDATE } from "../../../serverApi";
-import { setPostPopup } from "../../../redux/reducer/PopupReducer";
 
 import Alert from "../../Alert";
 import Calendar from "react-calendar";
@@ -114,12 +114,12 @@ const SettingPage = () => {
 
     const addressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setAddress(e.target.value);
-        if (!e.target.value) dispatch(setPostPopup(true));
+        if (!e.target.value) dispatch(setPopuup(['postPopup', true]));
     };
 
     const addressFocus = () => {
         if (address === '' && !postPopup) {
-            dispatch(setPostPopup(true));
+            dispatch(setPopuup(['postPopup', true]));
         }
     };
 

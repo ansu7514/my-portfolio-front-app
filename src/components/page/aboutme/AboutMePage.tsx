@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setTechStack } from "../../../redux/reducer/UserReducer";
 
 import AboutMeTitle from "./AboutMeTitle";
+import AboutMeFunFact from "./AboutMeFunFact";
 import AboutMeTechStack from "./AboutMeTechStack";
 
 import { SideMenuStatus } from "../../../types/SideMenuType";
@@ -53,6 +54,8 @@ const AboutMePage = () => {
                 <AboutMeTitle title={title} setTitle={setTitle} />
                 <div className="white-space-50"></div>
                 <AboutMeTechStack />
+                <div className="white-space-50"></div>
+                <AboutMeFunFact />
             </div>
         </section>
     )
