@@ -1,6 +1,11 @@
-const ResumeEducation = () => {
-    const editBtnClick = () => {
+import { useDispatch } from "react-redux";
+import { setPopuup } from "../../../redux/reducer/PopupReducer";
 
+const ResumeEducation = () => {
+    const dispatch = useDispatch();
+
+    const editBtnClick = () => {
+        dispatch(setPopuup(['educationPopup', true]));
     };
 
     return (

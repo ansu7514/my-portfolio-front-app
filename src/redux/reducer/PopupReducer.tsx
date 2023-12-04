@@ -5,12 +5,14 @@ export interface PopupStateType {
     [key: string]: boolean;
     techStackPopup: boolean,
     funFactPopup: boolean,
+    educationPopup: boolean,
     postPopup: boolean,
 }
 
 const initialState: PopupStateType = {
     techStackPopup: false,
     funFactPopup: false,
+    educationPopup: false,
     postPopup: false,
 };
 

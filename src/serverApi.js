@@ -13,3 +13,6 @@ export const ABOUT_ME_UPDATE = `http://${LOCAL_SERVER_DOMAIN}/api/aboutme/update
 
 // file
 export const FILE_LOAD = `http://${LOCAL_SERVER_DOMAIN}/api/file/load`;
+
+// open api
+export const GET_SEARCH_SCHOOL = `http://${LOCAL_SERVER_DOMAIN}/api/openapi/school`;
