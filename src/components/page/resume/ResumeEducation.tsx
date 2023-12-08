@@ -4,7 +4,7 @@ import { setPopuup } from "../../../redux/reducer/PopupReducer";
 const ResumeEducation = () => {
     const dispatch = useDispatch();
 
-    const editBtnClick = () => {
+    const addBtnClick = () => {
         dispatch(setPopuup(['educationPopup', true]));
     };
 
@@ -14,7 +14,7 @@ const ResumeEducation = () => {
                 <div className="block-title">
                     <h3>Education</h3>
                 </div>
-                <button className="button btn-sm btn-secondary" onClick={editBtnClick}>EDIT</button>
+                <button className="button btn-sm btn-secondary" onClick={addBtnClick}>ADD</button>
             </div>
         </div>
     )
