@@ -290,19 +290,22 @@
 .resume-popup-con>div>.school-ul-div {
     max-height: 600px;
     padding: 20px 10px;
+}
+
+.resume-popup-con>div>.school-ul-div.scroll {
     overflow-y: scroll;
 }
 
-.school-ul-div::-webkit-scrollbar {
+.school-ul-div.scroll::-webkit-scrollbar {
     width: 10px;
 }
 
-.school-ul-div::-webkit-scrollbar-thumb {
+.school-ul-div.scroll::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: #5e2fd6;
 }
 
-.school-ul-div::-webkit-scrollbar-track {
+.school-ul-div.scroll::-webkit-scrollbar-track {
     border-radius: 0 10px 10px 0;
     background-color: #d5d6d7;
 }
@@ -311,7 +314,7 @@
     border: 2px solid #5e2fd6;
 }
 
-.school-ul-div>.certificate-item:hover {
+.school-ul-div.scroll>.certificate-item:hover {
     cursor: pointer;
     border: 2px solid #5e2fd6;
 }
