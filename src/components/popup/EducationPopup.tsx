@@ -1,9 +1,10 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import { GET_SEARCH_SCHOOL } from "../../serverApi";
 import { setPopuup } from "../../redux/reducer/PopupReducer";
 
 import Alert from "../Alert";
+import { format } from 'date-fns';
 import Calendar from "react-calendar";
 
 import { schoolApiType } from "../../types/ResumeType";
@@ -27,8 +28,16 @@ const EducationPopup = () => {
     const [school, setSchool] = useState<schoolApiType>({});
     const [searchList, setSearchList] = useState([]);
 
-    const [from, setFrom] = useState<Value>(new Date());
-    const [to, setTo] = useState<Value>(new Date());
+    const [from, setFrom] = useState('');
+    const [to, setTo] = useState('');
+    const [showCal, setShowCal] = useState('');
+    const [calDate, setCalDate] = useState<Value>(new Date());
+
+    useEffect(() => {
+        if (showCal === 'from' && from !== '') setCalDate(new Date(from));
+        else if (showCal === 'to' && to !== '') setCalDate(new Date(to));
+        else setCalDate(new Date());
+    }, [from, showCal, to]);
 
     const closeBtnClick = () => {
         dispatch(setPopuup(['educationPopup', false]));
@@ -117,7 +126,7 @@ const EducationPopup = () => {
             </div>
         )
     });
-    
+
     const nextBtnClick = () => {
         if (!school.seq) {
             Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 학교를 선택해주세요.', position: "bottom-center" });
@@ -127,9 +136,17 @@ const EducationPopup = () => {
         setStep(2);
     };
 
-    const dateChange = (value: Value, type: string) => {
-        if (type === 'from') setFrom(value);
-        else if (type === 'to') setTo(value);
+    const setFocus = (type: string) => {
+        setShowCal(type);
+    };
+
+    const dateChange = (value: Value) => {
+        const date = format(value as Date, 'yyyy-MM-dd');
+
+        if (showCal === 'from') setFrom(date);
+        else if (showCal === 'to') setTo(date);
+
+        setShowCal('');
     };
 
     const beforeBtnClick = () => {
@@ -203,10 +220,27 @@ const EducationPopup = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className={`form-group form-group-with-icon${from ? ' form-group-focus' : ''}`}>
-                                        <Calendar locale="en" className="form-control setting-calendar" value={from} onChange={(e) => dateChange(e, 'from')} />
-                                        <label>FROM</label>
-                                        <div className="form-control-border"></div>
+                                    <div className="fun-fact gray-default school-cal-div">
+                                        <div className="school-cal-input">
+                                            <div className={`form-group form-group-with-icon school-input${from ? ' form-group-focus' : ''}`} onFocus={() => setFocus('from')}>
+                                                <input id="from" type="text" name="from" className="form-control" value={from || ""} />
+                                                <label>FROM</label>
+                                                <div className="form-control-border"></div>
+                                            </div>
+                                            <div className={`form-group form-group-with-icon school-input${to ? ' form-group-focus' : ''}`} onFocus={() => setFocus('to')}>
+                                                <input id="to" type="text" name="to" className="form-control" value={to || ""} />
+                                                <label>TO</label>
+                                                <div className="form-control-border"></div>
+                                            </div>
+                                        </div>
+                                        {
+                                            showCal &&
+                                            <div className="form-group form-group-with-icon form-group-focus">
+                                                <Calendar locale="en" className="form-control setting-calendar" value={calDate} onChange={dateChange} />
+                                                <label>CALENDAR</label>
+                                                <div className="form-control-border"></div>
+                                            </div>
+                                        }
                                     </div>
                                     <div className="col-xs-12 col-sm-12 col-center">
                                         <button className="button btn-send" onClick={beforeBtnClick}>BEFORE</button>

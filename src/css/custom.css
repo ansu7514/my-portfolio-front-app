@@ -258,6 +258,34 @@
     gap: 10px;
 }
 
+.resume-popup-con>div>.school-input-div>.form-group-focus:last-child {
+    margin-bottom: 0;
+}
+
+.resume-popup-con>div>.school-cal-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 10px;
+    gap: 21.5px;
+}
+
+.resume-popup-con>div>.school-cal-div>.school-cal-input {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.resume-popup-con>div>.school-cal-div>.school-cal-input>div {
+    width: 49.5%;
+    margin-bottom: 0;
+}
+
+.resume-popup-con>div>.school-cal-div>.school-cal-input>div>label {
+    z-index: 10;
+}
+
 .aboutme-popup-con>div>.fact-input-div>div {
     width: 88%;
     margin: 0;
