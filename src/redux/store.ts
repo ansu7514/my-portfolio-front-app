@@ -6,6 +6,7 @@ import aboutMeReducer from './reducer/AboutMeReducer';
 import loadingReducer from './reducer/LoadingReducer';
 import popupDataReducer from "./reducer/PopupDataReducer";
 import popupReducer from "./reducer/PopupReducer";
+import resumeReducer from "./reducer/ResumeReducer";
 import sideMenuReducer from "./reducer/SideMenuReducer";
 import userReducer from "./reducer/UserReducer";
 
@@ -14,6 +15,7 @@ const rootReducer = combineReducers({
     loading: loadingReducer,
     popupData: popupDataReducer,
     popup: popupReducer,
+    resume: resumeReducer,
     sideMenu: sideMenuReducer,
     user: userReducer,
 });
@@ -21,7 +23,7 @@ const rootReducer = combineReducers({
 const persistConfig = {
     key: 'root',
     storage: storageSession,
-    whitelist: ['aboutMe', 'popupData', 'sideMenu', 'user'],
+    whitelist: ['aboutMe', 'popupData', 'resume', 'sideMenu', 'user'],
     blacklist: ['loading', 'popup'],
 };
 

@@ -11,6 +11,10 @@ export const USER_UPDATE = `http://${LOCAL_SERVER_DOMAIN}/api/user/update`;
 export const ABOUT_ME = `http://${LOCAL_SERVER_DOMAIN}/api/aboutme`;
 export const ABOUT_ME_UPDATE = `http://${LOCAL_SERVER_DOMAIN}/api/aboutme/update`;
 
+// resume
+export const RESUME = `http://${LOCAL_SERVER_DOMAIN}/api/resume`;
+export const RESUME_EDUCATION_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/resume/education/create`;
+
 // file
 export const FILE_LOAD = `http://${LOCAL_SERVER_DOMAIN}/api/file/load`;
 

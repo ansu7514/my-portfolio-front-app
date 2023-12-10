@@ -1,7 +1,9 @@
-import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { GET_SEARCH_SCHOOL } from "../../serverApi";
+import { RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
 import { setPopuup } from "../../redux/reducer/PopupReducer";
+import { GET_SEARCH_SCHOOL, RESUME, RESUME_EDUCATION_CREATE } from "../../serverApi";
+import { setSchoolFromList, setSchoolList, setSchoolToList } from "../../redux/reducer/ResumeReducer";
 
 import Alert from "../Alert";
 import { format } from 'date-fns';
@@ -10,7 +12,7 @@ import Calendar from "react-calendar";
 import { schoolApiType } from "../../types/ResumeType";
 import { Value } from "react-calendar/dist/cjs/shared/types";
 
-export const schoolList = [
+export const schoolTypeList = [
     { label: 'SHCOOL', value: '' },
     { label: '대학교', value: 'univ_list' },
     { label: '고등학교', value: 'high_list' },
@@ -20,6 +22,8 @@ export const schoolList = [
 
 const EducationPopup = () => {
     const dispatch = useDispatch();
+
+    const user_id = useSelector((state: RootState) => state.user.info?.user_id);
 
     const [step, setStep] = useState(1);
 
@@ -39,8 +43,12 @@ const EducationPopup = () => {
         else setCalDate(new Date());
     }, [from, showCal, to]);
 
-    const closeBtnClick = () => {
+    const closePopup = () => {
         dispatch(setPopuup(['educationPopup', false]));
+    };
+
+    const closeBtnClick = () => {
+        Alert({ toast: false, confirm: true, error: false, title: '⚠️ 경고', desc: '재학 정보가 저장되지 않을 수 있습니다.', checkClick: closePopup, position: "top-center" });
     };
 
     const gubunChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -49,7 +57,7 @@ const EducationPopup = () => {
         setGubun(e.target.value);
     };
 
-    const schoolOptions = schoolList.map((school, schoolIdx) => {
+    const schoolOptions = schoolTypeList.map((school, schoolIdx) => {
         const { label, value } = school;
 
         return (
@@ -155,10 +163,61 @@ const EducationPopup = () => {
         setSearch('');
         setSchool({});
         setSearchList([]);
+        setFrom('');
+        setTo('');
+        setShowCal('');
+        setCalDate(new Date());
     };
 
-    const saveBtnClick = () => {
+    const saveBtnClick = async () => {
+        const insertData = {
+            user_id, school: JSON.stringify(school),
+            school_from: from, school_to: to
+        };
 
+        try {
+            await fetch(
+                RESUME_EDUCATION_CREATE,
+                { method: 'post', body: JSON.stringify(insertData), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+            ).then(res => res.json())
+                .then(response => {
+                    const { success } = response;
+
+                    if (success) {
+                        Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 재학 정보 수정에 성공했습니다', position: "bottom-center" });
+
+                        getResumeEducation();
+                        closePopup();
+                    } else {
+                        Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 재학 정보 수정에 실패했습니다', position: "bottom-center" });
+                    }
+                });
+        } catch (error) {
+            console.error(error);
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 재학 정보 수정에 실패했습니다', position: "bottom-center" });
+        }
+    };
+
+    const getResumeEducation = async () => {
+        try {
+            await fetch(
+                `${RESUME}/education/:${user_id}`,
+                { method: 'get', headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+            ).then(res => res.json())
+                .then(response => {
+                    const { success, data } = response;
+
+                    if (success && data.length) {
+                        const { school, school_from, school_to } = data;
+
+                        dispatch(setSchoolList(school));
+                        dispatch(setSchoolFromList(school_from));
+                        dispatch(setSchoolToList(school_to));
+                    }
+                });
+        } catch (error) {
+            console.error(error);
+        }
     };
 
     return (
@@ -223,12 +282,12 @@ const EducationPopup = () => {
                                     <div className="fun-fact gray-default school-cal-div">
                                         <div className="school-cal-input">
                                             <div className={`form-group form-group-with-icon school-input${from ? ' form-group-focus' : ''}`} onFocus={() => setFocus('from')}>
-                                                <input id="from" type="text" name="from" className="form-control" value={from || ""} />
+                                                <input id="from" type="text" name="from" className="form-control" defaultValue={from || ""} />
                                                 <label>FROM</label>
                                                 <div className="form-control-border"></div>
                                             </div>
                                             <div className={`form-group form-group-with-icon school-input${to ? ' form-group-focus' : ''}`} onFocus={() => setFocus('to')}>
-                                                <input id="to" type="text" name="to" className="form-control" value={to || ""} />
+                                                <input id="to" type="text" name="to" className="form-control" defaultValue={to || ""} />
                                                 <label>TO</label>
                                                 <div className="form-control-border"></div>
                                             </div>
@@ -236,7 +295,7 @@ const EducationPopup = () => {
                                         {
                                             showCal &&
                                             <div className="form-group form-group-with-icon form-group-focus">
-                                                <Calendar locale="en" className="form-control setting-calendar" value={calDate} onChange={dateChange} />
+                                                <Calendar locale="en" className="form-control setting-calendar" defaultValue={calDate} onChange={dateChange} />
                                                 <label>CALENDAR</label>
                                                 <div className="form-control-border"></div>
                                             </div>
