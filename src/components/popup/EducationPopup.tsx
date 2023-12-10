@@ -11,6 +11,7 @@ import Calendar from "react-calendar";
 
 import { schoolApiType } from "../../types/ResumeType";
 import { Value } from "react-calendar/dist/cjs/shared/types";
+import { ResumeEducationTableType } from "../../types/DB/ResumeTableType";
 
 export const schoolTypeList = [
     { label: 'SHCOOL', value: '' },
@@ -209,11 +210,15 @@ const EducationPopup = () => {
                     const { success, data } = response;
 
                     if (success && data.length) {
-                        const { school, school_from, school_to } = data;
+                        const educationData = data as Array<ResumeEducationTableType>;
 
-                        dispatch(setSchoolList(school));
-                        dispatch(setSchoolFromList(school_from));
-                        dispatch(setSchoolToList(school_to));
+                        const schoolList = educationData.map(({ school }) => JSON.parse(school) as schoolApiType);
+                        const schoolFromList = educationData.map(({ school_from }) => school_from);
+                        const schoolToList = educationData.map(({ school_to }) => school_to);
+
+                        dispatch(setSchoolList(schoolList));
+                        dispatch(setSchoolFromList(schoolFromList));
+                        dispatch(setSchoolToList(schoolToList));
                     }
                 });
         } catch (error) {

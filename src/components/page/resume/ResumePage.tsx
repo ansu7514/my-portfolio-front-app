@@ -7,6 +7,7 @@ import { setSchoolFromList, setSchoolList, setSchoolToList } from "../../../redu
 
 import ResumeEducation from "./ResumeEducation";
 
+import { schoolApiType } from "../../../types/ResumeType";
 import { SideMenuStatus } from "../../../types/SideMenuType";
 import { ResumeEducationTableType } from "../../../types/DB/ResumeTableType";
 
@@ -34,10 +35,9 @@ const ResumePage = () => {
                     if (success) {
                         const educationData = data as Array<ResumeEducationTableType>;
 
-                        const schoolList = educationData.map(({ school }) => school);
+                        const schoolList = educationData.map(({ school }) => JSON.parse(school) as schoolApiType);
                         const schoolFromList = educationData.map(({ school_from }) => school_from);
                         const schoolToList = educationData.map(({ school_to }) => school_to);
-
 
                         dispatch(setSchoolList(schoolList));
                         dispatch(setSchoolFromList(schoolFromList));

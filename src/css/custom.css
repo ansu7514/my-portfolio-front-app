@@ -147,6 +147,15 @@
     cursor: pointer;
 }
 
+/* resume */
+.clearfix.resume-education>.right-part>p {
+    margin-bottom: 0;
+}
+
+.clearfix.resume-education>.right-part>a {
+    margin-bottom: 10px;
+}
+
 /* setting */
 .setting-form>div>.form-group>input,
 .setting-form>div>.form-group>select {

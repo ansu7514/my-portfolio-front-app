@@ -1,9 +1,7 @@
-import { schoolApiType } from "../ResumeType";
-
 export interface ResumeEducationTableType {
     user_id: string,
     school_id: number,
-    school: schoolApiType,
+    school: string,
     school_from: string,
     school_to: string,
 }
