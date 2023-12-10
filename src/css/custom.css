@@ -360,6 +360,45 @@
     margin-bottom: 0;
 }
 
+.experience-cal-div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 10px;
+    gap: 21.5px;
+}
+
+.experience-cal-div>div {
+    width: 100%;
+}
+
+.experience-cal-div>.experience-input {
+    margin-bottom: 0;
+}
+
+.experience-cal-div>.experience-cal-input>div {
+    width: 49.5%;
+    margin-bottom: 0;
+}
+
+.experience-cal-div>.experience-cal-input {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.experience-cal-div>.form-group-focus {
+    margin-top: 11.5px;
+    margin-bottom: 0;
+}
+
+.experience-cal-div>div>label,
+.experience-cal-div>.experience-cal-input>div>label {
+    z-index: 10;
+}
+
 .post-popup-con {
     width: 800px !important;
     height: 550px !important;

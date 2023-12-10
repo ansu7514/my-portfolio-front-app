@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSchoolFromList, setSchoolList, setSchoolToList } from "../../../redux/reducer/ResumeReducer";
 
 import ResumeEducation from "./ResumeEducation";
+import ResumeExperience from "./ResumeExperience";
 
 import { schoolApiType } from "../../../types/ResumeType";
 import { SideMenuStatus } from "../../../types/SideMenuType";
@@ -55,7 +56,13 @@ const ResumePage = () => {
                 <div className="page-title">
                     <h2>Resume</h2>
                 </div>
-                <ResumeEducation />
+                <div className="row">
+                    <div className="col-xs-12 col-sm-7">
+                        <ResumeEducation />
+                        <div className="white-space-50" />
+                        <ResumeExperience />
+                    </div>
+                </div>
             </div>
         </section>
     )

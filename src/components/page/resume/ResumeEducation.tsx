@@ -15,7 +15,6 @@ const ResumeEducation = () => {
 
     const educationDataList = schoolList.map((school, schoolIdx) => {
         const { schoolName, campusName, schoolGubun, adres, link, seq } = school;
-        console.log(school)
 
         return (
             <div key={`${schoolName}_${seq}`} className="timeline-item clearfix resume-education">
@@ -35,19 +34,17 @@ const ResumeEducation = () => {
     });
 
     return (
-        <div className="row">
-            <div className="col-xs-12 col-sm-7">
-                <div className="edit-title">
-                    <div className="block-title">
-                        <h3>Education</h3>
-                    </div>
-                    <button className="button btn-sm btn-secondary" onClick={addBtnClick}>ADD</button>
+        <>
+            <div className="edit-title">
+                <div className="block-title">
+                    <h3>Education</h3>
                 </div>
-                <div className="timeline timeline-second-style clearfix">
-                    {educationDataList}
-                </div>
+                <button className="button btn-sm btn-secondary" onClick={addBtnClick}>ADD</button>
             </div>
-        </div>
+            <div className="timeline timeline-second-style clearfix">
+                {educationDataList}
+            </div>
+        </>
     )
 };
 

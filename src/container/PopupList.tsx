@@ -5,6 +5,7 @@ import { RootState } from "../redux/store";
 import TechStackPopup from "../components/popup/TechStackPopup";
 import FunFactPopup from "../components/popup/FunFactsPopup";
 import EducationPopup from "../components/popup/EducationPopup";
+import ExperiencePopup from "../components/popup/ExperiencePopup";
 import PostPopup from "../components/popup/PostPopup";
 
 const PopupList = () => {
@@ -29,6 +30,7 @@ const PopupList = () => {
             {popup.techStackPopup && <TechStackPopup />}
             {popup.funFactPopup && <FunFactPopup />}
             {popup.educationPopup && <EducationPopup />}
+            {popup.experiencePopup && <ExperiencePopup />}
             {popup.postPopup && <PostPopup />}
         </>
 
