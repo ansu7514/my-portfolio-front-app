@@ -171,7 +171,8 @@ const EducationPopup = () => {
 
     const saveBtnClick = async () => {
         const insertData = {
-            user_id, school: JSON.stringify(school),
+            user_id, school_id: school.seq,
+            school: JSON.stringify(school),
             school_from: from, school_to: to
         };
 

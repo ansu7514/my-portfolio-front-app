@@ -3,10 +3,12 @@ import { useEffect } from "react";
 import { RESUME } from "../../../serverApi";
 import { RootState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
+import { setSchoolFromList, setSchoolList, setSchoolToList } from "../../../redux/reducer/ResumeReducer";
 
 import ResumeEducation from "./ResumeEducation";
 
 import { SideMenuStatus } from "../../../types/SideMenuType";
+import { ResumeEducationTableType } from "../../../types/DB/ResumeTableType";
 
 const ResumePage = () => {
     const dispatch = useDispatch();
@@ -29,12 +31,17 @@ const ResumePage = () => {
                 .then(response => {
                     const { success, data } = response;
 
-                    if (success && data.length) {
-                        const { school, school_from, school_to } = data;
+                    if (success) {
+                        const educationData = data as Array<ResumeEducationTableType>;
 
-                        // dispatch(setSchools(shcool));
-                        // dispatch(setSchoolFromList(from));
-                        // dispatch(setSchoolFromList(to));
+                        const schoolList = educationData.map(({ school }) => school);
+                        const schoolFromList = educationData.map(({ school_from }) => school_from);
+                        const schoolToList = educationData.map(({ school_to }) => school_to);
+
+
+                        dispatch(setSchoolList(schoolList));
+                        dispatch(setSchoolFromList(schoolFromList));
+                        dispatch(setSchoolToList(schoolToList));
                     }
                 });
         } catch (error) {
