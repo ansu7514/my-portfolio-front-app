@@ -23,7 +23,10 @@ const ResumeExperience = () => {
                 </div>
                 <div className="divider"></div>
                 <div className="right-part">
-                    <h4 className="item-title">{job}</h4>
+                    <div className="right-part-title">
+                        <h4 className="item-title">{job}</h4>
+                        <span className="menu-icon lnr lnr-trash"></span>
+                    </div>
                     <p>{address}</p>
                 </div>
             </div>

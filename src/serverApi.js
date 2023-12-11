@@ -14,6 +14,7 @@ export const ABOUT_ME_UPDATE = `http://${LOCAL_SERVER_DOMAIN}/api/aboutme/update
 // resume
 export const RESUME = `http://${LOCAL_SERVER_DOMAIN}/api/resume`;
 export const RESUME_EDUCATION_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/resume/education/create`;
+export const RESUME_EDUCATION_DELETE = `http://${LOCAL_SERVER_DOMAIN}/api/resume/education/delete`;
 export const RESUME_EXPERIENCE_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/resume/experience/create`;
 
 // file

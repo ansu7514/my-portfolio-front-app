@@ -148,6 +148,25 @@
 }
 
 /* resume */
+.clearfix.resume-education>.right-part>.right-part-title,
+.clearfix.resume-experience>.right-part>.right-part-title {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.clearfix.resume-education>.right-part>.right-part-title>span,
+.clearfix.resume-experience>.right-part>.right-part-title>span {
+    color: #d5d6d7;
+    cursor: pointer;
+}
+
+.clearfix.resume-education>.right-part>.right-part-title>span:hover,
+.clearfix.resume-experience>.right-part>.right-part-title>span:hover {
+    color: #ff4c4c;
+    font-weight: bold;
+}
+
 .clearfix.resume-education>.right-part>p {
     margin-bottom: 0;
 }
