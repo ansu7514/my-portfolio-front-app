@@ -91,9 +91,9 @@ const EducationPopup = () => {
                 { method: 'post', body: JSON.stringify({ gubun, searchSchulNm: search }), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
             ).then(res => res.json())
                 .then(response => {
-                    const { sucess, data } = response;
+                    const { success, data } = response;
 
-                    if (sucess) {
+                    if (success) {
                         if (data.length) setSearchList(data);
                         else {
                             setSearchList([]);
@@ -186,17 +186,17 @@ const EducationPopup = () => {
                     const { success } = response;
 
                     if (success) {
-                        Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 재학 정보 수정에 성공했습니다', position: "bottom-center" });
+                        Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 재학 정보 생성에 성공했습니다', position: "bottom-center" });
 
                         getResumeEducation();
                         closePopup();
                     } else {
-                        Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 재학 정보 수정에 실패했습니다', position: "bottom-center" });
+                        Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 재학 정보 생성에 실패했습니다', position: "bottom-center" });
                     }
                 });
         } catch (error) {
             console.error(error);
-            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 재학 정보 수정에 실패했습니다', position: "bottom-center" });
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 재학 정보 생성에 실패했습니다', position: "bottom-center" });
         }
     };
 
