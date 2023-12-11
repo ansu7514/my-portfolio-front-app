@@ -5,3 +5,13 @@ export interface ResumeEducationTableType {
     school_from: string,
     school_to: string,
 }
+
+export interface ResumeExperienceTableType {
+    user_id: string,
+    experience_id: number,
+    company: string,
+    address: string,
+    job: string,
+    experience_from: string,
+    experience_to: string,
+}

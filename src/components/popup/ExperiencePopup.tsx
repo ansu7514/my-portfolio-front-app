@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { RESUME_EXPERIENCE_CREATE } from "../../serverApi";
 import { setPopuup } from "../../redux/reducer/PopupReducer";
+import { setPostData } from "../../redux/reducer/PopupDataReducer";
+import { RESUME, RESUME_EXPERIENCE_CREATE } from "../../serverApi";
+import { setExperienceList } from "../../redux/reducer/ResumeReducer";
 
 import Alert from "../Alert";
 import { format } from "date-fns";
 import Calendar from "react-calendar";
+import { jobList } from "../page/setting/SettingPage";
 
 import { Value } from "react-calendar/dist/cjs/shared/types";
-import { setPostData } from "../../redux/reducer/PopupDataReducer";
 
 const ExperiencePopup = () => {
     const dispatch = useDispatch();
@@ -20,6 +22,7 @@ const ExperiencePopup = () => {
 
     const [company, setCompany] = useState('');
     const [address, setAddress] = useState('');
+    const [job, setJob] = useState('');
     const [from, setFrom] = useState('');
     const [to, setTo] = useState('');
     const [showCal, setShowCal] = useState('');
@@ -59,6 +62,16 @@ const ExperiencePopup = () => {
         }
     };
 
+    const jobChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setJob(e.target.value);
+    };
+
+    const jobOptions = jobList.map((job, jobIdx) => {
+        return (
+            <option key={`${job}_${jobIdx}`} value={job}>{job}</option>
+        )
+    });
+
     const setFocus = (type: string) => {
         setShowCal(type);
     };
@@ -77,7 +90,7 @@ const ExperiencePopup = () => {
         const experience_to = today <= to ? 'Current' : to;
 
         const insertData = {
-            user_id, company, address,
+            user_id, company, address, job,
             experience_from: from, experience_to
         };
 
@@ -92,6 +105,7 @@ const ExperiencePopup = () => {
                     if (success) {
                         Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 이력 정보 생성에 성공했습니다', position: "bottom-center" });
 
+                        getResumeExperience();
                         closePopup();
                     } else {
                         Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 이력 정보 생성에 실패했습니다.', checkClick: closePopup, position: "bottom-center" });
@@ -100,6 +114,22 @@ const ExperiencePopup = () => {
         } catch (error) {
             console.error(error);
             Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 이력 정보 생성에 실패했습니다.', checkClick: closePopup, position: "bottom-center" });
+        }
+    };
+
+    const getResumeExperience = async () => {
+        try {
+            await fetch(
+                `${RESUME}/experience/:${user_id}`,
+                { method: 'get', headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+            ).then(res => res.json())
+                .then(response => {
+                    const { success, data } = response;
+
+                    if (success) dispatch(setExperienceList(data));
+                });
+        } catch (error) {
+            console.error(error);
         }
     };
 
@@ -121,6 +151,13 @@ const ExperiencePopup = () => {
                                 <div className={`form-group form-group-with-icon experience-input${address ? ' form-group-focus' : ''}`}>
                                     <input id="address" type="text" name="address" className="form-control" value={address || ""} onChange={addressChange} onFocus={addressFocus} />
                                     <label>ADDRESS</label>
+                                    <div className="form-control-border"></div>
+                                </div>
+                                <div className="form-group form-group-with-icon form-group-focus">
+                                    <select id="job" name="job" className="form-control" value={job || ""} onChange={jobChange}>
+                                        {jobOptions}
+                                    </select>
+                                    <label>JOB</label>
                                     <div className="form-control-border"></div>
                                 </div>
                                 <div className="experience-cal-input">

@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { RESUME } from "../../../serverApi";
 import { RootState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { setSchoolFromList, setSchoolList, setSchoolToList } from "../../../redux/reducer/ResumeReducer";
+import { setExperienceList, setSchoolFromList, setSchoolList, setSchoolToList } from "../../../redux/reducer/ResumeReducer";
 
 import ResumeEducation from "./ResumeEducation";
 import ResumeExperience from "./ResumeExperience";
@@ -44,6 +44,20 @@ const ResumePage = () => {
                         dispatch(setSchoolFromList(schoolFromList));
                         dispatch(setSchoolToList(schoolToList));
                     }
+                });
+        } catch (error) {
+            console.error(error);
+        }
+
+        try {
+            await fetch(
+                `${RESUME}/experience/:${user_id}`,
+                { method: 'get', headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+            ).then(res => res.json())
+                .then(response => {
+                    const { success, data } = response;
+
+                    if (success) dispatch(setExperienceList(data));
                 });
         } catch (error) {
             console.error(error);

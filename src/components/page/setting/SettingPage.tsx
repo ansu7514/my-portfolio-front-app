@@ -107,6 +107,12 @@ const SettingPage = () => {
         setJob(e.target.value);
     };
 
+    const jobOptions = jobList.map((job, jobIdx) => {
+        return (
+            <option key={`${job}_${jobIdx}`} value={job}>{job}</option>
+        )
+    });
+
     const birthChange = (value: Value) => {
         setBirth(value);
     };
@@ -181,12 +187,6 @@ const SettingPage = () => {
             Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 유저 정보 수정에 실패했습니다', position: "bottom-center" });
         }
     };
-
-    const jobOptions = jobList.map((job, jobIdx) => {
-        return (
-            <option key={`${job}_${jobIdx}`} value={job}>{job}</option>
-        )
-    });
 
     const sectionClassName = `animated-section${sideMenuStatus !== SideMenuStatus.setting ? '' : ' section-active'}`;
 

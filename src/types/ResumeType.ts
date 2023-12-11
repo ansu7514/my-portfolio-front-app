@@ -9,4 +9,4 @@ export interface schoolApiType {
     link?: string;
     seq?: number;
     schoolType?: string;
-};
+}
