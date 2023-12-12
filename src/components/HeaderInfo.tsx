@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetUser } from "../redux/reducer/UserReducer";
+import { resetPopup } from "../redux/reducer/PopupReducer";
+import { resetResume } from "../redux/reducer/ResumeReducer";
+import { resetAboutMe } from "../redux/reducer/AboutMeReducer";
+import { resetPopupData } from "../redux/reducer/PopupDataReducer";
 import { setSideMenuClick } from "../redux/reducer/SideMenuReducer";
 import { resetLoading, setLoading } from "../redux/reducer/LoadingReducer";
 
@@ -31,8 +35,12 @@ const HeaderInfo = () => {
     const logoutBtnClick = () => {
         dispatch(setLoading());
 
-        dispatch(resetUser());
+        dispatch(resetAboutMe());
+        dispatch(resetPopupData());
+        dispatch(resetPopup());
+        dispatch(resetResume());
         dispatch(setSideMenuClick(SideMenuStatus.home));
+        dispatch(resetUser());
 
         navigate('/');
 

@@ -175,6 +175,55 @@
     margin-bottom: 10px;
 }
 
+.coding-skill>.skill-container {
+    margin: 10px 0;
+}
+
+.MuiSlider-rail {
+    height: 10px !important;
+    background-color: #fff !important;
+    border: 1px solid #5e2fd6;
+    opacity: 1 !important;
+    border-radius: 8px !important;
+    box-sizing: border-box;
+    padding: 0 2px;
+}
+
+.MuiSlider-track {
+    height: 8px;
+    border-radius: 9px;
+    margin: 0 1px;
+    background-color: #5e2fd6 !important;
+    border: 2px solid #fff !important;
+}
+
+.MuiSlider-thumb {
+    width: 18px !important;
+    height: 18px !important;
+    color: #5e2fd6 !important;
+}
+
+.MuiSlider-thumb:focus,
+.MuiSlider-thumb:hover,
+.MuiSlider-thumb:target,
+.MuiSlider-thumb:focus-within,
+.MuiSlider-thumb:focus-visible,
+.MuiSlider-thumb:visited {
+    box-shadow: 0px 0px 0px 7px rgba(94, 46, 214, 0.16) !important;
+}
+
+.MuiSlider-valueLabel {
+    color: #222222 !important;
+    border: 2px solid #d5d6d7;
+    background-color: #fff !important;
+    border-radius: 30px !important;
+    line-height: 1.23 !important;
+}
+
+.css-nnid7-MuiSlider-valueLabel:before {
+    transform: none !important;
+}
+
 /* setting */
 .setting-form>div>.form-group>input,
 .setting-form>div>.form-group>select {

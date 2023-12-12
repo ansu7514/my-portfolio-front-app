@@ -34,13 +34,13 @@ export const resumeSlice = createSlice({
         setExperienceList: (state, action: PayloadAction<Array<ResumeExperienceTableType>>) => {
             state.experienceList = action.payload;
         },
-        resetAboutMe: () => initialState
+        resetResume: () => initialState
     },
 })
 
 export const {
     setSchoolList, setSchoolFromList,
     setSchoolToList, setExperienceList,
-    resetAboutMe
+    resetResume
 } = resumeSlice.actions;
 export default resumeSlice.reducer;

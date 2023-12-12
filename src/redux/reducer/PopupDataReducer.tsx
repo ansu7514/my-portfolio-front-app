@@ -16,8 +16,9 @@ export const popupDataSlice = createSlice({
         setPostData: (state, action: PayloadAction<string>) => {
             state.postData = action.payload;
         },
+        resetPopupData: () => initialState,
     },
 })
 
-export const { setPostData } = popupDataSlice.actions;
+export const { setPostData, resetPopupData } = popupDataSlice.actions;
 export default popupDataSlice.reducer;

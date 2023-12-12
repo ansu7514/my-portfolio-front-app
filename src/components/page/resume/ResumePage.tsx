@@ -1,27 +1,35 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import { RESUME } from "../../../serverApi";
 import { RootState } from "../../../redux/store";
+import { ABOUT_ME, RESUME } from "../../../serverApi";
 import { useDispatch, useSelector } from "react-redux";
+import { setTechStacks } from "../../../redux/reducer/AboutMeReducer";
 import { setExperienceList, setSchoolFromList, setSchoolList, setSchoolToList } from "../../../redux/reducer/ResumeReducer";
 
 import ResumeEducation from "./ResumeEducation";
 import ResumeExperience from "./ResumeExperience";
+import ResumeCodingSkills from "./ResumeCodingSkills";
+
+import { jobList } from "../setting/SettingPage";
+import { backTechs, designTechs, frontTechs } from "../../popup/TechStackPopup";
 
 import { schoolApiType } from "../../../types/ResumeType";
 import { SideMenuStatus } from "../../../types/SideMenuType";
+import { UserTableType } from "../../../types/DB/UserTableType";
 import { ResumeEducationTableType } from "../../../types/DB/ResumeTableType";
 
 const ResumePage = () => {
     const dispatch = useDispatch();
 
     const user_id = useSelector((state: RootState) => state.user.info?.user_id) || '';
+    const userInfo = useSelector((state: RootState) => state.user.info) as UserTableType;
     const sideMenuStatus = useSelector((state: RootState) => state.sideMenu.sideMenuStatus);
 
     const sectionClassName = `animated-section start-page${sideMenuStatus !== SideMenuStatus.resume ? '' : ' section-active'}`;
 
     useEffect(() => {
         getResume();
+        getAboutMe();
     }, []);
 
     const getResume = async () => {
@@ -64,6 +72,37 @@ const ResumePage = () => {
         }
     };
 
+    const getAboutMe = async () => {
+        try {
+            await fetch(
+                `${ABOUT_ME}/:${user_id}`,
+                { method: 'get', headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+            ).then(res => res.json())
+                .then(resopnse => {
+                    const { success, data } = resopnse;
+
+                    if (success) {
+                        const { tech_stacks } = data;
+
+                        let techList: Array<string> = [];
+                        if (userInfo.job === jobList[1]) techList = frontTechs;
+                        else if (userInfo.job === jobList[2]) techList = backTechs;
+                        else if (userInfo.job === jobList[3]) techList = designTechs;
+
+                        const techStacks = tech_stacks.split(',');
+
+                        if (techList.includes(techStacks[0])) {
+                            dispatch(setTechStacks(techStacks));
+                        } else {
+                            dispatch(setTechStacks([]));
+                        }
+                    }
+                });
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <section data-id="about-me" className={sectionClassName}>
             <div className="section-content">
@@ -75,6 +114,9 @@ const ResumePage = () => {
                         <ResumeEducation />
                         <div className="white-space-50" />
                         <ResumeExperience />
+                    </div>
+                    <div className="col-xs-12 col-sm-5">
+                        <ResumeCodingSkills />
                     </div>
                 </div>
             </div>
