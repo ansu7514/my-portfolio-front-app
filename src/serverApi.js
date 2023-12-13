@@ -17,6 +17,7 @@ export const RESUME_EDUCATION_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/resume
 export const RESUME_EDUCATION_DELETE = `http://${LOCAL_SERVER_DOMAIN}/api/resume/education/delete`;
 export const RESUME_EXPERIENCE_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/resume/experience/create`;
 export const RESUME_EXPERIENCE_DELETE = `http://${LOCAL_SERVER_DOMAIN}/api/resume/experience/delete`;
+export const RESUME_SKILL_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/resume/skill/create`;
 
 // file
 export const FILE_LOAD = `http://${LOCAL_SERVER_DOMAIN}/api/file/load`;
