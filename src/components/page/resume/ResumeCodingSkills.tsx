@@ -11,25 +11,33 @@ import Slider from '@mui/material/Slider';
 const ResumeCodingSkills = () => {
     const user_id = useSelector((state: RootState) => state.user.info?.user_id);
     const techStacks = useSelector((state: RootState) => state.aboutMe.techStacks) || [];
+    const skillPercentList = useSelector((state: RootState) => state.resume.skillPercnetList) || [];
 
     const [edit, setEdit] = useState(false);
     const [percentageList, setPercentageList] = useState<Array<number>>([]);
 
     useEffect(() => {
-        if (!percentageList.length) {
-            let tempList = techStacks.map(tech => 30);
-            setPercentageList(tempList);
-        }
-    }, [percentageList]);
+        const tempList = techStacks.map(tech => {
+            let percent = 30;
+            skillPercentList.forEach(skill => {
+                const { skill_name, skill_percent } = skill;
+                if (tech === skill_name) percent = skill_percent;
+            });
+
+            return percent;
+        });
+
+        setPercentageList(tempList);
+    }, []);
 
     const editBtnClick = () => {
         setEdit(!edit);
 
-        if (!edit) saveFunc();
+        if (edit) saveFunc();
     };
 
     const saveFunc = async () => {
-        const insertData = { user_id, skill_name: techStacks, skill_percente: percentageList };
+        const insertData = { user_id, skill_name: techStacks, skill_percent: percentageList };
 
         try {
             await fetch(
@@ -39,7 +47,7 @@ const ResumeCodingSkills = () => {
                 .then(response => {
                     const { success } = response;
 
-                    console.log(success);
+                    if (!success) Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 코딩 스킬 저장에 실패했습니다', position: "bottom-center" });
                 });
         } catch (error) {
             console.error(error);
@@ -51,6 +59,7 @@ const ResumeCodingSkills = () => {
         const skillValueChange = (e: Event, value: number | number[]) => {
             const tempList = [...percentageList];
             tempList[techIdx] = value as number;
+
             setPercentageList(tempList);
         };
 

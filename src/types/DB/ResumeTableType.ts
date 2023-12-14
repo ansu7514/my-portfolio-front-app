@@ -15,3 +15,9 @@ export interface ResumeExperienceTableType {
     experience_from: string,
     experience_to: string,
 }
+
+export interface ResumeCodingSkillTableType {
+    user_id: string,
+    skill_name: string,
+    skill_percent: number,
+}
