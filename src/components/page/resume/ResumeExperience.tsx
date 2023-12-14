@@ -86,7 +86,7 @@ const ResumeExperience = () => {
                 </div>
                 <button className="button btn-sm btn-secondary" onClick={addBtnClick}>ADD</button>
             </div>
-            <div className="timeline timeline-second-style clearfix">
+            <div className="timeline timeline-second-style clearfix resume-max-height">
                 {experienceDataList}
             </div>
         </>

@@ -108,7 +108,7 @@ const ResumeCodingSkills = () => {
                     <button className="button btn-sm btn-secondary" onClick={editBtnClick}>EDIT</button>
                 }
             </div>
-            <div className="skills-info skills-second-style">
+            <div className="skills-info skills-second-style resume-max-height">
                 {skillChartDataList}
             </div>
         </>

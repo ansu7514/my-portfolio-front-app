@@ -148,6 +148,33 @@
 }
 
 /* resume */
+.resume-max-height {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.skills-info.resume-max-height {
+    max-height: 700px;
+}
+
+.resume-max-height::-webkit-scrollbar {
+    width: 10px;
+}
+
+.resume-max-height::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgba(94, 47, 214, 0.8);
+}
+
+.resume-max-height::-webkit-scrollbar-thumb:hover {
+    background-color: #5e2fd6;
+}
+
+.resume-max-height::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #d5d6d7;
+}
+
 .clearfix.resume-education>.right-part>.right-part-title,
 .clearfix.resume-experience>.right-part>.right-part-title {
     width: 100%;
@@ -407,6 +434,10 @@
 
 .school-ul-div.scroll::-webkit-scrollbar-thumb {
     border-radius: 10px;
+    background-color: rgba(94, 47, 214, 0.8);
+}
+
+.school-ul-div.scroll::-webkit-scrollbar-thumb:hover {
     background-color: #5e2fd6;
 }
 
