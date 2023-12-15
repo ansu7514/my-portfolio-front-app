@@ -1,3 +1,23 @@
+/* main */
+.animated-section::-webkit-scrollbar {
+    width: 10px;
+    background-color: #d5d6d7;
+}
+
+.animated-section::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: rgba(94, 47, 214, 0.8);
+}
+
+.animated-section::-webkit-scrollbar-thumb:hover {
+    background-color: #5e2fd6;
+}
+
+.animated-section::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background-color: #d5d6d7;
+}
+
 /* Toast */
 .toast_bg {
     visibility: hidden;
