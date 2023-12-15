@@ -21,3 +21,10 @@ export interface ResumeCodingSkillTableType {
     skill_name: string,
     skill_percent: number,
 }
+
+export interface ResumeCertificateTableType {
+    user_id: string,
+    name: string,
+    authority: string,
+    date: string,
+}

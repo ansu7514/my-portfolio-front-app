@@ -5,7 +5,7 @@ import { ABOUT_ME, RESUME } from "../../../serverApi";
 import { useDispatch, useSelector } from "react-redux";
 import { setPopuup } from "../../../redux/reducer/PopupReducer";
 import { setTechStacks } from "../../../redux/reducer/AboutMeReducer";
-import { setExperienceList, setSchoolFromList, setSchoolList, setSchoolToList, setSkillPercentList } from "../../../redux/reducer/ResumeReducer";
+import { setCertificateList, setExperienceList, setSchoolFromList, setSchoolList, setSchoolToList, setSkillPercentList } from "../../../redux/reducer/ResumeReducer";
 
 import ResumeEducation from "./ResumeEducation";
 import ResumeExperience from "./ResumeExperience";
@@ -82,6 +82,20 @@ const ResumePage = () => {
                     const { success, data } = response;
 
                     if (success) dispatch(setSkillPercentList(data));
+                });
+        } catch (error) {
+            console.error(error);
+        }
+
+        try {
+            await fetch(
+                `${RESUME}/certificate/:${user_id}`,
+                { method: 'get', headers: { 'Context-Type': 'application/json;charset=UTF-8' } }
+            ).then(res => res.json())
+                .then(response => {
+                    const { success, data } = response;
+                    
+                    if (success) dispatch(setCertificateList(data));
                 });
         } catch (error) {
             console.error(error);

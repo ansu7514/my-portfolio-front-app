@@ -2,14 +2,15 @@ import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { schoolApiType } from '../../types/ResumeType';
-import { ResumeCodingSkillTableType, ResumeExperienceTableType } from '../../types/DB/ResumeTableType';
+import { ResumeCertificateTableType, ResumeCodingSkillTableType, ResumeExperienceTableType } from '../../types/DB/ResumeTableType';
 
 export interface ResumeStateType {
     schoolList: Array<schoolApiType>,
     schoolFromList: Array<string>,
     schoolToList: Array<string>,
     experienceList: Array<ResumeExperienceTableType>,
-    skillPercnetList: Array<ResumeCodingSkillTableType>
+    skillPercnetList: Array<ResumeCodingSkillTableType>,
+    certificateList: Array<ResumeCertificateTableType>,
 };
 
 const initialState: ResumeStateType = {
@@ -18,6 +19,7 @@ const initialState: ResumeStateType = {
     schoolToList: [],
     experienceList: [],
     skillPercnetList: [],
+    certificateList: [],
 };
 
 export const resumeSlice = createSlice({
@@ -39,6 +41,9 @@ export const resumeSlice = createSlice({
         setSkillPercentList: (state, action: PayloadAction<Array<ResumeCodingSkillTableType>>) => {
             state.skillPercnetList = action.payload;
         },
+        setCertificateList: (state, action: PayloadAction<Array<ResumeCertificateTableType>>) => {
+            state.certificateList = action.payload;
+        },
         resetResume: () => initialState
     },
 })
@@ -46,7 +51,7 @@ export const resumeSlice = createSlice({
 export const {
     setSchoolList, setSchoolFromList,
     setSchoolToList, setExperienceList,
-    setSkillPercentList,
+    setSkillPercentList, setCertificateList,
     resetResume
 } = resumeSlice.actions;
 export default resumeSlice.reducer;
