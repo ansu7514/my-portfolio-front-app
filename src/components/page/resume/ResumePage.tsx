@@ -3,12 +3,14 @@ import { useEffect } from "react";
 import { RootState } from "../../../redux/store";
 import { ABOUT_ME, RESUME } from "../../../serverApi";
 import { useDispatch, useSelector } from "react-redux";
+import { setPopuup } from "../../../redux/reducer/PopupReducer";
 import { setTechStacks } from "../../../redux/reducer/AboutMeReducer";
 import { setExperienceList, setSchoolFromList, setSchoolList, setSchoolToList, setSkillPercentList } from "../../../redux/reducer/ResumeReducer";
 
 import ResumeEducation from "./ResumeEducation";
 import ResumeExperience from "./ResumeExperience";
 import ResumeCodingSkills from "./ResumeCodingSkills";
+import ResumeCertificates from "./ResumeCertificates";
 
 import { jobList } from "../setting/SettingPage";
 import { backTechs, designTechs, frontTechs } from "../../popup/TechStackPopup";
@@ -117,6 +119,10 @@ const ResumePage = () => {
         }
     };
 
+    const certificateAddBtnClick = () => {
+        dispatch(setPopuup(['certificatePopup', true]));
+    };
+
     return (
         <section data-id="about-me" className={sectionClassName}>
             <div className="section-content">
@@ -133,6 +139,18 @@ const ResumePage = () => {
                         <ResumeCodingSkills />
                     </div>
                 </div>
+                <div className="white-space-50"></div>
+                <div className="row">
+                    <div className="col-xs-12 col-sm-12">
+                        <div className="edit-title">
+                            <div className="block-title">
+                                <h3>Certificates</h3>
+                            </div>
+                            <button className="button btn-sm btn-secondary" onClick={certificateAddBtnClick}>ADD</button>
+                        </div>
+                    </div>
+                </div>
+                <ResumeCertificates />
             </div>
         </section>
     )

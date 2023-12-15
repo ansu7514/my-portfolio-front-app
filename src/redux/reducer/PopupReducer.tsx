@@ -7,6 +7,7 @@ export interface PopupStateType {
     funFactPopup: boolean,
     educationPopup: boolean,
     experiencePopup: boolean,
+    certificatePopup: boolean,
     postPopup: boolean,
 }
 
@@ -15,6 +16,7 @@ const initialState: PopupStateType = {
     funFactPopup: false,
     educationPopup: false,
     experiencePopup: false,
+    certificatePopup: false,
     postPopup: false,
 };
 
