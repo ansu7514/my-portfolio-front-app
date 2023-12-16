@@ -8,7 +8,7 @@ const HomePage = () => {
     const { name, job } = useSelector((state: RootState) => state.user.info) as UserTableType;
     const sideMenuStatus = useSelector((state: RootState) => state.sideMenu.sideMenuStatus);
 
-    const sectionClassName = `animated-section start-page${sideMenuStatus !== SideMenuStatus.home ? '' : ' section-active'}`
+    const sectionClassName = `animated-section start-page${sideMenuStatus !== SideMenuStatus.home ? '' : ' section-active'}`;
 
     return (
         <section data-id="home" className={sectionClassName}>

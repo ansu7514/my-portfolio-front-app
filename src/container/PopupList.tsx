@@ -7,6 +7,7 @@ import FunFactPopup from "../components/popup/FunFactsPopup";
 import EducationPopup from "../components/popup/EducationPopup";
 import ExperiencePopup from "../components/popup/ExperiencePopup";
 import CertificatePopup from "../components/popup/CertificatePopup";
+import PortfolioPopup from "../components/popup/PortfolioPopup";
 import PostPopup from "../components/popup/PostPopup";
 
 const PopupList = () => {
@@ -33,6 +34,7 @@ const PopupList = () => {
             {popup.educationPopup && <EducationPopup />}
             {popup.experiencePopup && <ExperiencePopup />}
             {popup.certificatePopup && <CertificatePopup />}
+            {popup.portfolioPopup && <PortfolioPopup />}
             {popup.postPopup && <PostPopup />}
         </>
 
