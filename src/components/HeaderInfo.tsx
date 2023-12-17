@@ -8,6 +8,7 @@ import { resetPopup } from "../redux/reducer/PopupReducer";
 import { resetResume } from "../redux/reducer/ResumeReducer";
 import { resetAboutMe } from "../redux/reducer/AboutMeReducer";
 import { resetPopupData } from "../redux/reducer/PopupDataReducer";
+import { resetPortfolio } from "../redux/reducer/PortfolioReducer";
 import { setSideMenuClick } from "../redux/reducer/SideMenuReducer";
 import { resetLoading, setLoading } from "../redux/reducer/LoadingReducer";
 
@@ -38,6 +39,7 @@ const HeaderInfo = () => {
         dispatch(resetAboutMe());
         dispatch(resetPopupData());
         dispatch(resetPopup());
+        dispatch(resetPortfolio());
         dispatch(resetResume());
         dispatch(setSideMenuClick(SideMenuStatus.home));
         dispatch(resetUser());
