@@ -20,6 +20,9 @@ export const RESUME_EXPERIENCE_DELETE = `http://${LOCAL_SERVER_DOMAIN}/api/resum
 export const RESUME_SKILL_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/resume/skill/create`;
 export const RESUME_CERTIFICATE_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/resume/certificate/create`;
 
+// portfolio
+export const PORTFOLIO_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/portfolio/create`;
+
 // file
 export const FILE_LOAD = `http://${LOCAL_SERVER_DOMAIN}/api/file/load`;
 
