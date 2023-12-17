@@ -3,7 +3,7 @@ import { RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setPopuup } from "../../redux/reducer/PopupReducer";
 import { setPortfolioList } from "../../redux/reducer/PortfolioReducer";
-import { FILE_LOAD, PORTFOLIO, PORTFOLIO_CREATE } from "../../serverApi";
+import { FILE_LOAD, PORTFOLIO, PORTFOLIO_CREATE, PORTFOLIO_UPDATE } from "../../serverApi";
 
 import Alert from "../Alert";
 
@@ -77,7 +77,7 @@ const PortfolioPopup = () => {
         setContent(e.target.value);
     };
 
-    const saveBtnClick = async () => {
+    const saveBtnClick = async (type: string) => {
         if (!title || !content) {
             Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 정보를 모두 입력해주세요', position: "bottom-center" });
             return false;
@@ -89,10 +89,14 @@ const PortfolioPopup = () => {
         formData.append('title', title);
         formData.append('content', content);
         if (inputFile) formData.append('input_file', inputFile);
+        if (type === 'edit') formData.append('portfolio_id', String(portfolioId));
+
+        const URL = type === 'save' ? PORTFOLIO_CREATE : PORTFOLIO_UPDATE;
+        const desc = type === 'save' ? '저장' : '수정';
 
         try {
             await fetch(
-                PORTFOLIO_CREATE,
+                URL,
                 { method: 'post', body: formData }
             ).then(res => res.json())
                 .then(response => {
@@ -102,19 +106,15 @@ const PortfolioPopup = () => {
                         getPortfolio();
                         closePopup();
 
-                        Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 포트폴리오 저장에 성공했습니다', position: "bottom-center" });
+                        Alert({ toast: true, confirm: false, error: false, title: '', desc: `✅ 포트폴리오 ${desc}에 성공했습니다`, position: "bottom-center" });
                     } else {
-                        Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 포트폴리오 저장에 실패했습니다', position: "bottom-center" });
+                        Alert({ toast: true, confirm: false, error: true, title: '', desc: `⚠️ 포트폴리오 ${desc}에 실패했습니다`, position: "bottom-center" });
                     }
                 });
         } catch (error) {
             console.error(error);
-            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 포트폴리오 저장에 실패했습니다', position: "bottom-center" });
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: `⚠️ 포트폴리오 ${desc}에 실패했습니다`, position: "bottom-center" });
         }
-    };
-
-    const editBtnClick = async () => {
-        
     };
 
     const getPortfolio = async () => {
@@ -178,13 +178,13 @@ const PortfolioPopup = () => {
                                     {
                                         !portfolioId &&
                                         <div className="col-xs-12 col-sm-12 col-center">
-                                            <button className="button btn-send" onClick={saveBtnClick}>SAVE</button>
+                                            <button className="button btn-send" onClick={() => saveBtnClick('save')}>SAVE</button>
                                         </div>
                                     }
                                     {
                                         portfolioId &&
                                         <div className="col-xs-12 col-sm-12 col-center">
-                                            <button className="button btn-send" onClick={editBtnClick}>EDIT</button>
+                                            <button className="button btn-send" onClick={() => saveBtnClick('edit')}>EDIT</button>
                                         </div>
                                     }
                                 </>

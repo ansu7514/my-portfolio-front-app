@@ -570,8 +570,9 @@
 .portfolio-div>.portfolio-item-content {
     width: 100%;
     height: 350px;
-    display: flex;
     padding: 0 10px;
+    text-align: left;
+    white-space: pre-wrap;
 }
 
 .portfolio-div>.portfolio-image-div>.btn-secondary {

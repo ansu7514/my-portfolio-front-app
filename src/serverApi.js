@@ -23,6 +23,7 @@ export const RESUME_CERTIFICATE_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/resu
 // portfolio
 export const PORTFOLIO = `http://${LOCAL_SERVER_DOMAIN}/api/portfolio`;
 export const PORTFOLIO_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/portfolio/create`;
+export const PORTFOLIO_UPDATE = `http://${LOCAL_SERVER_DOMAIN}/api/portfolio/update`;
 
 // file
 export const FILE_LOAD = `http://${LOCAL_SERVER_DOMAIN}/api/file/load`;
