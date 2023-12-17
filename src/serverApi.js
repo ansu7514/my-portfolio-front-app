@@ -24,6 +24,7 @@ export const RESUME_CERTIFICATE_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/resu
 export const PORTFOLIO = `http://${LOCAL_SERVER_DOMAIN}/api/portfolio`;
 export const PORTFOLIO_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/portfolio/create`;
 export const PORTFOLIO_UPDATE = `http://${LOCAL_SERVER_DOMAIN}/api/portfolio/update`;
+export const PORTFOLIO_DELETE = `http://${LOCAL_SERVER_DOMAIN}/api/portfolio/delete`;
 
 // file
 export const FILE_LOAD = `http://${LOCAL_SERVER_DOMAIN}/api/file/load`;

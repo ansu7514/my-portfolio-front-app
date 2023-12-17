@@ -3,7 +3,7 @@ import { RootState } from "../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
 import { setPopuup } from "../../redux/reducer/PopupReducer";
 import { setPortfolioList } from "../../redux/reducer/PortfolioReducer";
-import { FILE_LOAD, PORTFOLIO, PORTFOLIO_CREATE, PORTFOLIO_UPDATE } from "../../serverApi";
+import { FILE_LOAD, PORTFOLIO, PORTFOLIO_CREATE, PORTFOLIO_DELETE, PORTFOLIO_UPDATE } from "../../serverApi";
 
 import Alert from "../Alert";
 
@@ -50,6 +50,34 @@ const PortfolioPopup = () => {
         else Alert({ toast: false, confirm: true, error: false, title: '⚠️ 경고', desc: '포트폴리오 정보가 저장되지 않을 수 있습니다.', checkClick: closePopup, position: "top-center" });
     };
 
+    const deleteBtnClick = () => {
+        const deleteFunc = async () => {
+            try {
+                await fetch(
+                    PORTFOLIO_DELETE,
+                    { method: 'post', body: JSON.stringify({ user_id, portfolio_id: portfolioId }), headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+                ).then(res => res.json())
+                    .then(response => {
+                        const { success } = response;
+    
+                        if (success) {
+                            getPortfolio();
+                            closePopup();
+    
+                            Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 포트폴리오 삭제에 성공했습니다.', position: "bottom-center" });
+                        } else {
+                            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 포트폴리오 삭제에 실패했습니다.', position: "bottom-center" });
+                        }
+                    });
+            } catch (error) {
+                console.error(error);
+                Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 포트폴리오 삭제에 실패했습니다.', position: "bottom-center" });
+            }
+        };
+
+        Alert({ toast: false, confirm: true, error: false, title: '⚠️ 경고', desc: '포트폴리오를 삭제하시겠습니까?', checkClick: deleteFunc, position: "top-center" });
+    };
+
     const titleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
     };
@@ -79,7 +107,7 @@ const PortfolioPopup = () => {
 
     const saveBtnClick = async (type: string) => {
         if (!title || !content) {
-            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 정보를 모두 입력해주세요', position: "bottom-center" });
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 정보를 모두 입력해주세요.', position: "bottom-center" });
             return false;
         }
 
@@ -106,14 +134,14 @@ const PortfolioPopup = () => {
                         getPortfolio();
                         closePopup();
 
-                        Alert({ toast: true, confirm: false, error: false, title: '', desc: `✅ 포트폴리오 ${desc}에 성공했습니다`, position: "bottom-center" });
+                        Alert({ toast: true, confirm: false, error: false, title: '', desc: `✅ 포트폴리오 ${desc}에 성공했습니다.`, position: "bottom-center" });
                     } else {
-                        Alert({ toast: true, confirm: false, error: true, title: '', desc: `⚠️ 포트폴리오 ${desc}에 실패했습니다`, position: "bottom-center" });
+                        Alert({ toast: true, confirm: false, error: true, title: '', desc: `⚠️ 포트폴리오 ${desc}에 실패했습니다.`, position: "bottom-center" });
                     }
                 });
         } catch (error) {
             console.error(error);
-            Alert({ toast: true, confirm: false, error: true, title: '', desc: `⚠️ 포트폴리오 ${desc}에 실패했습니다`, position: "bottom-center" });
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: `⚠️ 포트폴리오 ${desc}에 실패했습니다.`, position: "bottom-center" });
         }
     };
 
@@ -144,16 +172,21 @@ const PortfolioPopup = () => {
                         <div className="col-xs-12 col-sm-12">
                             {
                                 portfolioUpload &&
-                                <div className="fun-fact gray-default portfolio-div">
-                                    <h3 className="name">{title}</h3>
-                                    {
-                                        image &&
-                                        <div className="portfolio-item-img">
-                                            <img className="img-upload" src={image} alt="portfolio-img" />
-                                        </div>
-                                    }
-                                    <div className="portfolio-item-content">{content}</div>
-                                </div>
+                                <>
+                                    <div className="fun-fact gray-default portfolio-div">
+                                        <h3 className="name">{title}</h3>
+                                        {
+                                            image &&
+                                            <div className="portfolio-item-img">
+                                                <img className="img-upload" src={image} alt="portfolio-img" />
+                                            </div>
+                                        }
+                                        <div className="portfolio-item-content">{content}</div>
+                                    </div>
+                                    <div className="col-xs-12 col-sm-12 col-center">
+                                        <button className="button btn-error" onClick={deleteBtnClick}>DELETE</button>
+                                    </div>
+                                </>
                             }
                             {
                                 !portfolioUpload &&
