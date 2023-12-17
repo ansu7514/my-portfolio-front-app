@@ -1,10 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from "react";
-import { FILE_LOAD, PORTFOLIO } from "../../../serverApi";
 import { RootState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
+import { FILE_LOAD, PORTFOLIO } from "../../../serverApi";
 import { setPopuup } from "../../../redux/reducer/PopupReducer";
-import { setPortfolioList } from "../../../redux/reducer/PortfolioReducer";
+import { setPortfolioList, setPortfolioId, setPortfolioUpload } from "../../../redux/reducer/PortfolioReducer";
 
 import { SideMenuStatus } from "../../../types/SideMenuType";
 
@@ -36,11 +36,19 @@ const PortfolioPage = () => {
     };
 
     const addBtnClick = () => {
+        dispatch(setPortfolioId(0));
+        dispatch(setPortfolioUpload(false));
         dispatch(setPopuup(['portfolioPopup', true]));
     };
 
     const portfolioDataList = portfolioList.map(portfolio => {
         const { portfolio_id, title, image, image_path } = portfolio;
+
+        const showPortfolioPopup = () => {
+            dispatch(setPortfolioId(portfolio_id));
+            dispatch(setPortfolioUpload(true));
+            dispatch(setPopuup(['portfolioPopup', true]));
+        };
 
         let imageSrc = 'img/portfolio/1.jpg';
         if (image && image_path) {
@@ -48,15 +56,18 @@ const PortfolioPage = () => {
             imageSrc = FILE_LOAD + `/${imagePath}`;
         }
 
+        const editBtnClick = () => {
+            dispatch(setPortfolioId(portfolio_id));
+            dispatch(setPortfolioUpload(false));
+            dispatch(setPopuup(['portfolioPopup', true]));
+        };
+
         return (
             <figure key={`${portfolio_id}_${title}`} className="item standard protfolio-div">
-                {
-                    image &&
-                    <div className="portfolio-item-img">
-                        <img src={imageSrc} alt={image} />
-                    </div>
-                }
-                <i className="fa fa-edit"></i>
+                <div className="portfolio-item-img" onClick={showPortfolioPopup}>
+                    <img src={imageSrc} alt={image} />
+                </div>
+                <i className="fa fa-edit" onClick={editBtnClick}></i>
                 <h4 className="name">{title}</h4>
             </figure>
         )
