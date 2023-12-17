@@ -1,18 +1,67 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
+import { FILE_LOAD, PORTFOLIO } from "../../../serverApi";
 import { RootState } from "../../../redux/store";
 import { useDispatch, useSelector } from "react-redux";
+import { setPopuup } from "../../../redux/reducer/PopupReducer";
+import { setPortfolioList } from "../../../redux/reducer/PortfolioReducer";
 
 import { SideMenuStatus } from "../../../types/SideMenuType";
-import { setPopuup } from "../../../redux/reducer/PopupReducer";
 
 const PortfolioPage = () => {
     const dispatch = useDispatch();
 
+    const user_id = useSelector((state: RootState) => state.user.info?.user_id) || '';
     const sideMenuStatus = useSelector((state: RootState) => state.sideMenu.sideMenuStatus);
+    const portfolioList = useSelector((state: RootState) => state.portfolio.portfolioList) || [];
+
+    useEffect(() => {
+        getPortfolio();
+    }, []);
+
+    const getPortfolio = async () => {
+        try {
+            await fetch(
+                `${PORTFOLIO}/:${user_id}`,
+                { method: 'get', headers: { 'Content-Type': 'application/json;charset=UTF-8' } }
+            ).then(res => res.json())
+                .then(response => {
+                    const { success, data } = response;
+
+                    if (success) dispatch(setPortfolioList(data));
+                });
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
     const addBtnClick = () => {
         dispatch(setPopuup(['portfolioPopup', true]));
     };
-    
+
+    const portfolioDataList = portfolioList.map(portfolio => {
+        const { portfolio_id, title, image, image_path } = portfolio;
+
+        let imageSrc = 'img/portfolio/1.jpg';
+        if (image && image_path) {
+            const imagePath = encodeURIComponent(image_path);
+            imageSrc = FILE_LOAD + `/${imagePath}`;
+        }
+
+        return (
+            <figure key={`${portfolio_id}_${title}`} className="item standard protfolio-div">
+                {
+                    image &&
+                    <div className="portfolio-item-img">
+                        <img src={imageSrc} alt={image} />
+                    </div>
+                }
+                <i className="fa fa-edit"></i>
+                <h4 className="name">{title}</h4>
+            </figure>
+        )
+    });
+
     const sectionClassName = `animated-section start-page${sideMenuStatus !== SideMenuStatus.portfolio ? '' : ' section-active'}`;
 
     return (
@@ -28,6 +77,7 @@ const PortfolioPage = () => {
                     <div className="col-xs-12 col-sm-12">
                         <div className="portfolio-content">
                             <div className="portfolio-grid three-columns">
+                                {portfolioDataList}
                             </div>
                         </div>
                     </div>

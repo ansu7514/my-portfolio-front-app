@@ -21,6 +21,7 @@ export const RESUME_SKILL_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/resume/ski
 export const RESUME_CERTIFICATE_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/resume/certificate/create`;
 
 // portfolio
+export const PORTFOLIO = `http://${LOCAL_SERVER_DOMAIN}/api/portfolio`;
 export const PORTFOLIO_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/portfolio/create`;
 
 // file

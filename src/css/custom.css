@@ -271,6 +271,21 @@
     transform: none !important;
 }
 
+/* portfolio */
+.protfolio-div>.portfolio-item-img {
+    display: flex;
+    justify-content: center;
+}
+
+.protfolio-div>.portfolio-item-img>img {
+    width: auto;
+    height: 280px;
+}
+
+.protfolio-div>.fa-edit {
+    cursor: pointer;
+}
+
 /* setting */
 .setting-form>div>.form-group>input,
 .setting-form>div>.form-group>select {
