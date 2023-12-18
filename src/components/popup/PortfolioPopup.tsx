@@ -204,7 +204,7 @@ const PortfolioPopup = () => {
                                             <input id="photo-img" type="file" className="button btn-secondary" accept="image/jpeg, image/gif, image/png" onChange={imageChange} />
                                         </div>
                                         <div className={`form-group form-group-with-icon portfolio-input${content ? ' form-group-focus' : ''}`}>
-                                            <textarea id="aboutme_content" name="content" className="form-control portfolio-textarea" wrap="hard" value={content || ""} placeholder="포트폴리오 설명을 작성해주세요📝" onChange={contentChange} />
+                                            <textarea id="portfolio_content" name="content" className="form-control portfolio-textarea" wrap="hard" value={content || ""} placeholder="포트폴리오 설명을 작성해주세요📝" onChange={contentChange} />
                                             <div className="form-control-border aboutme-textarea"></div>
                                         </div>
                                     </div>
