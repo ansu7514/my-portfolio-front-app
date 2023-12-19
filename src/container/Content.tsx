@@ -6,6 +6,8 @@ import HomePage from "../components/page/home/HomePage";
 import AboutMePage from "../components/page/aboutme/AboutMePage";
 import ResumePage from "../components/page/resume/ResumePage";
 import PortfolioPage from "../components/page/portfolio/PortfolioPage";
+import BlogPage from "../components/page/blog/BlogPage";
+import BlogWrite from "../components/page/blog/BlogWrite";
 import SettingPage from "../components/page/setting/SettingPage";
 
 const Content = () => {
@@ -19,11 +21,13 @@ const Content = () => {
                         login &&
                         <>
                             <Route path="/" element={<Navigate replace to="/home" />} />
-                            <Route path="/home" element={<HomePage />}></Route>
-                            <Route path="/aboutme" element={<AboutMePage />}></Route>
-                            <Route path="/resume" element={<ResumePage />}></Route>
-                            <Route path="/portfolio" element={<PortfolioPage />}></Route>
-                            <Route path="/setting" element={<SettingPage />}></Route>
+                            <Route path="/home" element={<HomePage />} />
+                            <Route path="/aboutme" element={<AboutMePage />} />
+                            <Route path="/resume" element={<ResumePage />} />
+                            <Route path="/portfolio" element={<PortfolioPage />} />
+                            <Route path="/blog" element={<BlogPage />} />
+                            <Route path="/blog/write" element={<BlogWrite />} />
+                            <Route path="/setting" element={<SettingPage />} />
                         </>
                     }
                     {

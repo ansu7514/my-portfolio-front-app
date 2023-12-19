@@ -80,7 +80,7 @@ const PortfolioPage = () => {
             <div className="section-content">
                 <div className="edit-title">
                     <div className="page-title">
-                        <h3>Portfolio</h3>
+                        <h2>Portfolio</h2>
                     </div>
                     <button className="button btn-sm btn-secondary" onClick={addBtnClick}>ADD</button>
                 </div>
