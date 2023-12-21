@@ -287,6 +287,28 @@
     cursor: pointer;
 }
 
+/* blog */
+.blog-div>.blog-input>label {
+    z-index: 10;
+}
+
+.blog-div>.blog-item-img {
+    display: flex;
+    width: 100%;
+    cursor: pointer;
+    justify-content: center;
+}
+
+.blog-div>.blog-item-img>img {
+    width: auto;
+    height: 350px;
+}
+
+.blog-div>.blog-image-div>input {
+    width: 100%;
+    margin-top: 11.5px;
+}
+
 /* setting */
 .setting-form>div>.form-group>input,
 .setting-form>div>.form-group>select {
