@@ -205,7 +205,7 @@ const PortfolioPopup = () => {
                                         </div>
                                         <div className={`form-group form-group-with-icon portfolio-input${content ? ' form-group-focus' : ''}`}>
                                             <textarea id="portfolio_content" name="content" className="form-control portfolio-textarea" wrap="hard" value={content || ""} placeholder="포트폴리오 설명을 작성해주세요📝" onChange={contentChange} />
-                                            <div className="form-control-border aboutme-textarea"></div>
+                                            <div className="form-control-border portfolio-textarea"></div>
                                         </div>
                                     </div>
                                     {

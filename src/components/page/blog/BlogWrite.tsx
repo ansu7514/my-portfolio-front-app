@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { TagsInput } from "react-tag-input-component";
 
 const BlogWrite = () => {
     const [title, setTitle] = useState('');
-    const [image, setImage] = useState('img/blog/blog_post_1_full.jpg');
+    const [image, setImage] = useState('/img/blog/blog_post_1_full.jpg');
     const [inputFile, setInputFile] = useState<File | null>(null);
     const [content, setContent] = useState('');
+    const [tags, setTags] = useState<Array<string>>([]);
 
     const titleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
@@ -25,12 +27,16 @@ const BlogWrite = () => {
                 };
             });
         } else {
-            setImage('img/blog/blog_post_1_full.jpg');
+            setImage('/img/blog/blog_post_1_full.jpg');
         }
     };
 
     const contentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setContent(e.target.value);
+    };
+
+    const tagsChange = (value: Array<string>) => {
+        setTags(value);
     };
 
     return (
@@ -47,9 +53,14 @@ const BlogWrite = () => {
                 <div className="form-group form-group-with-icon blog-input blog-image-div">
                     <input id="blog-img" type="file" className="button btn-secondary" accept="image/jpeg, image/gif, image/png" onChange={imageChange} />
                 </div>
-                <div className={`form-group form-group-with-icon portfolio-input${content ? ' form-group-focus' : ''}`}>
-                    <textarea id="blog_content" name="content" className="form-control portfolio-textarea" wrap="hard" value={content || ""} onChange={contentChange} />
-                    <div className="form-control-border aboutme-textarea"></div>
+                <div className={`form-group form-group-with-icon blog-input${content ? ' form-group-focus' : ''}`}>
+                    <textarea id="blog_content" name="content" className="form-control blog-textarea" wrap="hard" value={content || ""} onChange={contentChange} />
+                    <div className="form-control-border blog-textarea"></div>
+                </div>
+                <label>TAGS</label>
+                <div className="form-group form-group-with-icon blog-input">
+                    <TagsInput value={tags} onChange={tagsChange}  name="tags" />
+                    <div className="form-control-border"></div>
                 </div>
             </article>
         </div>
