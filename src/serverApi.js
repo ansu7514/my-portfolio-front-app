@@ -26,6 +26,9 @@ export const PORTFOLIO_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/portfolio/cre
 export const PORTFOLIO_UPDATE = `http://${LOCAL_SERVER_DOMAIN}/api/portfolio/update`;
 export const PORTFOLIO_DELETE = `http://${LOCAL_SERVER_DOMAIN}/api/portfolio/delete`;
 
+// blog
+export const BLOG_CREATE = `http://${LOCAL_SERVER_DOMAIN}/api/blog/create`;
+
 // file
 export const FILE_LOAD = `http://${LOCAL_SERVER_DOMAIN}/api/file/load`;
 

@@ -1,12 +1,23 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { BLOG_CREATE } from "../../../serverApi";
+import { RootState } from "../../../redux/store";
 import { TagsInput } from "react-tag-input-component";
 
+import Alert from "../../Alert";
+import { useNavigate } from "react-router-dom";
+
 const BlogWrite = () => {
+    const navigate = useNavigate();
+
+    const user_id = useSelector((state: RootState) => state.user.info?.user_id) || '';
+
     const [title, setTitle] = useState('');
     const [image, setImage] = useState('/img/blog/blog_post_1_full.jpg');
     const [inputFile, setInputFile] = useState<File | null>(null);
     const [content, setContent] = useState('');
     const [tags, setTags] = useState<Array<string>>([]);
+
 
     const titleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitle(e.target.value);
@@ -39,6 +50,40 @@ const BlogWrite = () => {
         setTags(value);
     };
 
+    const saveBtnClick = async () => {
+        if (!title && !content) {
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 정보를 모두 입력해주세요', position: "bottom-center" });
+            return false;
+        }
+
+        const formData = new FormData();
+
+        formData.append('user_id', user_id);
+        formData.append('title', title);
+        formData.append('content', content);
+        formData.append('tags', tags.join(','));
+        if (inputFile) formData.append('input_file', inputFile);
+
+        try {
+            await fetch(
+                BLOG_CREATE,
+                { method: 'post', body: formData }
+            ).then(res => res.json())
+                .then(response => {
+                    const { success } = response;
+
+                    if (success) {
+                        Alert({ toast: true, confirm: false, error: false, title: '', desc: '✅ 블로그 작성에 성공했습니다', position: "bottom-center" });
+                    } else {
+                        Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 블로그 작성에 실패했습니다', position: "bottom-center" });
+                    }
+                });
+        } catch (error) {
+            console.error(error);
+            Alert({ toast: true, confirm: false, error: true, title: '', desc: '⚠️ 블로그 작성에 실패했습니다', position: "bottom-center" });
+        }
+    };
+
     return (
         <div className="single-page-content">
             <article className="post blog-div">
@@ -59,8 +104,11 @@ const BlogWrite = () => {
                 </div>
                 <label>TAGS</label>
                 <div className="form-group form-group-with-icon blog-input">
-                    <TagsInput value={tags} onChange={tagsChange}  name="tags" />
+                    <TagsInput value={tags} onChange={tagsChange} name="tags" />
                     <div className="form-control-border"></div>
+                </div>
+                <div className="col-xs-12 col-sm-12 col-center">
+                    <button className="button btn-send" onClick={saveBtnClick}>SAVE</button>
                 </div>
             </article>
         </div>
